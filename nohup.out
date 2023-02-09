@@ -1,0 +1,163 @@
+Error: Unable to access jarfile ./build/libs/AntMan-0.0.1-SNAPSHOT.jar
+Error: Unable to access jarfile ./build/libs/AntMan-0.0.1-SNAPSHOT.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.8)
+
+2023-02-08 22:45:39.061  INFO 11490 --- [           main] com.example.runi.RuniApplication         : Starting RuniApplication using Java 1.8.0_352 on ip-172-31-9-227 with PID 11490 (/home/ubuntu/build/libs/runi-0.0.1-SNAPSHOT.jar started by root in /home/ubuntu)
+2023-02-08 22:45:39.064  INFO 11490 --- [           main] com.example.runi.RuniApplication         : No active profile set, falling back to 1 default profile: "default"
+2023-02-08 22:45:41.867  INFO 11490 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-08 22:45:41.892  INFO 11490 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-08 22:45:41.892  INFO 11490 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-08 22:45:42.085  INFO 11490 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-08 22:45:42.086  INFO 11490 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2864 ms
+2023-02-08 22:45:43.491  WARN 11490 --- [           main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-08 22:45:43.627  WARN 11490 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 72de4ed8-df92-42e5-98ec-497f38e23daf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-08 22:45:43.980  INFO 11490 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1a677343, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15de0b3c, org.springframework.security.web.context.SecurityContextPersistenceFilter@7586beff, org.springframework.security.web.header.HeaderWriterFilter@327514f, org.springframework.security.web.csrf.CsrfFilter@3c41ed1d, org.springframework.security.web.authentication.logout.LogoutFilter@2f4948e4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1fa121e2, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@44c03695, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@489115ef, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@62ddbd7e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@815b41f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1573f9fc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3857f613, org.springframework.security.web.session.SessionManagementFilter@1165b38, org.springframework.security.web.access.ExceptionTranslationFilter@2d1ef81a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@9d5509a]
+2023-02-08 22:45:44.134  INFO 11490 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-08 22:45:44.148  INFO 11490 --- [           main] com.example.runi.RuniApplication         : Started RuniApplication in 6.146 seconds (JVM running for 7.494)
+2023-02-08 22:45:49.729  INFO 11490 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-08 22:45:49.729  INFO 11490 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-02-08 22:45:49.735  INFO 11490 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2023-02-09 05:57:00.119  INFO 11490 --- [nio-8080-exec-8] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x000xca0x010x000x000xc60x030x03a0xbc0x110xd90x88)0xa60xb0T0xc00xb70x1f0xd3_0x04~0xcf0xddQ0xdf0xaf0xb90xf10xd9y0xfa0xe8_0xce0x9e0xd00x930x000x00h0xcc0x140xcc0x130xc0/0xc0+0xc000xc0,0xc00x110xc00x070xc0'0xc0#0xc00x130xc00x090xc0(0xc0$0xc00x140xc00x0a0xcc0x150x000x9e0x000x9f0x00g0x00k0x0030x0090x000x9c0x000x9d0x000x050x000x040x00<0x00=0x00/0x0050xc00x120x000x160x000x0a0x000x030x000x080x000x060x000x140x000x110x000x190x000x170x0020xc00x080x000x120x000x130x000x150x0080x00@0x00f0x00j0x000xa20x000xa30x010x000x0050x000x050x000x050x010x000x000x000x000x000x0a0x000x080x000x060x000x170x000x180x000x190x000x0b0x000x020x010x000x000x0d0x000x0c0x000x0a0x040x010x040x030x020x010x020x030x020x020xff0x010x000x010x000x000x0f0x000x010x01...]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:419) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:271) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.71.jar!/:na]
+	at java.lang.Thread.run(Thread.java:750) [na:1.8.0_352]
+
+2023-02-09 13:28:00.681 ERROR 11490 --- [nio-8080-exec-8] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL contained a potentially malicious String "%2e"
+	at org.springframework.security.web.firewall.StrictHttpFirewall.rejectedBlocklistedUrls(StrictHttpFirewall.java:535) ~[spring-security-web-5.7.6.jar!/:5.7.6]
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:505) ~[spring-security-web-5.7.6.jar!/:5.7.6]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:206) ~[spring-security-web-5.7.6.jar!/:5.7.6]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186) ~[spring-security-web-5.7.6.jar!/:5.7.6]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar!/:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) [tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.71.jar!/:na]
+	at java.lang.Thread.run(Thread.java:750) [na:1.8.0_352]
+
+2023-02-09 20:26:57.846  WARN 11490 --- [ionShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Failed to stop bean 'webServerGracefulShutdown'
+
+java.lang.BootstrapMethodError: java.lang.NoClassDefFoundError: org/springframework/boot/web/server/GracefulShutdownResult
+	at org.springframework.boot.web.context.WebServerGracefulShutdownLifecycle.stop(WebServerGracefulShutdownLifecycle.java:62) ~[spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:234) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$300(DefaultLifecycleProcessor.java:54) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:373) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:206) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:129) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1067) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174) [spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1021) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145) [spring-boot-2.7.8.jar!/:2.7.8]
+	at java.lang.Iterable.forEach(Iterable.java:75) ~[na:1.8.0_352]
+	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114) [spring-boot-2.7.8.jar!/:2.7.8]
+	at java.lang.Thread.run(Thread.java:750) ~[na:1.8.0_352]
+Caused by: java.lang.NoClassDefFoundError: org/springframework/boot/web/server/GracefulShutdownResult
+	... 13 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.springframework.boot.web.server.GracefulShutdownResult
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:387) ~[na:1.8.0_352]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418) ~[na:1.8.0_352]
+	at org.springframework.boot.loader.LaunchedURLClassLoader.loadClass(LaunchedURLClassLoader.java:151) ~[runi-0.0.1-SNAPSHOT.jar:na]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351) ~[na:1.8.0_352]
+	... 13 common frames omitted
+
+2023-02-09 20:27:27.849  INFO 11490 --- [ionShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Failed to shut down 1 bean with phase value 2147483647 within timeout of 30000ms: [webServerGracefulShutdown]
+2023-02-09 20:27:27.882  WARN 11490 --- [ionShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Failed to stop bean 'webServerStartStop'
+
+java.lang.NoClassDefFoundError: org/apache/catalina/Lifecycle$SingleUse
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:269) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.apache.catalina.startup.Tomcat.stop(Tomcat.java:496) ~[tomcat-embed-core-9.0.71.jar!/:na]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stopTomcat(TomcatWebServer.java:273) ~[spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stop(TomcatWebServer.java:331) ~[spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.stop(WebServerStartStopLifecycle.java:52) ~[spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.context.SmartLifecycle.stop(SmartLifecycle.java:117) ~[spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:234) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$300(DefaultLifecycleProcessor.java:54) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:373) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:206) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:129) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1067) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174) [spring-boot-2.7.8.jar!/:2.7.8]
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1021) [spring-context-5.3.25.jar!/:5.3.25]
+	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145) [spring-boot-2.7.8.jar!/:2.7.8]
+	at java.lang.Iterable.forEach(Iterable.java:75) ~[na:1.8.0_352]
+	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114) [spring-boot-2.7.8.jar!/:2.7.8]
+	at java.lang.Thread.run(Thread.java:750) ~[na:1.8.0_352]
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.8)
+
+2023-02-09 20:28:49.797  INFO 29271 --- [           main] com.example.runi.RuniApplication         : Starting RuniApplication using Java 1.8.0_352 on ip-172-31-9-227 with PID 29271 (/home/ubuntu/build/libs/runi-0.0.1-SNAPSHOT.jar started by root in /home/ubuntu)
+2023-02-09 20:28:49.804  INFO 29271 --- [           main] com.example.runi.RuniApplication         : No active profile set, falling back to 1 default profile: "default"
+2023-02-09 20:28:52.685  INFO 29271 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-09 20:28:52.723  INFO 29271 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-09 20:28:52.723  INFO 29271 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-09 20:28:52.919  INFO 29271 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-09 20:28:52.919  INFO 29271 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2970 ms
+2023-02-09 20:28:54.367  WARN 29271 --- [           main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-09 20:28:54.572  WARN 29271 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f1da8514-60a8-4f96-a041-fbcdd568b6e8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-09 20:28:54.880  INFO 29271 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5dda768f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a8c8dcf, org.springframework.security.web.context.SecurityContextPersistenceFilter@77c2494c, org.springframework.security.web.header.HeaderWriterFilter@662ac478, org.springframework.security.web.csrf.CsrfFilter@10683d9d, org.springframework.security.web.authentication.logout.LogoutFilter@3b0090a4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@49438269, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@185a6e9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@24269709, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@55fe41ea, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@233795b6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5bda8e08, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2aceadd4, org.springframework.security.web.session.SessionManagementFilter@3eb25e1a, org.springframework.security.web.access.ExceptionTranslationFilter@229f66ed, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3d285d7e]
+2023-02-09 20:28:55.013  INFO 29271 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-09 20:28:55.041  INFO 29271 --- [           main] com.example.runi.RuniApplication         : Started RuniApplication in 6.297 seconds (JVM running for 7.329)
+2023-02-09 20:29:12.798  INFO 29271 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-09 20:29:12.798  INFO 29271 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-02-09 20:29:12.803  INFO 29271 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms

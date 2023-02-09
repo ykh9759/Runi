@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 function App() {
-  const [msg, setMsg] = useState([]);
-  useEffect(() => {
-    fetch("/hello")
-        .then((res) => {return res.json();})
-        .then((data) => {setMsg(data);})
-  }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <ul>
-          {msg.map((content, idx) => <li key={`${idx} - ${content}`}>{content}</li>)}
-        </ul>
-      </header>
-    </div>
-  );
+   const [hello, setHello] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => setHello(response.data))
+        .catch(error => console.log(error))
+    }, []);
+
+    return (
+        <div>
+            백엔드에서 가져온 데이터입니다 : {hello}
+        </div>
+    );
 }
 
 export default App;

@@ -49,3 +49,5 @@ out/
 .sudo_as_admin_successful
 .viminfo
 .gitconfig
+.git-credentials
+nohup.out

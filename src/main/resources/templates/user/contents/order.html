@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{user/layouts/main_layout}">
-
-<!-- index.html 고유 CSS 추가 -->
-<th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
-</th:block>
-<!-- index.html 고유 스크립트 추가 -->
-<th:block layout:fragment="script">
-    <script th:src="@{/js/script.js}"></script>
-    <script th:src="@{/js/order.js}"></script>
-</th:block>
-
-<!-- Content -->
-<div layout:fragment="content">
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--headerFragment 선언-->
+<div th:fragment="contentsFragment">
     <div class="container">
         <div class="row g-5 d-flex justify-content-center">
           <div class="col-md-7 col-lg-8">

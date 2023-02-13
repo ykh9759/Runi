@@ -25,7 +25,7 @@ public class UserController {
     @GetMapping("/order")
     public String order() {
 
-        return "user/order";
+        return "user/page/order";
     }
 
 }

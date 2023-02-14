@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>관리자</title>
+    <title>관리자 - 주문내역</title>
     <th:block th:replace="admin/include/head :: headFragment"></th:block>
 </head>
 <body id="page-top">
@@ -15,7 +15,7 @@
             <!-- header fragment 사용 -->
             <th:block th:replace="admin/include/header :: headerFragment"></th:block>
             <!-- content fragment 사용 -->
-            <th:block th:replace="admin/contents/index :: contentsFragment"></th:block>
+            <th:block th:replace="admin/contents/order_list :: contentsFragment"></th:block>
             <!-- footer fragment 사용 -->
             <th:block th:replace="admin/include/footer :: footerFragment"></th:block>
         </div>
@@ -23,8 +23,8 @@
 </body>
 <th:block th:replace="admin/include/script :: scriptFragment"></th:block>
 <th:block layout:fragment="script">
-    <script type="text/javascript" th:src="@{/vendor/chart.js/Chart.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/demo/chart-area-demo.js}"></script>
-    <script type="text/javascript" th:src="@{/js/demo/chart-pie-demo.js}"></script>
-</th:block>
+    <script type="text/javascript" th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo/datatables-demo.js}"></script>
+</th:block>        
 </html>

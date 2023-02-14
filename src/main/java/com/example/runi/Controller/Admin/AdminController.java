@@ -15,4 +15,10 @@ public class AdminController {
         return "admin/index";
     }
 
+    @GetMapping("/order-list")
+    public String orderList() {
+
+        return "admin/page/order_list";
+    }
+
 }

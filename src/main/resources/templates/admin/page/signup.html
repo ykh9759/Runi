@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>관리자 - 회원가입</title>
+    <th:block th:replace="admin/include/head :: headFragment"></th:block>
+</head>
+<body class="bg-gradient-primary">
+    <!-- content fragment 사용 -->
+    <th:block th:replace="admin/contents/signup :: contentsFragment"></th:block>
+</body>
+<th:block th:replace="admin/include/script :: scriptFragment"></th:block>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo/chart-area-demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo/chart-pie-demo.js}"></script>
+</th:block>
+</html>

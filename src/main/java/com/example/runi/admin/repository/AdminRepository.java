@@ -9,6 +9,9 @@ import com.example.runi.admin.domain.entity.AdminEntity;
 public interface AdminRepository extends JpaRepository<AdminEntity, Integer> {
 
     public Optional<AdminEntity> findById(String id);
+
+
     boolean existsById(String id);
+    boolean existsByEmail(String email);
 
 }

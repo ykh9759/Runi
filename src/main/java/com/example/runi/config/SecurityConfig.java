@@ -3,6 +3,7 @@ package com.example.runi.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,9 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // login 없이 접근 허용 하는 url
-                .antMatchers("/", "/user/**", "/admin", "/admin/login", "/admin/signup", "/admin/auth/**").permitAll()
+                .antMatchers("/", "/user/**", "/admin", "/admin/login", "/admin/signup").permitAll()
                 // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
-                // .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated();
     }
@@ -31,5 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 정적인 파일 요청에 대해 무시
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

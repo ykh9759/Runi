@@ -21,7 +21,7 @@ public class AdminController {
     @GetMapping("/login")
     public String login() {
 
-        return "/admin/page/login";
+        return "admin/page/login";
     }
 
     @GetMapping("/signup")
@@ -30,19 +30,19 @@ public class AdminController {
         //최초 빈값 세팅
         model.addAttribute("signupDto", reqeust);
 
-        return "/admin/page/signup";
+        return "admin/page/signup";
     }
 
     @GetMapping("/order-list")
     public String orderList() {
 
-        return "/admin/page/order_list";
+        return "admin/page/order_list";
     }
 
     @GetMapping("/dashboard")
     public String dashboard() {
 
-        return "/admin/page/dashboard";
+        return "admin/page/dashboard";
     }
 
 }

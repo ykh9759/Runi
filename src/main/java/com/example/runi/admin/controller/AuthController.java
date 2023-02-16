@@ -48,7 +48,7 @@ public class AuthController {
                     model.addAttribute(key, validatorResult.get(key));
                 }
                 /* 회원가입 페이지로 다시 리턴 */
-                return "/admin/page/signup";
+                return "admin/page/signup";
         }
 
         authService.checkUsernameDuplication(request);

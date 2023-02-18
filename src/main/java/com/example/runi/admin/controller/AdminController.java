@@ -15,7 +15,7 @@ public class AdminController {
     @GetMapping("")
     public String index() {
 
-        return "redirect:/admin/login";
+        return "admin/page/dashboard";
     }
 
     @GetMapping("/login")
@@ -38,11 +38,4 @@ public class AdminController {
 
         return "admin/page/order_list";
     }
-
-    @GetMapping("/dashboard")
-    public String dashboard() {
-
-        return "admin/page/dashboard";
-    }
-
 }

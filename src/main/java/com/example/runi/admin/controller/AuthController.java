@@ -25,12 +25,9 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@Valid LoginDto request) {
         try {
-
-            authService.login(request);
-
-            return "redirect:/admin/dashboard";
+            return authService.login(request);
         } catch (Exception e) {
-            return "redirect:/admin/login";
+            return e.getMessage();
         }
     }
 

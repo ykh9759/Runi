@@ -1,6 +1,7 @@
 package com.example.runi.admin.service;
 
 import com.example.runi.admin.repository.AdminRepository;
+import com.example.runi.utils.AdminDetails;
 import com.example.runi.admin.domain.entity.AdminEntity;
 import com.example.runi.admin.domain.dto.LoginDto;
 import com.example.runi.admin.domain.dto.SignupDto;

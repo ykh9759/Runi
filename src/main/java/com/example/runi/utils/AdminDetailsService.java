@@ -1,4 +1,4 @@
-package com.example.runi.admin.service;
+package com.example.runi.utils;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.example.runi.config;
+package com.example.runi.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

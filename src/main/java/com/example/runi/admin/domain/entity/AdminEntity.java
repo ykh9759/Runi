@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.runi.admin.domain.dto.SignupDto;
-import com.example.runi.config.Role;
+import com.example.runi.utils.Role;
 
 import lombok.*;
 

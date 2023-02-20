@@ -19,12 +19,14 @@ public class AdminController {
         return "admin/page/dashboard";
     }
 
+    //로그인
     @GetMapping("/login")
     public String login() {
 
         return "admin/page/login";
     }
 
+    //로그인실패
     @GetMapping("/loginFail")
     public String loginFail(@RequestParam(value = "exception", required = false)String exception, Model model) {
 
@@ -33,6 +35,7 @@ public class AdminController {
         return "admin/page/login";
     }
 
+    //회원가입
     @GetMapping("/signup")
     public String signUp(Model model, SignupDto reqeust) {
 
@@ -42,12 +45,14 @@ public class AdminController {
         return "admin/page/signup";
     }
 
+    //주문내역
     @GetMapping("/order-list")
     public String orderList() {
 
         return "admin/page/order_list";
     }
 
+    //주문코드생성
     @GetMapping("/create-code")
     public String createCode() {
 

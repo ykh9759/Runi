@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lagn="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>관리자 - 주문내역</title>
+    <title>관리자 - 주문코드 생성</title>
     <th:block th:replace="admin/include/head :: headFragment"></th:block>
 </head>
 <body id="page-top">
@@ -15,7 +13,17 @@
             <!-- header fragment 사용 -->
             <th:block th:replace="admin/include/header :: headerFragment"></th:block>
 
-            <th:block th:replace="admin/contents/create_code :: contentsFragment"></th:block>
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">주문코드 생성</h1>
+            
+                    <div class="container">
+                        <input type="text" class="form-control w-50" id="code" value="">
+                        <button class="btn btn-lg btn-primary" onclick="createCode()">코드생성</button>
+                    </div>
+                </div>
+            </div>
 
             <!-- footer fragment 사용 -->
             <th:block th:replace="admin/include/footer :: footerFragment"></th:block>
@@ -26,7 +34,18 @@
 
 <script>
     function createCode() {
-        alert("test");
+        $.ajax({
+            type : 'POST',           // 타입 (get, post, put 등등)
+            url : '/admin/api/create-code',           // 요청할 서버url
+            dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+            success : function(result) { // 결과 성공 콜백함수
+                console.log(result);
+                document.getElementById('code').value = result;
+            },
+            error : function(request, status, error) { // 결과 에러 콜백함수
+                console.log(error)
+            }
+        });
     }
 </script>
      

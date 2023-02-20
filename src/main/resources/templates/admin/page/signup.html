@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html lagn="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>관리자 - 회원가입</title>
     <th:block th:replace="admin/include/head :: headFragment"></th:block>
 </head>
 <body class="bg-gradient-primary">
-    <!-- content fragment 사용 -->
-    <th:block th:replace="admin/contents/signup :: contentsFragment"></th:block>
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">회원가입!</h1>
+                            </div>
+                            <form class="user" th:action="@{/admin/signup}" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Name" th:value="${signupDto.name}">
+                                    <span class="ml-4" id="valid" th:if="${valid_name}" th:text="${valid_name}"></span> 
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" th:value="${signupDto.email}">
+                                    <span class="ml-4" id="valid" th:if="${valid_email}" th:text="${valid_email}"></span> 
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Id" th:value="${signupDto.id}">
+                                    <span class="ml-4" id="valid" th:if="${valid_id}" th:text="${valid_id}"></span> 
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password" >
+                                        <span class="ml-4" id="valid" th:if="${valid_password}" th:text="${valid_password}"></span> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" id="repeatPassword"  name="repeatPassword" placeholder="Repeat Password">
+                                        <span class="ml-4" id="valid" th:if="${valid_repeatPassword}" th:text="${valid_repeatPassword}"></span> 
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" value="가입하기">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 <th:block th:replace="admin/include/script :: scriptFragment"></th:block>
 <th:block layout:fragment="script">

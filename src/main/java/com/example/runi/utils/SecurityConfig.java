@@ -1,6 +1,7 @@
 package com.example.runi.utils;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -36,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             // login 없이 접근 허용 하는 url
-            .antMatchers("/", "/user/**", "/admin/signup","/admin/logout").permitAll()
+            .antMatchers("/", "/user/**", "/admin/signup","/admin/logout","/admin/loginFail").permitAll()
             // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
             .antMatchers("/admin/**").hasRole("ADMIN")
             // 그 외 모든 요청은 인증과정 필요
@@ -52,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                         System.out.println("authentication : " + authentication.getName());
-                        Alert.alertAndMovePage(response, "안녕하세요." + authentication.getName() + "님", "/admin");
-                        // response.sendRedirect("/admin"); // 인증이 성공한 후에는 관리자페이지 이동
+
+                        response.sendRedirect("/admin"); // 인증이 성공한 후에는 관리자페이지 이동
                     }
                 }
             )
@@ -62,8 +64,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
                         System.out.println("exception : " + exception.getMessage());
-                        Alert.alertAndMovePage(response, "로그인 실패!", "/admin/login");
-                        // response.sendRedirect("/admin/login");
+
+                        String errorMessage;
+                        if (exception instanceof BadCredentialsException) {
+                            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
+                        }  else {
+                            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
+                        }
+
+                        errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
+                        response.sendRedirect("/admin/loginFail?exception="+errorMessage);
                     }
                 }
             )

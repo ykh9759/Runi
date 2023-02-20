@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>관리자 - 주문내역</title>
+    <th:block th:replace="admin/include/head :: headFragment"></th:block>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <!-- 사이트 바 -->
+        <th:block th:replace="admin/include/side :: sideFragment"></th:block>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- header fragment 사용 -->
+            <th:block th:replace="admin/include/header :: headerFragment"></th:block>
+
+            <th:block th:replace="admin/contents/create_code :: contentsFragment"></th:block>
+
+            <!-- footer fragment 사용 -->
+            <th:block th:replace="admin/include/footer :: footerFragment"></th:block>
+        </div>
+    </div>
+</body>
+<th:block th:replace="admin/include/script :: scriptFragment"></th:block>
+
+<script>
+    function createCode() {
+        alert("test");
+    }
+</script>
+     
+</html>

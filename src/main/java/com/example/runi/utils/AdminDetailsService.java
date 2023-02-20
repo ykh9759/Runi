@@ -21,8 +21,6 @@ public class AdminDetailsService implements UserDetailsService {
 
         Optional<AdminEntity> admin = adminRepository.findById(id);
 
-        System.out.print(admin.get());
-
         admin.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 사용자 입니다"));
         
         return new AdminDetails(admin.get());

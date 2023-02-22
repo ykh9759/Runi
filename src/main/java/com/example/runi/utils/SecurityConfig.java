@@ -38,24 +38,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             // login 없이 접근 허용 하는 url
-            .antMatchers("/", "/user/**", "/admin/signup","/admin/logout","/admin/loginFail").permitAll()
-            // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
-            .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/", "/user/**", "/member/signup","/member/logout","/member/loginFail").permitAll()
+            // '/member'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
+            .antMatchers("/member/**").hasRole("ADMIN")
             // 그 외 모든 요청은 인증과정 필요
             .anyRequest().authenticated();
 
         http.formLogin()
-            .loginPage("/admin/login")                      //로그인페이지
+            .loginPage("/member/login")                      //로그인페이지
             .usernameParameter("id")                //아이디
             .passwordParameter("password")          //비빌번호
-            .loginProcessingUrl("/admin/login")    //로그인 Action요청 
+            .loginProcessingUrl("/member/login")    //로그인 Action요청 
             .successHandler(                                          //로그인성공처리
                 new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                         System.out.println("authentication : " + authentication.getName());
 
-                        response.sendRedirect("/admin"); // 인증이 성공한 후에는 관리자페이지 이동
+                        response.sendRedirect("/member"); // 인증이 성공한 후에는 관리자페이지 이동
                     }
                 }
             )
@@ -73,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         }
 
                         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
-                        response.sendRedirect("/admin/loginFail?exception="+errorMessage);
+                        response.sendRedirect("/member/loginFail?exception="+errorMessage);
                     }
                 }
             )
@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
             .logout()
-            .logoutUrl("/admin/logout")
+            .logoutUrl("/member/logout")
             .addLogoutHandler((request, response, authentication) -> { 
                 HttpSession session = request.getSession();
                 if (session != null) {
@@ -89,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 }
             }) 
             .logoutSuccessHandler((request, response, authentication) -> {
-                response.sendRedirect("/admin");
+                response.sendRedirect("/member");
             });
     }
 

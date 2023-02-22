@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>관리자 - 상품등록</title>
+    <th:block th:replace="member/include/head :: headFragment"></th:block>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <!-- 사이트 바 -->
+        <th:block th:replace="member/include/side :: sideFragment"></th:block>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- header fragment 사용 -->
+            <th:block th:replace="member/include/header :: headerFragment"></th:block>
+
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">상품등록</h1>
+            
+                    <div class="container">
+                        <div class="row d-flex justify-content-center">
+                            <form th:action="@{/member/product-create}" method="POST">
+                                <div class="mb-4">
+                                    <label for="productName" class="form-label">상품명</label>
+                                    <div class="row col-6">
+                                        <input type="text" class="form-control" id="productName" name="productName" value="">
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="productName" class="form-label">가격</label>
+                                    <div class="row col-6">
+                                        <input type="text" class="form-control" id="price" name="price" value="">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <button class="btn btn-lg btn-primary">상품등록</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer fragment 사용 -->
+            <th:block th:replace="member/include/footer :: footerFragment"></th:block>
+        </div>
+    </div>
+    <th:block th:replace="member/include/script :: scriptFragment"></th:block>
+</body>     
+</html>

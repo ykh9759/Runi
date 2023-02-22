@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>관리자 - 주문코드 생성</title>
+    <th:block th:replace="member/include/head :: headFragment"></th:block>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <!-- 사이트 바 -->
+        <th:block th:replace="member/include/side :: sideFragment"></th:block>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- header fragment 사용 -->
+            <th:block th:replace="member/include/header :: headerFragment"></th:block>
+
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">주문코드 생성</h1>
+            
+                    <div class="container">
+                        <input type="text" class="form-control w-50" id="code" value="">
+                        <button class="btn btn-lg btn-primary" onclick="createCode()">코드생성</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer fragment 사용 -->
+            <th:block th:replace="member/include/footer :: footerFragment"></th:block>
+        </div>
+    </div>
+    <th:block th:replace="member/include/script :: scriptFragment"></th:block>
+
+    <script>
+        function createCode() {
+            $.ajax({
+                type : 'POST',           // 타입 (get, post, put 등등)
+                url : '/member/api/create-code',           // 요청할 서버url
+                dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+                success : function(result) { // 결과 성공 콜백함수
+                    console.log(result);
+                    document.getElementById('code').value = result;
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    console.log(error)
+                }
+            });
+        }
+    </script>
+</body>     
+</html>

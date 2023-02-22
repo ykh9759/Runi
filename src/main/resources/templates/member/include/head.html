@@ -1,0 +1,15 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--footerFragment 선언-->
+<div th:fragment="headFragment">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/sb-member-2.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/member.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}">
+    </th:block>
+</div>
+</html>

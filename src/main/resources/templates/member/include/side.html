@@ -1,0 +1,68 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--headerFragment 선언-->
+<div th:fragment="sideFragment">
+     <!-- Sidebar -->
+     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/member">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">관리자 <sup>Runi</sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/member}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>대시보드</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            리스트
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order"
+                aria-expanded="true" aria-controls="order">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>주문</span>
+            </a>
+            <div id="order" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                    <a class="collapse-item" th:href="@{/member/order-list}">주문내역</a>
+                    <!-- <a class="collapse-item" th:href="@{/member/create-code}">주문코드 생성</a> -->
+                </div>
+            </div>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product"
+                aria-expanded="true" aria-controls="product">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>상품</span>
+            </a>
+            <div id="product" class="collapse" aria-labelledby="headingProduct" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                    <a class="collapse-item" th:href="@{/member/product-list}">상품내역</a>
+                    <a class="collapse-item" th:href="@{/member/product-create}">상품등록</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <!-- End of Sidebar -->
+</div>
+</html>

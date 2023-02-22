@@ -1,6 +1,5 @@
 package com.example.runi.member.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.runi.member.domain.dto.ProductDto;
@@ -10,8 +9,12 @@ import com.example.runi.member.repository.ProductRepository;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+        
+    }
 
     public void save(ProductDto productDto, Integer memberNo) {
 

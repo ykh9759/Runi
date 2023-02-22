@@ -1,6 +1,5 @@
 package com.example.runi.member.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,11 @@ import com.example.runi.utils.MemberDetails;
 @RequestMapping("/member")
 public class ProductController {
     
-    @Autowired
-    private ProductService productservice;
+    private final ProductService productservice;
+
+    public ProductController(ProductService productservice) {
+        this.productservice = productservice;
+    }
 
     @GetMapping("/product-list")
     public String listView() {

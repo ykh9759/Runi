@@ -5,12 +5,10 @@ import com.example.runi.utils.MemberDetails;
 import com.example.runi.member.domain.entity.MemberEntity;
 import com.example.runi.member.domain.dto.LoginDto;
 import com.example.runi.member.domain.dto.SignupDto;
-import lombok.AllArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,14 +21,17 @@ import org.springframework.validation.FieldError;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private MemberRepository memberRepository;
-
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
+    public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+        this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+    }
 
     public String login(LoginDto request) throws Exception {
         Authentication authentication = authenticationManager.authenticate(

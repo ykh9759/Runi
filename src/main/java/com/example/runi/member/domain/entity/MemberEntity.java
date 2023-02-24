@@ -15,8 +15,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.runi.global.config.Role;
 import com.example.runi.member.domain.dto.SignupDto;
-import com.example.runi.utils.Role;
 
 import lombok.*;
 

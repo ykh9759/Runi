@@ -1,4 +1,4 @@
-package com.example.runi.utils;
+package com.example.runi.global.config;
 
 import java.io.IOException;
 import java.net.URLEncoder;

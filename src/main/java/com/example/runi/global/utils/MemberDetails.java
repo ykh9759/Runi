@@ -1,5 +1,6 @@
-package com.example.runi.utils;
+package com.example.runi.global.utils;
 
+import com.example.runi.global.config.Role;
 import com.example.runi.member.domain.entity.MemberEntity;
 
 import lombok.AllArgsConstructor;

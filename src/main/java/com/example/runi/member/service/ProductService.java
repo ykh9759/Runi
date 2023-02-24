@@ -1,5 +1,7 @@
 package com.example.runi.member.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.runi.member.domain.dto.ProductDto;
@@ -14,6 +16,13 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
         
+    }
+
+    public List<ProductEntity> getProduct() {
+
+        List<ProductEntity> list = productRepository.findAll();
+
+        return list;
     }
 
     public void save(ProductDto productDto, Integer memberNo) {

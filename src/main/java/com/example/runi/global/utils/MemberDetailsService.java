@@ -1,4 +1,4 @@
-package com.example.runi.utils;
+package com.example.runi.global.utils;
 
 import java.util.Optional;
 

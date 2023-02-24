@@ -1,5 +1,6 @@
 package com.example.runi.member.controller;
 
+import com.example.runi.global.utils.Func;
 import com.example.runi.member.domain.dto.LoginDto;
 import com.example.runi.member.domain.dto.SignupDto;
 import com.example.runi.member.service.AuthService;
@@ -44,10 +45,10 @@ public class AuthController {
 
     //회원가입
     @GetMapping("/signup")
-    public String signUp(Model model, SignupDto reqeust) {
+    public String signUp(Model model, SignupDto request) {
 
         //최초 빈값 세팅
-        model.addAttribute("signupDto", reqeust);
+        model.addAttribute("signupDto", request);
 
         return "member/auth/signup";
     }
@@ -64,21 +65,31 @@ public class AuthController {
     @PostMapping("/signup")
     public String signup(@Valid SignupDto request, Errors errors, Model model) {
 
+        //회원가입 실패시 입력 데이터 값을 유지
+        model.addAttribute("signupDto", request);
+
+        //유효성체크
         if (errors.hasErrors()) {
 
-             /* 회원가입 실패시 입력 데이터 값을 유지 */
-                model.addAttribute("signupDto", request);
+            Map<String, String> validatorResult = Func.validateHandling(errors);
+            for (String key : validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+            }
 
-                /* 유효성 통과 못한 필드와 메시지를 핸들링 */
-                Map<String, String> validatorResult = authService.validateHandling(errors);
-                for (String key : validatorResult.keySet()) {
-                    model.addAttribute(key, validatorResult.get(key));
-                }
-                /* 회원가입 페이지로 다시 리턴 */
-                return "member/signup";
+            return "member/auth/signup";
         }
 
-        authService.checkUsernameDuplication(request);
+
+        //중복체크
+        Map<String, String> dupResult = authService.checkDuplication(request);
+        if(!dupResult.isEmpty()) {
+
+            for (String key : dupResult.keySet()) {
+                model.addAttribute(key, dupResult.get(key));
+            }
+
+             return "member/auth/signup";
+        }
 
         authService.signup(request);
         

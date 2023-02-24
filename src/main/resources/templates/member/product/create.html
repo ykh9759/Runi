@@ -24,13 +24,15 @@
                                 <div class="mb-4">
                                     <label for="productName" class="form-label">상품명</label>
                                     <div class="row col-6">
-                                        <input type="text" class="form-control" id="productName" name="productName" value="">
+                                        <input type="text" class="form-control" id="productName" name="productName" th:value="${ProductDto.productName}">
+                                        <span class="mt-2" id="valid" th:if="${valid_productName}" th:text="${valid_productName}"></span> 
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <label for="productName" class="form-label">가격</label>
                                     <div class="row col-6">
-                                        <input type="text" class="form-control" id="price" name="price" value="">
+                                        <input type="text" class="form-control" id="price" name="price" th:value="${ProductDto.price}">
+                                        <span class="mt-2" id="valid" th:if="${valid_price}" th:text="${valid_price}"></span> 
                                     </div>
                                 </div>
                                 <div class="">

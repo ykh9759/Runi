@@ -31,7 +31,7 @@ public class ProductEntity {
     @Column(name = "product_name")
     private String productName;
 
-    private String price;
+    private Integer price;
 
     @CreationTimestamp
 	@Column(name = "insert_date")

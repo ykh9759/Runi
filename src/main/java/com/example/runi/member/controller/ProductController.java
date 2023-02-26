@@ -31,28 +31,23 @@ public class ProductController {
     }
 
     @GetMapping("/product-list")
-    public String listView(Model model) {
+    public String listView(ProductDto request, Model model,  @AuthenticationPrincipal MemberDetails memberDetails) {
 
-        List<ProductEntity> products = productservice.getProduct();
+        List<ProductEntity> products = productservice.getProduct(memberDetails.getUserNo());
 
         model.addAttribute("products", products);
-
-        return "member/product/list";
-    }
-
-    @GetMapping("/product-create")
-    public String createView(ProductDto request, Model model) {
-
-        //최초 빈값 세팅
         model.addAttribute("ProductDto", request);
 
-        return "member/product/create";
+        return "member/product/list";
     }
 
     @PostMapping("/product-create")
     public String productCreate(@Valid ProductDto request, Errors errors, Model model, @AuthenticationPrincipal MemberDetails memberDetails) {
         
         Integer memberNo = memberDetails.getUserNo();
+        List<ProductEntity> products = productservice.getProduct(memberDetails.getUserNo());
+
+        model.addAttribute("products", products);
 
         //회원가입 실패시 입력 데이터 값을 유지
         model.addAttribute("ProductDto", request);
@@ -65,13 +60,16 @@ public class ProductController {
                 model.addAttribute(key, validatorResult.get(key));
             }
 
-            return "member/product/create";
+            return "member/product/list";
         }
 
         System.out.println("MEMBER_NO: " + memberNo);
         System.out.println("productDto: " + request);
         productservice.save(request, memberNo);
 
+        List<ProductEntity> products2 = productservice.getProduct(memberDetails.getUserNo());
+
+        model.addAttribute("products", products2);
 
         return "member/product/list";
     }

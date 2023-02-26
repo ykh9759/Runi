@@ -12,6 +12,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.*;
 
@@ -19,7 +20,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "product")
-public class ProductEntity {
+public class ProductEntity extends BaseTimeEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +33,6 @@ public class ProductEntity {
     private String productName;
 
     private Integer price;
-
-    @CreationTimestamp
-	@Column(name = "insert_date")
-	private LocalDateTime inDate;
-
-    @UpdateTimestamp
-	@Column(name = "update_date")
-	private LocalDateTime upDate;
 
     @Builder
     public ProductEntity(ProductDto request) {

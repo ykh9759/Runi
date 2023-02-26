@@ -24,7 +24,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "member")
-public class MemberEntity {
+public class MemberEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,14 +39,6 @@ public class MemberEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @CreationTimestamp
-	@Column(name = "insert_date")
-	private LocalDateTime inDate;
-
-    @UpdateTimestamp
-	@Column(name = "update_date")
-	private LocalDateTime upDate;
 
     @Builder
     public MemberEntity(SignupDto request) {

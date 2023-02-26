@@ -25,32 +25,34 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">리스트</h6>
+                            <a class="ml-10 w-20 btn btn-primary" href="#" data-toggle="modal" data-target="#createModal">
+                                상품등록
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>NO</th>
-                                            <th>상품명</th>
-                                            <th>가격(원)</th>
-                                            <th>등록시간</th>
+                                            <th class="col-md-1">NO</th>
+                                            <th class="col-md-3">상품명</th>
+                                            <th class="col-md-2">가격(원)</th>
+                                            <th class="col-md-1">등록시간</th>
                                         </tr>
                                     </thead>
                                     <tbody th:each="list : ${products}">
                                         <tr>
                                             <td th:text="${list.no}"></td>
                                             <td th:text="${list.productName}"></td>
-                                            <td th:text="${#numbers.formatInteger(list.price, 0, 'COMMA')}"></td>
-                                            <td th:text="${list.upDate}"></td>
+                                            <td class="text-end" th:text="${#numbers.formatInteger(list.price, 0, 'COMMA')}" ></td>
+                                            <td class="text-end" th:text="${list.upDate}"></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>합계</th>
                                             <th></th>
-                                            <th th:text="${#numbers.formatInteger(#aggregates.sum(products.![price]), 0, 'COMMA')}"></h2>
+                                            <th class="text-end" th:text="${#numbers.formatInteger(#aggregates.sum(products.![price]), 0, 'COMMA')}"></h2>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -66,11 +68,67 @@
             <th:block th:replace="member/include/footer :: footerFragment"></th:block>
         </div>
     </div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">상품등록</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="form" th:action="@{/member/product-create}" method="POST">
+                        <div class="mb-4">
+                            <label for="productName" class="form-label">상품명</label>
+                            <div class="row col-6">
+                                <input type="text" class="form-control" id="productName" name="productName" th:value="${ProductDto.productName}">
+                                <span class="mt-2" id="valid" th:if="${valid_productName}" th:text="${valid_productName}"></span> 
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="productName" class="form-label">가격</label>
+                            <div class="row col-6">
+                                <input type="text" class="form-control" id="price" name="price" th:value="${ProductDto.price}">
+                                <span class="mt-2" id="valid" th:if="${valid_price}" th:text="${valid_price}"></span> 
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                            <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="save()">등록</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
 </body>
 <th:block th:replace="member/include/script :: scriptFragment"></th:block>
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
     <script type="text/javascript" th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/demo/datatables-demo.js}"></script>
+    <script>
+        function save() {
+            $.ajax({
+                type : 'POST',           // 타입 (get, post, put 등등)
+                url : '/member/product-create',           // 요청할 서버url
+                dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+                data : {
+                    productName : form.productName.value,
+                    price : form.price.value
+                },
+                success : function(result) { // 결과 성공 콜백함수
+                    console.log(result);
+                    document.getElementById('code').value = result;
+                },
+                error : function(request, status, error) { // 결과 에러 콜백함수
+                    console.log(error)
+                }
+            });
+        }
+    </script>
 </th:block>        
 </html>

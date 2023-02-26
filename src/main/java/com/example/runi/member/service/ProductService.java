@@ -18,9 +18,9 @@ public class ProductService {
         
     }
 
-    public List<ProductEntity> getProduct() {
+    public List<ProductEntity> getProduct(Integer memberNo) {
 
-        List<ProductEntity> list = productRepository.findAll();
+        List<ProductEntity> list = productRepository.findByMemberNo(memberNo);
 
         return list;
     }

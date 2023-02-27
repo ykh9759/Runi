@@ -18,6 +18,9 @@ public class ProductDto {
     @NotNull(message = "가격을 입력해주세요")
     private Integer price;
 
+    public String valid_productName;
+    public String valid_price;
+
     public ProductEntity toEntity() {
         return ProductEntity.builder()
                 .request(this)

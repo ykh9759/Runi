@@ -75,30 +75,30 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">상품등록</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <button class="close" type="button" aria-label="Close" onclick="cancel()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" th:action="@{/member/product-create}" method="POST">
+                    <form name="form" th:action="@{/member/product-create}" method="POST" onsubmit="return false;">
                         <div class="mb-4">
                             <label for="productName" class="form-label">상품명</label>
-                            <div class="row col-6">
-                                <input type="text" class="form-control" id="productName" name="productName" th:value="${ProductDto.productName}">
-                                <span class="mt-2" id="valid" th:if="${valid_productName}" th:text="${valid_productName}"></span> 
+                            <div class="row col-12">
+                                <input type="text" class="form-control" id="productName" name="productName">
+                                <span class="valid mt-2" id="valid_productName"></span> 
                             </div>
                         </div>
                         <div class="mb-4">
                             <label for="productName" class="form-label">가격</label>
-                            <div class="row col-6">
-                                <input type="text" class="form-control" id="price" name="price" th:value="${ProductDto.price}">
-                                <span class="mt-2" id="valid" th:if="${valid_price}" th:text="${valid_price}"></span> 
+                            <div class="row col-12">
+                                <input type="text" class="form-control" id="price" name="price">
+                                <div class="valid mt-2" id="valid_price"></div> 
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                            <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="save()">등록</button>
+                            <button class="btn btn-secondary" type="button" onclick="cancel()">취소</button>
+                            <button class="btn btn-primary" type="button" onclick="save()">등록</button>
                         </div>
                     </form>
             </div>
@@ -122,12 +122,24 @@
                 },
                 success : function(result) { // 결과 성공 콜백함수
                     console.log(result);
-                    document.getElementById('code').value = result;
+                    if(result.msg == "Y") {
+                        location.reload();
+                    } else {
+                        document.getElementById('valid_productName').innerHTML = result.valid_productName;
+                        document.getElementById('valid_price').innerHTML = result.valid_price;
+                    }
                 },
                 error : function(request, status, error) { // 결과 에러 콜백함수
                     console.log(error)
                 }
             });
+        }
+
+        function cancel() {
+            $('#createModal').modal('hide');
+
+            document.getElementById('valid_productName').innerHTML = '';
+            document.getElementById('valid_price').innerHTML = '';
         }
     </script>
 </th:block>        

@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th class="col-md-1">NO</th>
@@ -40,19 +40,13 @@
                                             <th class="col-md-1">등록시간</th>
                                         </tr>
                                     </thead>
-                                    <tbody th:each="list : ${products}">
-                                        <tr>
-                                            <td th:text="${list.no}"></td>
-                                            <td th:text="${list.productName}"></td>
-                                            <td class="text-end" th:text="${#numbers.formatInteger(list.price, 0, 'COMMA')}" ></td>
-                                            <td class="text-end" th:text="${list.upDate}"></td>
-                                        </tr>
+                                    <tbody>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>합계</th>
                                             <th></th>
-                                            <th class="text-end" th:text="${#numbers.formatInteger(#aggregates.sum(products.![price]), 0, 'COMMA')}"></h2>
+                                            <th class="text-end"></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -104,43 +98,51 @@
             </div>
         </div>
     </div>
-</body>
 <th:block th:replace="member/include/script :: scriptFragment"></th:block>
-<th:block layout:fragment="script">
-    <script type="text/javascript" th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
-    <script type="text/javascript" th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/demo/datatables-demo.js}"></script>
-    <script>
-        function save() {
-            $.ajax({
-                type : 'POST',           // 타입 (get, post, put 등등)
-                url : '/member/product-create',           // 요청할 서버url
-                dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-                data : {
-                    productName : form.productName.value,
-                    price : form.price.value
-                },
-                success : function(result) { // 결과 성공 콜백함수
-                    console.log(result);
-                    if(result.msg == "Y") {
-                        location.reload();
-                    } else {
-                        document.getElementById('valid_productName').innerHTML = result.valid_productName;
-                        document.getElementById('valid_price').innerHTML = result.valid_price;
-                    }
-                },
-                error : function(request, status, error) { // 결과 에러 콜백함수
-                    console.log(error)
+<script>
+    function save() {
+        $.ajax({
+            type : 'POST',           // 타입 (get, post, put 등등)
+            url : '/member/product-create',           // 요청할 서버url
+            dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+            data : {
+                productName : form.productName.value,
+                price : form.price.value
+            },
+            success : function(result) { // 결과 성공 콜백함수
+                console.log(result);
+                if(result.msg == "Y") {
+
+                    $('#createModal').modal('hide');
+                    Swal.fire({
+                        text: "등록 완료",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '확인',
+                        }).then((check) => {
+                            $('#productTable').DataTable().ajax.reload( null, false );
+                    });
+
+                    document.getElementById('valid_productName').innerHTML = '';
+                    document.getElementById('valid_price').innerHTML = '';
+                } else {
+                    document.getElementById('valid_productName').innerHTML = result.valid_productName ? result.valid_productName : '';
+                    document.getElementById('valid_price').innerHTML = result.valid_price ? result.valid_price : '';
                 }
-            });
-        }
+            },
+            error : function(request, status, error) { // 결과 에러 콜백함수
+                console.log(error)
+            }
+        });
+    }
 
-        function cancel() {
-            $('#createModal').modal('hide');
+    function cancel() {
+        $('#createModal').modal('hide');
 
-            document.getElementById('valid_productName').innerHTML = '';
-            document.getElementById('valid_price').innerHTML = '';
-        }
-    </script>
-</th:block>        
+        document.getElementById('valid_productName').innerHTML = '';
+        document.getElementById('valid_price').innerHTML = '';
+    }
+</script>
+</body>       
 </html>

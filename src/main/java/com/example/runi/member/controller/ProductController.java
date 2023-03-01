@@ -2,7 +2,10 @@ package com.example.runi.member.controller;
 
 import com.example.runi.global.utils.Func;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +17,13 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import com.example.runi.global.utils.MemberDetails;
 import com.example.runi.member.domain.dto.ProductDto;
 import com.example.runi.member.domain.entity.ProductEntity;
 import com.example.runi.member.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.Valid;
@@ -52,20 +57,16 @@ public class ProductController {
     public String productCreate(@Valid ProductDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) {
         
         Integer memberNo = memberDetails.getUserNo();
-        ObjectMapper obj = new ObjectMapper();
+        Map<String, String> resultMap = new HashMap<String,String>();
         JSONObject result;
-
-        Map<String, String> requestMap = obj.convertValue(request, Map.class);
 
         //유효성체크
         if (errors.hasErrors()) {
 
-            Map<String, String> validatorResult = Func.validateHandling(errors);
+            resultMap = Func.validateHandling(errors);
 
-            validatorResult.forEach((key, value) -> requestMap.merge(key, value, (v1, v2) -> v2));
-
-            requestMap.put("msg", "N");            
-            result = new JSONObject(requestMap);
+            resultMap.put("msg", "N");            
+            result = new JSONObject(resultMap);
             System.out.println(result);
             return result.toJSONString();
         }
@@ -74,9 +75,20 @@ public class ProductController {
         System.out.println("productDto: " + request);
         productservice.save(request, memberNo);
 
-        requestMap.put("msg", "Y");
-        result = new JSONObject(requestMap);
+
+        resultMap.put("msg", "Y");
+        result = new JSONObject(resultMap);
 
         return result.toJSONString();
+    }
+
+    @PostMapping("/getProductList")
+    @ResponseBody
+    public List<ProductEntity> getproductList(@AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
+        
+        List<ProductEntity> products = productservice.getProduct(memberDetails.getUserNo());
+
+        System.out.println(products.toString());
+        return products;
     }
 }

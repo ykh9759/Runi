@@ -20,7 +20,7 @@ public class ProductService {
 
     public List<ProductEntity> getProduct(Integer memberNo) {
 
-        List<ProductEntity> list = productRepository.findByMemberNo(memberNo);
+        List<ProductEntity> list = productRepository.findByMemberNoOrderByUpDateDesc(memberNo);
 
         return list;
     }

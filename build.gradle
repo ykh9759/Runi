@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.postgresql:postgresql'
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	compileOnly 'org.projectlombok:lombok'

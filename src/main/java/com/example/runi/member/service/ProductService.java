@@ -1,10 +1,14 @@
 package com.example.runi.member.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.example.runi.global.utils.MemberDetails;
 import com.example.runi.member.domain.dto.ProductDto;
+import com.example.runi.member.domain.dto.SearchDto;
 import com.example.runi.member.domain.entity.ProductEntity;
 import com.example.runi.member.repository.ProductRepository;
 
@@ -18,9 +22,17 @@ public class ProductService {
         
     }
 
-    public List<ProductEntity> getProduct(Integer memberNo) {
+    public List<ProductEntity> getProduct(SearchDto request, Integer memberNo) {
 
-        List<ProductEntity> list = productRepository.findByMemberNoOrderByUpDateDesc(memberNo);
+        System.out.println(request);
+
+        List<ProductEntity> list;
+
+        if(request.isDtoEntireVariableNull()) {
+            list = productRepository.findByMemberNoOrderByUpDateDesc(memberNo);
+        } else {
+            list = productRepository.findBySearch(memberNo, request);
+        }
 
         return list;
     }

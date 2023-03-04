@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 import com.example.runi.global.utils.MemberDetails;
 import com.example.runi.member.domain.dto.ProductDto;
+import com.example.runi.member.domain.dto.SearchDto;
 import com.example.runi.member.domain.entity.ProductEntity;
 import com.example.runi.member.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,10 +43,6 @@ public class ProductController {
     //상품내역
     @GetMapping("/product-list")
     public String listView(ProductDto request, Model model,  @AuthenticationPrincipal MemberDetails memberDetails) {
-
-        List<ProductEntity> products = productservice.getProduct(memberDetails.getUserNo());
-
-        model.addAttribute("products", products);
 
         return "member/product/list";
     }
@@ -84,11 +81,14 @@ public class ProductController {
 
     @PostMapping("/getProductList")
     @ResponseBody
-    public List<ProductEntity> getproductList(@AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
+    public List<ProductEntity> getproductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
         
-        List<ProductEntity> products = productservice.getProduct(memberDetails.getUserNo());
+        System.out.println(request);
 
-        System.out.println(products.toString());
+        List<ProductEntity> products = productservice.getProduct(request, memberDetails.getUserNo());
+
+
+        // System.out.println(products.toString());
         return products;
     }
 }

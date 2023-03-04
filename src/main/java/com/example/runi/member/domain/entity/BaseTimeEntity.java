@@ -1,7 +1,6 @@
 package com.example.runi.member.domain.entity;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -20,10 +19,9 @@ public class BaseTimeEntity {
 
     @CreatedDate
 	@Column(name = "insert_date")
-	private String inDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	private LocalDateTime inDate;
 
     @LastModifiedDate
 	@Column(name = "update_date")
-	private String upDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
+	private LocalDateTime upDate;
 }

@@ -2,7 +2,7 @@ package com.example.runi.member.domain.entity;
 
 import com.example.runi.member.domain.dto.ProductDto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedDate;
 
 import lombok.*;
 
@@ -34,6 +32,10 @@ public class ProductEntity extends BaseTimeEntity {
 
     private Integer price;
 
+    @CreatedDate
+    @Column(name = "save_date")
+    private LocalDate saveDate;
+ 
     @Builder
     public ProductEntity(ProductDto request) {
         memberNo = request.getMemberNo();

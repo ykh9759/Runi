@@ -62,11 +62,11 @@ $(document).ready(function() {
     productTable.ajax.reload();
   });
 
-  $("#search").on("keyup",function(key){
+  $("#search, #startDate, #endDate").on("keyup",function(key){
     if(key.keyCode==13) {
       productTable.ajax.reload();
     }
-});
+  });
   // $('#productTable_filter').prepend('<select id="select" style="width:15%" class="form-select d-inline-block"></select>');
   // $('#productTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
   //     $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');

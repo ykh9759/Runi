@@ -14,10 +14,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     
     public Optional<ProductEntity> findById(Integer no);
     public List<ProductEntity> findByMemberNoOrderByUpDateDesc(Integer memberNo);
-    public List<ProductEntity> findByMemberNoAndSaveDateGreaterThanEqualOrderByUpDateDesc(Integer userNo,
-            LocalDate startDate);
-    public List<ProductEntity> findByMemberNoAndSaveDateLessThanEqualOrderByUpDateDesc(Integer memberNo,
-            LocalDate endDate);
-    public List<ProductEntity> findByMemberNoAndSaveDateBetweenOrderByUpDateDesc(Integer memberNo, LocalDate startDate,
-            LocalDate endDate);
+    
 }

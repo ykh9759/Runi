@@ -15,7 +15,10 @@ public class SearchDto {
     public boolean isDtoEntireVariableNull() {
         try {
             for (Field f : getClass().getDeclaredFields()) {
-                if (f.get(this) != null) {
+
+                if(f.getName().equals("select")) continue;
+
+                if (f.get(this) != null && !f.get(this).equals("")) {
                     return false;
                 }
             }

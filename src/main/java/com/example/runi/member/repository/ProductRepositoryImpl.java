@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import lombok.RequiredArgsConstructor;
 
 import static com.example.runi.member.domain.entity.QProductEntity.product;
 
@@ -28,14 +27,11 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         return queryFactory
                     .selectFrom(product)
                     .where(
-                        product.memberNo.eq(memberNo)
-                        .and(
-                            select(reqeust)
-                        )
-                        .and(
-                            date(reqeust)
-                        )
+                        product.memberNo.eq(memberNo),
+                        select(reqeust), 
+                        date(reqeust)
                     )
+                    .orderBy(product.no.desc())
                     .fetch();
     }
 
@@ -44,15 +40,23 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         String select = reqeust.getSelect();
         String search = reqeust.getSearch();
 
-        if(select.equals("0")) {
-            return product.no.eq(Integer.parseInt(search));
-        } else if(select.equals("1")) {
-            return product.productName.eq(search);
-        } else if(select.equals("2")) {
-            return product.price.eq(Integer.parseInt(search));
-        } else if(select.equals("3")) {
-            return product.saveDate.eq(LocalDate.parse(search));
-        } else {
+        if(search.isEmpty()) return null;
+
+        try {
+
+            if(select.equals("0")) {
+                return product.no.eq(Integer.parseInt(search));
+            } else if(select.equals("1")) {
+                return product.productName.eq(search);
+            } else if(select.equals("2")) {
+                return product.price.eq(Integer.parseInt(search));
+            } else if(select.equals("3")) {
+                return product.saveDate.eq(LocalDate.parse(search));
+            } else {
+                return null;
+            }
+
+        } catch(Exception e) {
             return null;
         }
     }

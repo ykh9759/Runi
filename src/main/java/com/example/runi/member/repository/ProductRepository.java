@@ -13,6 +13,6 @@ import com.example.runi.member.domain.entity.ProductEntity;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, ProductRepositoryCustom {
     
     public Optional<ProductEntity> findById(Integer no);
-    public List<ProductEntity> findByMemberNoOrderByUpDateDesc(Integer memberNo);
+    public List<ProductEntity> findByMemberNoOrderByNoDesc(Integer memberNo);
     
 }

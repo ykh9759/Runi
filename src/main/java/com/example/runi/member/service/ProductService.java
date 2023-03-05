@@ -29,9 +29,8 @@ public class ProductService {
         List<ProductEntity> list;
 
         if(request.isDtoEntireVariableNull()) {
-            list = productRepository.findByMemberNoOrderByUpDateDesc(memberNo);
+            list = productRepository.findByMemberNoOrderByNoDesc(memberNo);
         } else {
-            System.out.println(request);
             list = productRepository.findBySearch(memberNo, request);
         }
 

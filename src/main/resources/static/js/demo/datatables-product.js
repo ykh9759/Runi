@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-  let productTable = $('#productTable').DataTable({
+  let dTable = $('#dTable').DataTable({
     dom: '<"m-2"B><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
     buttons: [{
       extend: 'excel',
@@ -44,13 +44,13 @@ $(document).ready(function() {
     "order": [[3, 'desc']]
   });
 
-  $('#productTable_wrapper > .row > div').after('<div id="search-area" class="col-sm-12 col-md-6 d-flex justify-content-end"></div>');
+  $('#dTable_wrapper > .row > div').after('<div id="search-area" class="col-sm-12 col-md-6 d-flex justify-content-end"></div>');
   $('#search-area').prepend('<button type="text" id="btn-search" class="btn btn-primary ml-2">검색</button>');
   $('#search-area').prepend('<input type="text" id="search" class="form-control col-2">');
   $('#search-area').prepend('<select id="select" style="width:15%" class="form-select ml-2"></select>');
   $('#search-area').prepend('<input type="text" id="endDate" class="form-control col-2 ml-2" placeholder="yyyy-MM-dd">');
   $('#search-area').prepend('<input type="text" id="startDate" class="form-control col-2 mr-2" placeholder="yyyy-MM-dd">~');
-    $('#productTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
       $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
   });
 
@@ -59,12 +59,12 @@ $(document).ready(function() {
   });
 
   $('#btn-search').on('click', function () {
-    productTable.ajax.reload();
+    dTable.ajax.reload();
   });
 
   $("#search, #startDate, #endDate").on("keyup",function(key){
     if(key.keyCode==13) {
-      productTable.ajax.reload();
+      dTable.ajax.reload();
     }
   });
 });

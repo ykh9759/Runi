@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>루니웹</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+    <!-- content script -->
+    <th:block th:replace="user/include/head :: headFragment"></th:block>
+    <!-- content script -->
+</head>
+<body>
+    <!-- header fragment 사용 -->
+    <!-- <th:block th:replace="fragments/header :: headerFragment"></th:block> -->
+    <!-- content fragment 사용 -->
+    <h1 class="text-center">안녕하세요</h1>
+    <main class="form-signin w-100 m-auto">
+        <form th:action="@{/user/id-check}" method="POST">
+            <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h1 class="h3 mb-3 fw-normal">판매자 아이디 입력</h1>
+        
+            <div class="form-floating">
+            <input type="text" class="form-control" id="id" name="id" required>
+            <label for="id">ID</label>
+            </div>
+        
+            <button class="w-100 btn btn-lg btn-primary" type="submit">확인</button>
+        </form>
+    </main>
+    <!-- footer fragment 사용 -->
+    <th:block th:replace="user/include/footer :: footerFragment"></th:block>
+</body>
+</html>

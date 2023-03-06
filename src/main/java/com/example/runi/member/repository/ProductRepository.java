@@ -10,9 +10,11 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.runi.member.domain.entity.ProductEntity;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, ProductRepositoryCustom {
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, ProductRepositoryQueryDSL {
     
     public Optional<ProductEntity> findById(Integer no);
     public List<ProductEntity> findByMemberNoOrderByNoDesc(Integer memberNo);
+
+    boolean existsByProductName(String productName);
     
 }

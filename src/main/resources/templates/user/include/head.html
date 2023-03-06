@@ -1,0 +1,12 @@
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<!--footerFragment 선언-->
+<div th:fragment="headFragment">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
+    </th:block>
+</div>
+</html>

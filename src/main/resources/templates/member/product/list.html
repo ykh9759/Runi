@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th class="col-md-1">NO</th>
@@ -99,7 +99,8 @@
         </div>
     </div>
 <th:block th:replace="member/include/script :: scriptFragment"></th:block>
-<script>
+<script th:inline="javascript" th:src="@{/js/demo/datatables-product.js}"></script>
+<script th:inline="javascript">
     function save() {
         $.ajax({
             type : 'POST',           // 타입 (get, post, put 등등)
@@ -121,9 +122,11 @@
                         cancelButtonColor: '#d33',
                         confirmButtonText: '확인',
                         }).then((check) => {
-                            $('#productTable').DataTable().ajax.reload( null, false );
+                            $('#dTable').DataTable().ajax.reload();
                     });
 
+                    document.getElementById('productName').value = '';
+                    document.getElementById('price').value = '';
                     document.getElementById('valid_productName').innerHTML = '';
                     document.getElementById('valid_price').innerHTML = '';
                 } else {

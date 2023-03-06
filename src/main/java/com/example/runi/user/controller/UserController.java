@@ -14,20 +14,20 @@ public class UserController {
     @GetMapping("")
     public String index() {
 
-        return "index";
+        return "user/index";
     }
 
-    @PostMapping("/password-check")
-    public String passwordCheck(@RequestParam String password, Model model) {
+    @PostMapping("/id-check")
+    public String idCheck(@RequestParam String id, Model model) {
 
-        model.addAttribute("password", password);
+        model.addAttribute("id", id);
         return "redirect:/user/order";
     }
 
     @GetMapping("/order")
     public String order() {
 
-        return "user/page/order";
+        return "user/order";
     }
 
 }

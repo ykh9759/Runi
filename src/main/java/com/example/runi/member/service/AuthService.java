@@ -21,7 +21,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 @Service
-@Transactional
 public class AuthService {
 
     private final MemberRepository memberRepository;
@@ -47,6 +46,7 @@ public class AuthService {
         return principal.getUsername();
     }
 
+    @Transactional
     public String signup(SignupDto request) {
         boolean existMember = memberRepository.existsById(request.getId());
 

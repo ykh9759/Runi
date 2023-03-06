@@ -1,6 +1,23 @@
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
-<!--headerFragment 선언-->
-<div th:fragment="contentsFragment">
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>루니웹</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+    <!-- content script -->
+    <th:block th:replace="user/include/head :: headFragment"></th:block>
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/script.js}"></script>
+        <script th:src="@{/js/order.js}"></script>
+    </th:block>
+</head>
+<body>
+    <!-- header fragment 사용 -->
+    <!-- <th:block th:replace="include/header :: headerFragment"></th:block> -->
+    <!-- content fragment 사용 -->
     <div class="container">
         <div class="row g-5 d-flex justify-content-center">
           <div class="col-md-7 col-lg-8">
@@ -111,5 +128,9 @@
           </div>
         </div>
       </div>
-</div>
+    <!-- footer fragment 사용 -->
+    <th:block th:replace="user/include/footer :: footerFragment"></th:block>
+
+<th:block th:replace="user/include/script :: scriptFragment"></th:block>
+</body>
 </html>

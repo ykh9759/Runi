@@ -1,10 +1,13 @@
 package com.example.runi.member.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.runi.global.utils.MemberDetails;
 import com.example.runi.member.domain.dto.ProductDto;
@@ -22,6 +25,17 @@ public class ProductService {
         
     }
 
+    public void save(ProductDto productDto, Integer memberNo) {
+
+        productDto.setMemberNo(memberNo);
+        
+        ProductEntity proEntity = productDto.toEntity();
+
+        System.out.println("proEntity: " + proEntity);
+        productRepository.save(proEntity);
+
+    }
+
     public List<ProductEntity> getProduct(SearchDto request, Integer memberNo) {
 
         System.out.println(request);
@@ -37,14 +51,16 @@ public class ProductService {
         return list;
     }
 
-    public void save(ProductDto productDto, Integer memberNo) {
+    @Transactional(readOnly = true)
+    public Map<String, String> checkDuplication(ProductDto productDto) {
 
-        productDto.setMemberNo(memberNo);
+        Map<String, String> map = new HashMap<>();
+
+        boolean pnDuplicate = productRepository.existsByProductName(productDto.getProductName().trim());
+        if (pnDuplicate) {
+            map.put("valid_productName","이미 존재하는 상품명입니다.");
+        }
         
-        ProductEntity proEntity = productDto.toEntity();
-
-        System.out.println("proEntity: " + proEntity);
-        productRepository.save(proEntity);
-
+        return map;
     }
 }

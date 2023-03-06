@@ -15,7 +15,7 @@ import com.example.runi.member.domain.dto.SearchDto;
 import com.example.runi.member.domain.entity.ProductEntity;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepositoryCustom {
+public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryImpl(JPAQueryFactory jpaQueryFactory) {

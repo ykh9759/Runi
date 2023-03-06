@@ -68,6 +68,20 @@ public class ProductController {
             return result.toJSONString();
         }
 
+        //중복체크
+        Map<String, String> dupResult = productservice.checkDuplication(request);
+        if(!dupResult.isEmpty()) {
+
+            resultMap.put("msg", "N"); 
+
+            for (String key : dupResult.keySet()) {
+                resultMap.put(key, dupResult.get(key)); 
+            }
+
+            result = new JSONObject(resultMap);
+            return result.toJSONString();
+        }
+
         System.out.println("MEMBER_NO: " + memberNo);
         System.out.println("productDto: " + request);
         productservice.save(request, memberNo);
@@ -81,7 +95,7 @@ public class ProductController {
 
     @PostMapping("/getProductList")
     @ResponseBody
-    public List<ProductEntity> getproductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
+    public List<ProductEntity> getProductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) {
         
         System.out.println(request);
 

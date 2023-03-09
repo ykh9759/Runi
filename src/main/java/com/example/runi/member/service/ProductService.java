@@ -36,7 +36,7 @@ public class ProductService {
 
     }
 
-    public List<ProductEntity> getProduct(SearchDto request, Integer memberNo) {
+    public List<ProductEntity> getProductSearch(SearchDto request, Integer memberNo) {
 
         System.out.println(request);
 

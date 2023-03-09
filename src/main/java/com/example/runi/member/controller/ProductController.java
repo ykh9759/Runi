@@ -99,7 +99,7 @@ public class ProductController {
         
         System.out.println(request);
 
-        List<ProductEntity> products = productservice.getProduct(request, memberDetails.getUserNo());
+        List<ProductEntity> products = productservice.getProductSearch(request, memberDetails.getUserNo());
 
 
         // System.out.println(products.toString());

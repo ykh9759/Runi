@@ -66,10 +66,15 @@
 
                 <hr class="my-4">
                 <p>상품목록</p>
-
-                <div class="col-12 row">
+                <select class="form-select">
+                  <option selected>선택</option>
+                  <th:blocl th:each="product : ${products}">
+                    <option th:value="${product.no}" th:text="${product.productName}"></option>
+                  </th:blocl>
+                </select>
+                <!-- <div class="col-12 row" th:each="product : ${products}">
                   <div class="col-7 text-start">
-                      상품 1
+                      <p th:text="${product.productName}"></p>
                   </div>
                   <div class="col-5 d-flex justify-content-end">
                     <label for="cnt" class="col-4 col-form-label">수량</label>
@@ -77,7 +82,7 @@
                       <input type="text" class="form-control" id="staticEmail" name="cnt" value="">
                     </div>
                   </div>
-                </div>
+                </div> -->
                 
                 <div class="col-12 row">
                   <div class="col-7 text-start"></div>

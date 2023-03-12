@@ -66,23 +66,15 @@
 
                 <hr class="my-4">
                 <p>상품목록</p>
-                <select class="form-select">
+                <select class="form-select" onchange="selectProduct(this.value)">
                   <option selected>선택</option>
                   <th:blocl th:each="product : ${products}">
                     <option th:value="${product.no}" th:text="${product.productName}"></option>
                   </th:blocl>
                 </select>
-                <!-- <div class="col-12 row" th:each="product : ${products}">
-                  <div class="col-7 text-start">
-                      <p th:text="${product.productName}"></p>
-                  </div>
-                  <div class="col-5 d-flex justify-content-end">
-                    <label for="cnt" class="col-4 col-form-label">수량</label>
-                    <div class="col-3">
-                      <input type="text" class="form-control" id="staticEmail" name="cnt" value="">
-                    </div>
-                  </div>
-                </div> -->
+
+                <div id="orderList">
+                </div>
                 
                 <div class="col-12 row">
                   <div class="col-7 text-start"></div>
@@ -91,17 +83,6 @@
                     <div class="col-3" id="totalCnt"></div>
                   </div>
                 </div>
-    
-                <!-- <div class="col-md-5">
-                  <label for="country" class="form-label">Country</label>
-                  <select class="form-select" id="country" required>
-                    <option value="">Choose...</option>
-                    <option>United States</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
-                </div> -->
 
                 <hr class="my-4">
 
@@ -137,5 +118,76 @@
     <th:block th:replace="user/include/footer :: footerFragment"></th:block>
 
 <th:block th:replace="user/include/script :: scriptFragment"></th:block>
+<script th:inline="javascript">
+
+  //상품내역
+  var products = Object.values([[${products}]]);
+
+  //선택함 삼품 가져오는 함수
+  function searchObj(obj, searchValue) {
+
+    let result = null;
+
+    for (let key in obj) {
+
+      const val = obj[key];
+
+      if (val.no == searchValue) {
+
+        result = obj[key];
+        break;
+      }
+    }
+
+    return result;
+  }
+
+  //상품 선택
+  function selectProduct(val) {
+
+    //선택한 상품 값 가져오기
+    var value = searchObj(products, val);
+
+    const orderList = document.querySelector('#orderList');
+
+    let str = '';
+    str += '<div id="product-'+val+'" class="col-12 row mt-10">';
+    str += '<div class="col-7 text-start">';
+    str += '<p>'+value.productName+'</p>'
+    str += '</div>'
+    str += '<div class="col-7">';
+    str += '<div class="input-group">';
+    str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'M\')"><i class="fas fa-minus"></i></button>';
+    str += '<div class="col-sm-2">';
+    str += '<input type="text" class="form-control" id="cnt-'+val+'" value="1">';
+    str += '</div>';
+    str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'P\')"><i class="fas fa-plus"></i></button>';
+    str += '</div>';
+    str += '</div>';
+    str += '<div class="col-5 d-flex justify-content-end">';
+    str += '<span id="price-'+val+'">'+value.price+'원</span>';
+    str += '</div>';
+    str += '<hr class="my-4">';
+    str += '</div>';
+
+    orderList.innerHTML += str;
+  
+  }
+
+  function plusMinus(div) {
+
+    var value = parseInt(document.getElementById('cnt').value, 10);
+    value = isNaN(value) ? 0 : value;
+
+    if(div=='P') value++;
+    else if(div=='M') value--;
+
+    if(value < 0) return false;
+
+    document.getElementById('cnt').value = value;
+
+  }
+  
+</script>
 </body>
 </html>

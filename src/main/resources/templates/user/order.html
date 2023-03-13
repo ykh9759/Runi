@@ -66,7 +66,7 @@
 
                 <hr class="my-4">
                 <p>상품목록</p>
-                <select class="form-select" onchange="selectProduct(this.value)">
+                <select class="form-select" onchange="selectProduct(this)">
                   <option selected>선택</option>
                   <th:blocl th:each="product : ${products}">
                     <option th:value="${product.no}" th:text="${product.productName}"></option>
@@ -79,7 +79,7 @@
                 <div class="col-12 row">
                   <div class="col-7 text-start"></div>
                   <div class="col-5 d-flex justify-content-end">
-                    <label for="cnt" class="col-4 col-form-label">합계:</label>
+                    <label for="cnt" class="col-4 col-form-label">총 금액:</label>
                     <div class="col-3" id="totalCnt"></div>
                   </div>
                 </div>
@@ -143,48 +143,133 @@
   }
 
   //상품 선택
-  function selectProduct(val) {
+  function selectProduct(obj) {
+
+    const no = obj.value;
+
+    //선택된 항목은 선택 못하게
+    const productId = document.getElementById('price-'+no);
+    if(productId) {
+
+      Swal.fire({
+            text: "이미 선택한 상품입니다.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+        });
+
+      return;
+    }
 
     //선택한 상품 값 가져오기
-    var value = searchObj(products, val);
+    const value = searchObj(products, no);
 
-    const orderList = document.querySelector('#orderList');
+    const orderList = document.getElementById('orderList');
 
-    let str = '';
-    str += '<div id="product-'+val+'" class="col-12 row mt-10">';
-    str += '<div class="col-7 text-start">';
-    str += '<p>'+value.productName+'</p>'
-    str += '</div>'
-    str += '<div class="col-7">';
-    str += '<div class="input-group">';
-    str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'M\')"><i class="fas fa-minus"></i></button>';
-    str += '<div class="col-sm-2">';
-    str += '<input type="text" class="form-control" id="cnt-'+val+'" value="1">';
-    str += '</div>';
-    str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'P\')"><i class="fas fa-plus"></i></button>';
-    str += '</div>';
-    str += '</div>';
-    str += '<div class="col-5 d-flex justify-content-end">';
-    str += '<span id="price-'+val+'">'+value.price+'원</span>';
-    str += '</div>';
-    str += '<hr class="my-4">';
-    str += '</div>';
+    // let str = '';
+    // str += '<div id="product-'+no+'" class="col-12 row mt-10">';
+    // str += '<input type="hidden" class="form-control" name="productNo" value="'+no+'">';
+    // str += '<div class="col-7 text-start">';
+    // str += '<span>'+value.productName+'</span>'
+    // str += '</div>'
+    // str += '<div class="col-7">';
+    // str += '<div class="input-group">';
+    // str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'M\','+no+')"><i class="fas fa-minus"></i></button>';
+    // str += '<div class="col-sm-2" id="input-'+no+'">';
+    // str += '<input type="text" class="form-control" id="cnt-'+no+'" name="cnt-'+no+'" value="1">';
+    // str += '</div>';
+    // str += '<button type="button" class="btn btn-primary" onclick="plusMinus(\'P\','+no+')"><i class="fas fa-plus"></i></button>';
+    // str += '</div>';
+    // str += '</div>';
+    // str += '<div class="col-5 d-flex justify-content-end">';
+    // str += '<span id="price-'+no+'">'+value.price+'</span>원';
+    // str += '</div>';
+    // str += '<hr class="my-4">';
+    // str += '</div>';
 
-    orderList.innerHTML += str;
+    // orderList.innerHTML += str;
+
+    const div1 = document.createElement('div');
+    div1.classList.add('col-12', 'row', 'mt-10');
+    const div2 = document.createElement('div');
+    div2.classList.add('col-7', 'text-start');
+    const span1 = document.createElement('span');
+    span1.textContent = value.productName;
+    const div3 = document.createElement('div');
+    div3.classList.add('col-7');
+    const div4 = document.createElement('div');
+    div4.classList.add('input-group');
+    const button1 = document.createElement('button');
+    button1.classList.add('btn', 'btn-primary');
+    button1.setAttribute('onClick', 'plusMinus(\'M\','+no+')');
+    button1.type = 'button';
+    const i1 = document.createElement('i');
+    i1.setAttribute('class', 'fas fa-minus');
+    const div5 = document.createElement('div');
+    div5.classList.add('col-sm-2');
+    const input1 = document.createElement('input');
+    input1.classList.add('form-control');
+    input1.id = 'cnt-'+no;
+    input1.type = 'text';
+    input1.value = '1';
+    const button2 = document.createElement('button');
+    button2.classList.add('btn', 'btn-primary');
+    button2.setAttribute('onClick', 'plusMinus(\'P\','+no+')');
+    button2.type = 'button';
+    const i2 = document.createElement('i');
+    i2.setAttribute('class', 'fas fa-plus');
+    const div6 = document.createElement('div');
+    div6.setAttribute('class', 'col-5 d-flex justify-content-end');
+    const span2 = document.createElement('span');
+    span2.textContent = value.price;
+    span2.setAttribute('id','price-'+no);
+    const hr1 = document.createElement('hr');
+    hr1.setAttribute('class','my-4');
+
+    div1.appendChild(div2);
+    div2.appendChild(span1);
+    div3.appendChild(div4);
+    div4.appendChild(button1);
+    div4.appendChild(div5);
+    div5.appendChild(input1);
+    div4.appendChild(button2);
+    div6.appendChild(span2);
+    button1.appendChild(i1);
+    button2.appendChild(i2);
+    orderList.appendChild(div1);
+    div1.appendChild(div3);
+    div1.appendChild(div6);
+    div1.appendChild(hr1);
+
+    obj.selectedIndex = 0;
   
   }
 
-  function plusMinus(div) {
+  function plusMinus(div, no) {
 
-    var value = parseInt(document.getElementById('cnt').value, 10);
-    value = isNaN(value) ? 0 : value;
+    let cnt = parseInt(document.getElementById('cnt-'+no).value);
+    let price = parseInt(document.getElementById('price-'+no).innerHTML);
 
-    if(div=='P') value++;
-    else if(div=='M') value--;
+    cnt = isNaN(cnt) ? 0 : cnt;
 
-    if(value < 0) return false;
+    price = price/cnt;
 
-    document.getElementById('cnt').value = value;
+    if(div=='P') {
+      cnt++;
+
+
+    } else if(div=='M') {
+
+      cnt--;
+    }
+    
+    price = price * cnt;
+
+    if(cnt < 1) return false;
+
+    document.getElementById('cnt-'+no).value = cnt;
+    document.getElementById('price-'+no).innerHTML = price;
 
   }
   

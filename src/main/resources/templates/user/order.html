@@ -22,7 +22,7 @@
         <div class="row g-5 d-flex justify-content-center">
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">주문하기</h4>
-            <form method="POST" class="needs-validation" novalidate>
+            <form th:action="@{/user/orderAction}" method="POST" novalidate>
               <div class="row g-3">
                 <div class="col-12">
                   <label for="name" class="form-label">이름</label>
@@ -34,7 +34,7 @@
 
                 <div class="col-12">
                   <label for="phone" class="form-label">휴대폰번호</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1111-1111">
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1111-1111" required>
                   <div class="invalid-feedback">
                     휴대폰번호를 입력해주세요.
                   </div>
@@ -50,7 +50,7 @@
     
                 <div class="col-12">
                   <label for="address" class="form-label">주소</label>
-                  <input type="text" class="form-control" id="address" placeholder="서울시 강남구 압구정로 ~" required>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="서울시 강남구 압구정로 ~" required>
                   <div class="invalid-feedback">
                     주소를 입력해주세요.
                   </div>
@@ -156,6 +156,8 @@
             confirmButtonText: '확인',
         });
 
+      obj.selectedIndex = 0;
+
       return;
     }
 
@@ -165,17 +167,25 @@
     const orderList = document.getElementById('orderList');
 
     const div1 = document.createElement('div');
-    div1.setAttribute('class', 'col-12 row mt-10');
+    div1.setAttribute('class', 'col-12 mt-10');
+    div1.setAttribute('id', 'product-'+no);
     const div2 = document.createElement('div');
-    div2.setAttribute('class', 'text-start');
+    div2.setAttribute('class', 'row col-12');
+    const div2_1 = document.createElement('div');
+    div2_1.setAttribute('class', 'col-8 text-start');
+    const div2_2 = document.createElement('div');
+    div2_2.setAttribute('class', 'col-4 text-end');
     const div3 = document.createElement('div');
-    div3.setAttribute('class', 'col-7');
+    div3.setAttribute('class', 'row col-12');
+    const div3_1 = document.createElement('div');
+    div3_1.setAttribute('class', 'col-8');
+    const div3_2 = document.createElement('div');
+    div3_2.setAttribute('class', 'col-4 d-flex justify-content-end');
     const div4 = document.createElement('div');
     div4.setAttribute('class', 'input-group');
     const div5 = document.createElement('div');
     div5.setAttribute('class', 'col-sm-2');
-    const div6 = document.createElement('div');
-    div6.setAttribute('class', 'col-5 d-flex justify-content-end');
+  
 
     const span1 = document.createElement('span');
     span1.textContent = value.productName;
@@ -191,35 +201,55 @@
     button2.setAttribute('class', 'btn btn-primary');
     button2.setAttribute('type', 'button');
     button2.setAttribute('onClick', 'plusMinus(\'P\','+no+')');
+    const button3 = document.createElement('button');
+    button3.setAttribute('class', 'btn close');
+    button3.setAttribute('type', 'button');
 
 
     const i1 = document.createElement('i');
     i1.setAttribute('class', 'fas fa-minus');
     const i2 = document.createElement('i');
     i2.setAttribute('class', 'fas fa-plus');
+    const i3 = document.createElement('i');
+    i3.setAttribute('class', 'bi bi-x-lg');
+    i3.setAttribute('onClick', 'cancel('+no+')');
+
     const input1 = document.createElement('input');
-    input1.setAttribute('class', 'form-control');
+    input1.setAttribute('class', 'form-control rounded-0');
     input1.setAttribute('id', 'cnt-'+no);
+    input1.setAttribute('name', 'productCnt');
     input1.setAttribute('type', 'text');
     input1.setAttribute('value', '1');
+    const inputNo = document.createElement('input');
+    inputNo.setAttribute('type', 'hidden');
+    inputNo.setAttribute('name', 'productNo');
+    inputNo.setAttribute('value', no);
+
+
     const hr1 = document.createElement('hr');
-    hr1.setAttribute('class','my-4');
+    hr1.setAttribute('class','my-2');
 
     orderList.appendChild(div1);
 
+    div1.appendChild(inputNo);
     div1.appendChild(div2);
     div1.appendChild(div3);
-    div1.appendChild(div6);
     div1.appendChild(hr1);
-    div2.appendChild(span1);
-    div3.appendChild(div4);
+    div2.appendChild(div2_1);
+    div2.appendChild(div2_2);
+    div2_1.appendChild(span1);
+    div2_2.appendChild(button3);
+    div3.appendChild(div3_1);
+    div3.appendChild(div3_2);
+    div3_1.appendChild(div4);
     div4.appendChild(button1);
     div4.appendChild(div5);
     div4.appendChild(button2);
     div5.appendChild(input1);
-    div6.appendChild(span2);
+    div3_2.appendChild(span2);
     button1.appendChild(i1);
     button2.appendChild(i2);
+    button3.appendChild(i3);
 
     obj.selectedIndex = 0;
 
@@ -265,6 +295,13 @@
     document.getElementById('price-'+no).innerHTML = price.toLocaleString()+"원";
     document.getElementById('totalPrice').innerHTML = totalPrice.toLocaleString()+"원";
 
+  }
+
+  function cancel(no) {
+
+    const product = document.getElementById('product-'+no);
+    product.remove();
+    
   }
   
 </script>

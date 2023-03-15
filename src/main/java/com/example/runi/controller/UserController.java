@@ -15,6 +15,8 @@ import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.service.ProductService;
 import com.example.runi.service.UserService;
 
+import com.example.runi.domain.dto.OrderDto;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -31,7 +33,7 @@ public class UserController {
         return "user/index";
     }
 
-    @PostMapping("/order")
+    @GetMapping("/order")
     public String order(@RequestParam String id, Model model, RedirectAttributes redirectAttributes) {
 
         //아이디 체크
@@ -49,6 +51,12 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error","존재하지 않는 아이디입니다.");
             return "redirect:/user";
         }
+    }
+
+    @PostMapping("orderAction")
+    public String orderAction(OrderDto request) {
+        System.out.println(request);
+        return "redirect:/user";
     }
 
 }

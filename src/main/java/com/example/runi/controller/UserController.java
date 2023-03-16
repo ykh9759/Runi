@@ -1,20 +1,26 @@
 package com.example.runi.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.example.runi.domain.entity.MemberEntity;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.service.ProductService;
 import com.example.runi.service.UserService;
-
+import com.example.runi.utils.Func;
 import com.example.runi.domain.dto.OrderDto;
 
 @Controller
@@ -34,11 +40,22 @@ public class UserController {
     }
 
     @GetMapping("/order")
-    public String order(@RequestParam String id, Model model, RedirectAttributes redirectAttributes) {
+    public String order(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
+        System.out.println(hRequest);
+        String id = request.getId();
+        
         //아이디 체크
         boolean dupResult = userService.checkId(id);
         if(dupResult) {
+
+            Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(hRequest);
+            if(null != inputFlashMap) {
+                OrderDto orderDto = (OrderDto)inputFlashMap.get("OrderDto");
+                model.addAttribute("OrderDto", orderDto);
+            } else {
+                model.addAttribute("OrderDto", request);
+            }
 
             MemberEntity member = userService.getMember(id);
 
@@ -53,9 +70,26 @@ public class UserController {
         }
     }
 
-    @PostMapping("orderAction")
-    public String orderAction(OrderDto request) {
+    @PostMapping("/order-request")
+    public String orderReqeust(@Valid OrderDto request, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         System.out.println(request);
+
+        //회원가입 실패시 입력 데이터 값을 유지
+        redirectAttributes.addFlashAttribute("OrderDto", request);
+
+        //유효성체크
+        if (errors.hasErrors()) {
+
+            Map<String, String> validatorResult = Func.validateHandling(errors);
+            for (String key : validatorResult.keySet()) {
+                redirectAttributes.addFlashAttribute(key, validatorResult.get(key));
+            }
+
+            return "redirect:/user/order?id="+request.getId();
+        }
+
+        
+        
         return "redirect:/user";
     }
 

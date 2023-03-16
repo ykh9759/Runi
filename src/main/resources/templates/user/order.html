@@ -8,60 +8,45 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
     <!-- content script -->
     <th:block th:replace="user/include/head :: headFragment"></th:block>
-    <!-- index.html 고유 스크립트 추가 -->
-    <th:block layout:fragment="script">
-        <script th:src="@{/js/script.js}"></script>
-        <script th:src="@{/js/order.js}"></script>
-    </th:block>
 </head>
 <body>
-    <!-- header fragment 사용 -->
-    <!-- <th:block th:replace="include/header :: headerFragment"></th:block> -->
     <!-- content fragment 사용 -->
     <div class="container">
         <div class="row g-5 d-flex justify-content-center">
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">주문하기</h4>
-            <form th:action="@{/user/orderAction}" method="POST" novalidate>
+            <form th:action="@{/user/order-request}" method="POST" novalidate>
+              <input type="hidden" name="id" th:value="${OrderDto.id}">
               <div class="row g-3">
                 <div class="col-12">
                   <label for="name" class="form-label">이름</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="홍길동" value="" required>
-                  <div class="invalid-feedback">
-                    이름을 입력해주세요.
-                  </div>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="홍길동" th:value="${OrderDto.name}">
+                  <span class="ml-4 valid" th:if="${valid_name}" th:text="${valid_name}"></span> 
                 </div>
 
                 <div class="col-12">
                   <label for="phone" class="form-label">휴대폰번호</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1111-1111" required>
-                  <div class="invalid-feedback">
-                    휴대폰번호를 입력해주세요.
-                  </div>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="01011112222" maxlength="11" th:value="${OrderDto.phone}">
+                  <span class="ml-4 valid" th:if="${valid_phone}" th:text="${valid_phone}"></span> 
                 </div>
     
                 <div class="col-12">
                   <label for="email" class="form-label">이메일</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-                  <div class="invalid-feedback">
-                    이메일을 입력해주세요.
-                  </div>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" th:value="${OrderDto.email}">
+                  <span class="ml-4 valid" th:if="${valid_email}" th:text="${valid_email}"></span> 
                 </div>
     
                 <div class="col-12">
                   <label for="address" class="form-label">주소</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="서울시 강남구 압구정로 ~" required>
-                  <div class="invalid-feedback">
-                    주소를 입력해주세요.
-                  </div>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="서울시 강남구 압구정로 ~" th:value="${OrderDto.address}">
+                  <span class="ml-4 valid" th:if="${valid_address}" th:text="${valid_address}"></span> 
                 </div>
 
                 <div class="col-12">
-                  <label for="account_name" class="form-label">입금자명</label>
-                  <input type="text" class="form-control" id="account_name" name="accountName" placeholder="홍길동">
-                  <div class="invalid-feedback">
-                    입금자명을 입력해주세요.
-                  </div>
+                  <label for="accountName" class="form-label">입금자명</label>
+                  <input type="text" class="form-control" id="accountName" name="accountName" placeholder="홍길동" th:value="${OrderDto.accountName}">
+                  <span class="text-danger d-block">실제 입금자명과 동일하여야 합니다.</span>
+                  <span class="ml-4 valid" th:if="${valid_accountName}" th:text="${valid_accountName}"></span> 
                 </div>
 
                 <hr class="my-4">
@@ -86,14 +71,15 @@
 
                 <div class="form-check">
                   <p>배송 방식</p>
-                  <input type="checkbox" class="form-check-input" id="normalParcel" name="parcel" value="1" onclick="checkOnlyOne(this)">
+                  <input type="checkbox" class="form-check-input" id="normalParcel" name="parcel" value="1" onclick="checkOnlyOne(this)" th:checked="${OrderDto.parcel == '1'}">
                   <label class="form-check-label" for="save-info">일반택배</label>
                 </div>
 
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="halfParcel" name="parcel" value="2" onclick="checkOnlyOne(this)"> 
+                  <input type="checkbox" class="form-check-input" id="halfParcel" name="parcel" value="2" onclick="checkOnlyOne(this)" th:checked="${OrderDto.parcel == '2'}"> 
                   <label class="form-check-label" for="save-info">반값택배</label>
                 </div>
+                <span class="ml-4 valid" th:if="${valid_parcel}" th:text="${valid_parcel}"></span> 
     
     
                 <hr class="my-4">

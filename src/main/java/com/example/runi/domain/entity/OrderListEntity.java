@@ -10,16 +10,15 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.example.runi.domain.dto.OrderDto;
+
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "order")
-public class OrderEntity extends BaseTimeEntity {
+@Entity(name = "order_list")
+public class OrderListEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +38,21 @@ public class OrderEntity extends BaseTimeEntity {
     @Column(name = "product_no")
     private Integer productNo;
 
+    @Column(name = "product_cnt")
+    private Integer productCnt;
+
+    private Integer price;
+
     private String parcel;
     private String cashReceipts;
+
+    
+    @Builder
+    public OrderListEntity(OrderDto dto, Integer pNo, Integer pCnt) {
+        memberId = dto.getId();
+        name = dto.getName();
+        phone = dto.getPhone();
+        email = dto.getEmail();
+        address = dto.getAddress();
+    }
 }

@@ -37,9 +37,9 @@ public class ProductEntity extends BaseTimeEntity {
     private LocalDate saveDate;
  
     @Builder
-    public ProductEntity(ProductDto request) {
-        memberNo = request.getMemberNo();
-        productName = request.getProductName();
-        price = request.getPrice();
+    public ProductEntity(ProductDto dto) {
+        memberNo = dto.getMemberNo();
+        productName = dto.getProductName();
+        price = dto.getPrice();
     }
 }

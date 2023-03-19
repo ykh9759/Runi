@@ -3,8 +3,6 @@ package com.example.runi.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.transaction.Transactional;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 

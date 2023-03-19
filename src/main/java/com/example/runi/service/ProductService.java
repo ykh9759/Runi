@@ -1,18 +1,15 @@
 package com.example.runi.service;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.runi.domain.dto.ProductDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.ProductEntity;
-import com.example.runi.utils.MemberDetails;
 import com.example.runi.repository.ProductRepository;
 
 @Service

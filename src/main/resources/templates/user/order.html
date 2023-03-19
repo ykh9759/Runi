@@ -200,12 +200,12 @@
     i3.setAttribute('class', 'bi bi-x-lg');
     i3.setAttribute('onClick', 'cancel('+no+')');
 
-    const input1 = document.createElement('input');
-    input1.setAttribute('class', 'form-control rounded-0');
-    input1.setAttribute('id', 'cnt-'+no);
-    input1.setAttribute('name', 'productCnt');
-    input1.setAttribute('type', 'text');
-    input1.setAttribute('value', '1');
+    const inputCnt = document.createElement('input');
+    inputCnt.setAttribute('class', 'form-control rounded-0');
+    inputCnt.setAttribute('id', 'cnt-'+no);
+    inputCnt.setAttribute('name', 'productCnt');
+    inputCnt.setAttribute('type', 'text');
+    inputCnt.setAttribute('value', '1');
     const inputNo = document.createElement('input');
     inputNo.setAttribute('type', 'hidden');
     inputNo.setAttribute('name', 'productNo');
@@ -231,7 +231,7 @@
     div4.appendChild(button1);
     div4.appendChild(div5);
     div4.appendChild(button2);
-    div5.appendChild(input1);
+    div5.appendChild(inputCnt);
     div3_2.appendChild(span2);
     button1.appendChild(i1);
     button2.appendChild(i2);

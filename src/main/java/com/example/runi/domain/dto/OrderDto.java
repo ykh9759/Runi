@@ -13,6 +13,7 @@ import lombok.Data;
 public class OrderDto {
 
     private String id;
+    private Integer memberNo;
     
     @NotBlank(message = "이름을 입력해주세요")
     private String name;

@@ -49,6 +49,13 @@ public class UserController {
         boolean dupResult = userService.checkId(id);
         if(dupResult) {
 
+            MemberEntity member = userService.getMember(id);
+            request.setMemberNo(member.getNo());
+
+            List<ProductEntity> products = userService.getProductMember(member.getNo());
+            
+            model.addAttribute("products", products);
+
             Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(hRequest);
             if(null != inputFlashMap) {
                 OrderDto orderDto = (OrderDto)inputFlashMap.get("OrderDto");
@@ -56,13 +63,6 @@ public class UserController {
             } else {
                 model.addAttribute("OrderDto", request);
             }
-
-            MemberEntity member = userService.getMember(id);
-
-            List<ProductEntity> products = userService.getProductMember(member.getNo());
-            
-            model.addAttribute("id", id);
-            model.addAttribute("products", products);
             return "user/order";
         } else {
             redirectAttributes.addFlashAttribute("error","존재하지 않는 아이디입니다.");

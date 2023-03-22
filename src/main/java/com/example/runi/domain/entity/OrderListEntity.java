@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -34,12 +35,6 @@ public class OrderListEntity extends BaseTimeEntity {
 
     @Column(name = "account_name")
     private String accountName;
-
-    @Column(name = "product_no")
-    private Integer productNo;
-
-    @Column(name = "product_cnt")
-    private Integer productCnt;
 
     private Integer price;
 

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.example.runi.domain.entity.OrderListEntity;
 
 import lombok.Data;
 

@@ -88,7 +88,7 @@ public class UserController {
             return "redirect:/user/order?id="+request.getId();
         }
 
-        userService.orderListSave(request);
+        userService.orderSave(request);
         
         return "redirect:/user";
     }

@@ -18,36 +18,37 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "order_list")
-public class OrderListEntity extends BaseTimeEntity {
+@Entity(name = "orders")
+public class OrderEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer no;
 
-    @Column(name = "member_id")
-    private String memberId;
+    @Column(name = "member_no")
+    private Integer memberNo;
 
-    private String name;
-    private String phone;
-    private String email;
-    private String address;
+    private String name;                    //이름
+    private String phone;                   //휴대폰번호
+    private String email;                   //이메일
+    private String address;                 //주소
 
     @Column(name = "account_name")
-    private String accountName;
+    private String accountName;             //계좌이름
 
-    private Integer price;
-
-    private String parcel;
-    private String cashReceipts;
+    private String parcel;                  //배송방법
+    private String cashReceipts;            //현금영수증유무
 
     
     @Builder
-    public OrderListEntity(OrderDto dto, Integer pNo, Integer pCnt) {
-        memberId = dto.getId();
+    public OrderEntity(OrderDto dto) {
+        memberNo = dto.getMemberNo();
         name = dto.getName();
         phone = dto.getPhone();
         email = dto.getEmail();
         address = dto.getAddress();
+        accountName = dto.getAccountName();
+        parcel = dto.getParcel();
+        cashReceipts = dto.getCashReceipts();
     }
 }

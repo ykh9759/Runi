@@ -11,7 +11,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 
-import static com.example.runi.member.domain.entity.QProductEntity.product;
+import static com.example.runi.domain.entity.QProductEntity.productEntity;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
@@ -24,13 +24,13 @@ public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
     public List<ProductEntity> findBySearch(Integer memberNo, SearchDto reqeust) {
 
         return queryFactory
-                    .selectFrom(product)
+                    .selectFrom(productEntity)
                     .where(
-                        product.memberNo.eq(memberNo),
+                        productEntity.memberNo.eq(memberNo),
                         select(reqeust), 
                         date(reqeust)
                     )
-                    .orderBy(product.no.desc())
+                    .orderBy(productEntity.no.desc())
                     .fetch();
     }
 
@@ -44,13 +44,13 @@ public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
         try {
 
             if(select.equals("0")) {
-                return product.no.eq(Integer.parseInt(search));
+                return productEntity.no.eq(Integer.parseInt(search));
             } else if(select.equals("1")) {
-                return product.productName.eq(search);
+                return productEntity.productName.eq(search);
             } else if(select.equals("2")) {
-                return product.price.eq(Integer.parseInt(search));
+                return productEntity.price.eq(Integer.parseInt(search));
             } else if(select.equals("3")) {
-                return product.saveDate.eq(LocalDate.parse(search));
+                return productEntity.saveDate.eq(LocalDate.parse(search));
             } else {
                 return null;
             }
@@ -68,11 +68,11 @@ public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
         String endDate = reqeust.getEndDate();
 
         if(!startDate.isEmpty() && endDate.isEmpty()) {
-            return product.saveDate.goe(LocalDate.parse(startDate));
+            return productEntity.saveDate.goe(LocalDate.parse(startDate));
         }else if(startDate.isEmpty() && !endDate.isEmpty()) {
-            return product.saveDate.loe(LocalDate.parse(endDate));
+            return productEntity.saveDate.loe(LocalDate.parse(endDate));
         }else if(!startDate.isEmpty() || !endDate.isEmpty()) {
-            return product.saveDate.between(LocalDate.parse(startDate), LocalDate.parse(endDate));
+            return productEntity.saveDate.between(LocalDate.parse(startDate), LocalDate.parse(endDate));
         }else { 
             return null;
         }

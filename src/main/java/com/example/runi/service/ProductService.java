@@ -22,17 +22,19 @@ public class ProductService {
         
     }
 
-    public void save(ProductDto productDto, Integer memberNo) {
+    public void productSave(ProductDto productDto, Integer memberNo) {
 
         productDto.setMemberNo(memberNo);
         
-        ProductEntity proEntity = productDto.toEntity();
+        ProductEntity productEntity = productDto.toEntity();
 
-        System.out.println("proEntity: " + proEntity);
-        productRepository.save(proEntity);
+        System.out.println("proEntity: " + productEntity);
+        productRepository.save(productEntity);
 
     }
 
+
+    //상품내역검색
     public List<ProductEntity> getProductSearch(SearchDto request, Integer memberNo) {
 
         System.out.println(request);

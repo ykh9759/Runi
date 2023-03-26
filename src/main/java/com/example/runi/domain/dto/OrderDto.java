@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -30,7 +30,9 @@ public class OrderDto {
     @NotBlank(message = "입금자명을 입력해주세요")
     private String accountName;
     
+    @NotEmpty(message = "상품을 선택해주세요")
     private List<Integer> productNo;
+
     private List<Integer> productCnt;
 
     @NotBlank(message = "배송방식을 선택해주세요")

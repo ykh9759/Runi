@@ -46,6 +46,17 @@
         });
     }
 
+    let order = /*[[${order}]]*/;
+    if(order) {
+        Swal.fire({
+            text: order,
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+        });
+    }
+
     /*]]>*/
 </script>
 </body>

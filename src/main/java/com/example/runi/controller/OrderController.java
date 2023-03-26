@@ -1,13 +1,28 @@
 package com.example.runi.controller;
 
+import java.util.List;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.runi.domain.entity.OrderEntity;
+import com.example.runi.service.OrderService;
+import com.example.runi.utils.MemberDetails;
 
 
 @Controller
 @RequestMapping("/member")
 public class OrderController {
+
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     //주문내역
     @GetMapping("/order-list")
@@ -21,5 +36,17 @@ public class OrderController {
     public String createCode() {
 
         return "member/order/create_code";
+    }
+
+    @PostMapping("/getOrderList")
+    @ResponseBody
+    public List<OrderEntity> getProductList(@AuthenticationPrincipal MemberDetails memberDetails) {
+        
+
+        List<OrderEntity> orders = orderService.getOrderList(memberDetails.getUserNo());
+
+
+        // System.out.println(products.toString());
+        return orders;
     }
 }

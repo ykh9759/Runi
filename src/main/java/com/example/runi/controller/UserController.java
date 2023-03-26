@@ -88,8 +88,21 @@ public class UserController {
             return "redirect:/user/order?id="+request.getId();
         }
 
+        //중복체크
+        Map<String, String> dupResult = userService.checkDuplication(request);
+        if(!dupResult.isEmpty()) {
+
+            for (String key : dupResult.keySet()) {
+
+                redirectAttributes.addFlashAttribute(key, dupResult.get(key));
+            }
+
+            return "redirect:/user/order?id="+request.getId();
+        }
+
         userService.orderSave(request);
         
+        redirectAttributes.addFlashAttribute("order","주문완료");
         return "redirect:/user";
     }
 

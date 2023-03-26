@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>관리자 - 주문내역</title>
+    <title>관리자 - 상품내역</title>
     <th:block th:replace="member/include/head :: headFragment"></th:block>
 </head>
 <body id="page-top">
@@ -99,7 +99,7 @@
         </div>
     </div>
 <th:block th:replace="member/include/script :: scriptFragment"></th:block>
-<script th:inline="javascript" th:src="@{/js/demo/datatables-product.js}"></script>
+<script th:inline="javascript" th:src="@{/js/datatables/product.js}"></script>
 <script th:inline="javascript">
     function save() {
         $.ajax({

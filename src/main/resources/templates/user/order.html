@@ -58,6 +58,7 @@
                     <option th:value="${product.no}" th:text="${product.productName}"></option>
                   </th:blocl>
                 </select>
+                <span class="ml-4 valid" th:if="${valid_productNo}" th:text="${valid_productNo}"></span> 
 
                 <div id="orderList">
                 </div>

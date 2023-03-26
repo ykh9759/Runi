@@ -5,10 +5,7 @@ import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.utils.Func;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +21,6 @@ import java.util.HashMap;
 
 import com.example.runi.utils.MemberDetails;
 import com.example.runi.service.ProductService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.Valid;
 
@@ -84,7 +79,7 @@ public class ProductController {
 
         System.out.println("MEMBER_NO: " + memberNo);
         System.out.println("productDto: " + request);
-        productservice.save(request, memberNo);
+        productservice.productSave(request, memberNo);
 
 
         resultMap.put("msg", "Y");

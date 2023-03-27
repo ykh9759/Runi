@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.runi.domain.dto.OrderListDto;
 import com.example.runi.domain.entity.OrderEntity;
+import com.example.runi.domain.entity.OrderListEntity;
 import com.example.runi.service.OrderService;
 import com.example.runi.utils.MemberDetails;
 
@@ -40,10 +42,10 @@ public class OrderController {
 
     @PostMapping("/getOrderList")
     @ResponseBody
-    public List<OrderEntity> getProductList(@AuthenticationPrincipal MemberDetails memberDetails) {
+    public List<OrderListDto> getProductList(@AuthenticationPrincipal MemberDetails memberDetails) {
         
 
-        List<OrderEntity> orders = orderService.getOrderList(memberDetails.getUserNo());
+        List<OrderListDto> orders = orderService.getOrderList(memberDetails.getUserNo());
 
 
         // System.out.println(products.toString());

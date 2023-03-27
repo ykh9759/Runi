@@ -34,17 +34,17 @@ $(document).ready(function() {
     ],
     columnDefs: [
       {
-        targets: 2,
+        targets: 8,
         render : $.fn.dataTable.render.number( ',' )
       }
     ],
     "footerCallback":function(){
       var api = this.api(), data;
       var result = 0;
-      api.column(2, {search:'applied'}).data().each(function(data){
+      api.column(8, {search:'applied'}).data().each(function(data){
           result += parseFloat(data);
       });
-      $(api.column(2).footer()).html(result.toLocaleString()+'원');
+      $(api.column(8).footer()).html(result.toLocaleString()+'원');
     },
     "order": [[3, 'desc']]
   });

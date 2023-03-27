@@ -21,8 +21,8 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "orders")
-public class OrderEntity extends BaseTimeEntity {
+@Entity
+public class OrderListEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,18 +42,7 @@ public class OrderEntity extends BaseTimeEntity {
     private String parcel;                  //배송방법
     private String cashReceipts;            //현금영수증유무
 
-    // @OneToMany(mappedBy = "oNo")
-    // private List<OrderProductEntity> orderProductEntities = new ArrayList<>();
-    
-    @Builder
-    public OrderEntity(OrderDto dto) {
-        memberNo = dto.getMemberNo();
-        name = dto.getName();
-        phone = dto.getPhone();
-        email = dto.getEmail();
-        address = dto.getAddress();
-        accountName = dto.getAccountName();
-        parcel = dto.getParcel();
-        cashReceipts = dto.getCashReceipts();
-    }
+    private String plist;                    //현금영수증유무
+    private String price;                    //현금영수증유무
+
 }

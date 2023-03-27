@@ -43,7 +43,7 @@ public class UserController {
     public String order(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
         System.out.println(hRequest);
-        String id = request.getId();
+        String id = request.getId().trim();
         
         //아이디 체크
         boolean dupResult = userService.checkId(id);

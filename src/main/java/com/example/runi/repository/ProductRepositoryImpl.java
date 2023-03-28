@@ -14,14 +14,15 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.example.runi.domain.entity.QProductEntity.productEntity;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepositoryQueryDSL {
+public class ProductRepositoryImpl implements ProductRepositoryQDSL {
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
         this.queryFactory = jpaQueryFactory;
     }
 
-    public List<ProductEntity> findBySearch(Integer memberNo, SearchDto reqeust) {
+    @Override
+    public List<ProductEntity> findBySearch(SearchDto reqeust, Integer memberNo) {
 
         return queryFactory
                     .selectFrom(productEntity)

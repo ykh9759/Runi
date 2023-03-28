@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.runi.domain.dto.OrderListDto;
+import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.OrderListEntity;
 import com.example.runi.repository.OrderListRepository;
@@ -23,9 +24,16 @@ public class OrderService {
         
     }
 
-    public List<OrderListDto> getOrderList(Integer memberNo) {
+    public List<OrderListDto> getOrderList(SearchDto request, Integer memberNo) {
 
         List<OrderListEntity> listeEntities = orderListRepository.findByMemberNoOrderByNoDesc(memberNo);
+
+        if(request.isDtoEntireVariableNull()) {
+            listeEntities = orderListRepository.findByMemberNoOrderByNoDesc(memberNo);
+        } else {
+            listeEntities =orderListRepository.findBySearch(request, memberNo);
+        }
+
         List<OrderListDto> listdtos = new ArrayList<>();
 
         for (OrderListEntity orderListEntity : listeEntities) {

@@ -43,6 +43,6 @@ public class OrderListEntity extends BaseTimeEntity {
     private String cashReceipts;            //현금영수증유무
 
     private String plist;                    //현금영수증유무
-    private String price;                    //현금영수증유무
+    private Integer price;                    //현금영수증유무
 
 }

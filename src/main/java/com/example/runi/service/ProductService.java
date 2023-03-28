@@ -35,7 +35,7 @@ public class ProductService {
 
 
     //상품내역검색
-    public List<ProductEntity> getProductSearch(SearchDto request, Integer memberNo) {
+    public List<ProductEntity> getProductList(SearchDto request, Integer memberNo) {
 
         System.out.println(request);
 
@@ -44,7 +44,7 @@ public class ProductService {
         if(request.isDtoEntireVariableNull()) {
             list = productRepository.findByMemberNoOrderByNoDesc(memberNo);
         } else {
-            list = productRepository.findBySearch(memberNo, request);
+            list = productRepository.findBySearch(request, memberNo);
         }
 
         return list;

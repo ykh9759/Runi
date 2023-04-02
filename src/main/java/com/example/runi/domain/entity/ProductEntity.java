@@ -39,8 +39,8 @@ public class ProductEntity extends BaseTimeEntity {
     @Column(name = "save_date")
     private LocalDate saveDate;
 
-    // @OneToMany(mappedBy = "pNo")
-    // private List<OrderProductEntity> orderProductEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "pNo")
+    private List<OrderProductEntity> refpNo = new ArrayList<>();
  
     @Builder
     public ProductEntity(ProductDto dto) {

@@ -33,7 +33,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
         
         return queryFactory
                         .selectFrom(orderListEntity)
-                        .rightJoin(orderEntity.orderProductEntities ,orderProductEntity)
+                        // .rightJoin(orderEntity.orderProductEntities ,orderProductEntity)
                         .orderBy(orderEntity.no.desc())
                         .fetch();
     }

@@ -31,7 +31,7 @@ public class OrderService {
         if(request.isDtoEntireVariableNull()) {
             listeEntities = orderListRepository.findByMemberNoOrderByNoDesc(memberNo);
         } else {
-            listeEntities =orderListRepository.findBySearch(request, memberNo);
+            listeEntities = orderListRepository.findBySearch(request, memberNo);
         }
 
         List<OrderListDto> listdtos = new ArrayList<>();

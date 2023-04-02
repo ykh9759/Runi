@@ -43,7 +43,7 @@ public class OrderEntity extends BaseTimeEntity {
     private String cashReceipts;            //현금영수증유무
 
     @OneToMany(mappedBy = "oNo")
-    private List<OrderProductEntity> orderProductEntities = new ArrayList<>();
+    private List<OrderProductEntity> refoNo = new ArrayList<>();
     
     @Builder
     public OrderEntity(OrderDto dto) {

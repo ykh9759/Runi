@@ -40,13 +40,13 @@ class RuniApplicationTests {
 		List<Tuple> a =  queryFactory
 						.select(
 							orderEntity.no,
-							Expressions.stringTemplate("ARRAY_AGG({0})", Expressions.asString(productEntity.productName)).as("plist"),
+							Expressions.template(String.class, "array_agg({0})", productEntity.productName).as("plist"),
 							orderProductEntity.pPrice.sum().as("price")
 						)
 						.from(orderEntity)
                         .leftJoin(orderEntity.refoNo, orderProductEntity)
 						.leftJoin(orderProductEntity.pNo, productEntity)
-						.where(orderEntity.no.eq(memberNo)) 
+						.where(orderEntity.memberNo.eq(memberNo)) 
                         .orderBy(orderEntity.no.desc())
 						.groupBy(orderEntity.no)
 						.fetch();

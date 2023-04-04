@@ -5,26 +5,28 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 
-import lombok.*;
+
+import javax.persistence.JoinColumn;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity(name = "order_product")
 @IdClass(OrderProductPK.class)
 public class OrderProductEntity {
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "o_no", referencedColumnName = "no")
     private OrderEntity oNo;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_no", referencedColumnName = "no")
     private ProductEntity pNo;
 

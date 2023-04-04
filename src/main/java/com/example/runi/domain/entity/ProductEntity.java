@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,12 +15,14 @@ import javax.persistence.OneToMany;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.example.runi.domain.dto.ProductDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity(name = "product")
 public class ProductEntity extends BaseTimeEntity {
     
@@ -39,7 +42,8 @@ public class ProductEntity extends BaseTimeEntity {
     @Column(name = "save_date")
     private LocalDate saveDate;
 
-    @OneToMany(mappedBy = "pNo")
+    @OneToMany(mappedBy = "pNo", fetch = FetchType.LAZY) //FetchType.LAZY 사용할때 호출하는 방식
+    @JsonIgnore
     private List<OrderProductEntity> refpNo = new ArrayList<>();
  
     @Builder

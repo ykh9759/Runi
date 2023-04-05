@@ -1,5 +1,7 @@
 package com.example.runi.domain.dto;
 
+import java.time.LocalDate;
+
 import com.example.runi.domain.entity.OrderListEntity;
 
 import lombok.*;
@@ -27,6 +29,8 @@ public class OrderListDto {
     private String plist;                    //현금영수증유무
     private Integer price;                    //현금영수증유무
 
+    private LocalDate inTime;                    //현금영수증유무
+
     @Builder
     public OrderListDto(OrderListEntity entity) {
         no = entity.getNo();
@@ -41,7 +45,7 @@ public class OrderListDto {
         accountName = entity.getAccountName();
         parcel = entity.getParcel();
         cashReceipts = entity.getCashReceipts();
-
+        inTime = entity.getInTime().toLocalDate();
         plist = entity.getPlist();
 
         price = entity.getPrice();

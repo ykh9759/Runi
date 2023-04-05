@@ -2,22 +2,23 @@ package com.example.runi.repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.OrderListEntity;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import static com.example.runi.domain.entity.QOrderEntity.orderEntity;
 import static com.example.runi.domain.entity.QOrderProductEntity.orderProductEntity;
-import static com.example.runi.domain.entity.QOrderListEntity.orderListEntity;
+import static com.example.runi.domain.entity.QProductEntity.productEntity;
 
 @Repository
 public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
@@ -29,65 +30,115 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
     }
 
     @Override
-    public List<OrderListEntity> findBySearch(SearchDto reqeust, Integer memberNo) {
-        
-        return queryFactory
-                        .selectFrom(orderListEntity)
-                        // .rightJoin(orderEntity.orderProductEntities ,orderProductEntity)
+    public List<OrderListEntity> findBySearch(SearchDto request, Integer memberNo) {
+
+
+        List<Tuple> list =  queryFactory
+						.select(
+							orderEntity,
+							Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).as("plist"),
+							orderProductEntity.pPrice.sum().as("price")
+						)
+						.from(orderEntity)
+                        .leftJoin(orderEntity.refoNo, orderProductEntity)
+						.leftJoin(orderProductEntity.pNo, productEntity)
+						.where(
+                            orderEntity.memberNo.eq(memberNo),
+                            searchWhere(request),
+                            date(request)
+                        ) 
                         .orderBy(orderEntity.no.desc())
-                        .fetch();
+						.groupBy(orderEntity.no)
+                        .having(searchHaving(request))
+						.fetch();
+
+        List<OrderListEntity> listole = new ArrayList<>();
+
+        for(Tuple tuple : list) {
+            
+            OrderListEntity orderListEntity = OrderListEntity.builder()
+                                                        .entity(tuple.get(0, OrderEntity.class))
+                                                        .plist(tuple.get(1, String.class))
+                                                        .price(tuple.get(2, Integer.class))
+                                                        .build();
+            listole.add(orderListEntity);
+        }
+
+        return listole;
     }
 
-    // private BooleanExpression select(SearchDto reqeust) {
+    private BooleanExpression searchWhere(SearchDto request) {
         
-    //     String select = reqeust.getSelect();
-    //     String search = reqeust.getSearch();
+        String select = request.getSelect();
+        String search = request.getSearch();
 
-    //     if(search.isEmpty()) return null;
+        if(search.isEmpty()) return null;
 
-    //     try {
+        try {
 
-    //         if(select.equals("0")) {
-    //             return OrderEntity.no.eq(Integer.parseInt(search));
-    //         } else if(select.equals("1")) {
-    //             return OrderEntity.name.eq(search);
-    //         } else if(select.equals("2")) {
-    //             return orderEntity.phone.eq(search);
-    //         } else if(select.equals("3")) {
-    //             return orderEntity.address.eq(search);
-    //         } else if(select.equals("4")) {
-    //             return orderEntity.accountName.eq(search);
-    //         }else if(select.equals("5")) {
-    //             return orderEntity.parcel.eq(search);
-    //         }else if(select.equals("6")) {
-    //             return orderEntity.cashReceipts.eq(search);
-    //         }else if(select.equals("7")) {
-    //             return orderEntity.orderProductEntities.get().eq(Integer.parseInt(search));
-    //         }else {
-    //             return null;
-    //         }
+            if(select.equals("0")) {
+                return orderEntity.no.eq(Integer.parseInt(search));
+            } else if(select.equals("1")) {
+                return orderEntity.name.eq(search);
+            } else if(select.equals("2")) {
+                return orderEntity.phone.eq(search);
+            } else if(select.equals("3")) {
+                return orderEntity.address.eq(search);
+            } else if(select.equals("4")) {
+                return orderEntity.accountName.eq(search);
+            }else if(select.equals("5")) {
+                return orderEntity.parcel.eq(search);
+            }else if(select.equals("6")) {
+                return orderEntity.cashReceipts.eq(search);
+            }else {
+                return null;
+            }
 
-    //     } catch(Exception e) {
-    //         return null;
-    //     }
-    // }
+        } catch(Exception e) {
+            return null;
+        }
+    }
     
 
-    // //날짜 검색
-    // private BooleanExpression date(SearchDto reqeust) {
-        
-    //     String startDate = reqeust.getStartDate();
-    //     String endDate = reqeust.getEndDate();
+    //날짜 검색
+    private BooleanExpression date(SearchDto request) {
 
-    //     if(!startDate.isEmpty() && endDate.isEmpty()) {
-    //         return orderEntity.inTime.goe(LocalDateTime.parse(startDate));
-    //     }else if(startDate.isEmpty() && !endDate.isEmpty()) {
-    //         return orderEntity.inTime.loe(LocalDateTime.parse(endDate));
-    //     }else if(!startDate.isEmpty() || !endDate.isEmpty()) {
-    //         return orderEntity.inTime.between(LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
-    //     }else { 
-    //         return null;
-    //     }
-    // }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        System.out.println(null);
+        
+        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), formatter).atStartOfDay();
+        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), formatter).atStartOfDay();
+
+        if(startDate != null && endDate == null) {
+            return orderEntity.inTime.goe(startDate);
+        }else if(startDate == null && endDate != null) {
+            return orderEntity.inTime.loe(endDate);
+        }else if(startDate != null || endDate != null) {
+            return orderEntity.inTime.between(startDate, endDate);
+        }else { 
+            return null;
+        }
+    }
+
+    private BooleanExpression searchHaving(SearchDto request) {
+
+        String select = request.getSelect();
+        String search = request.getSearch();
+
+        try {
+
+            if(select.equals("7")) {
+                return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search);
+            } else if(select.equals("8")) {
+                return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search));
+            } else {
+                return null;
+            }
+
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
 }

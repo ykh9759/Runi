@@ -31,6 +31,7 @@ $(document).ready(function() {
       {data: 'cashReceipts'},
       {data: 'plist'},
       {data: 'price'},
+      {data: 'inTime'},
     ],
     columnDefs: [
       {

@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
@@ -40,8 +41,6 @@ class RuniApplicationTests {
 		SearchDto request = new SearchDto();
 
 		Integer memberNo = 7;
-		request.setSelect("0");
-		request.setSearch("5");
         request.setStartDate("2023-03-27");
 		
 	
@@ -82,53 +81,65 @@ class RuniApplicationTests {
 
     private BooleanExpression searchWhere(SearchDto request) {
         
-        String select = request.getSelect();
-        String search = request.getSearch();
+        Optional<String> select = Optional.ofNullable(request.getSelect().trim());
+        Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
-        if(search.isEmpty()) return null;
-
-        try {
-
-            if(select.equals("0")) {
-                return orderEntity.no.eq(Integer.parseInt(search));
-            } else if(select.equals("1")) {
-                return orderEntity.name.eq(search);
-            } else if(select.equals("2")) {
-                return orderEntity.phone.eq(search);
-            } else if(select.equals("3")) {
-                return orderEntity.address.eq(search);
-            } else if(select.equals("4")) {
-                return orderEntity.accountName.eq(search);
-            }else if(select.equals("5")) {
-                return orderEntity.parcel.eq(search);
-            }else if(select.equals("6")) {
-                return orderEntity.cashReceipts.eq(search);
-            }else {
-                return null;
-            }
-
-        } catch(Exception e) {
+        if(!select.isPresent()) { 
+            return null;
+        } else if(!search.isPresent()) {
             return null;
         }
+
+        String str1 = select.get();
+        String str2 = search.get();
+
+        if (str1.equals("0")) {
+            return orderEntity.no.eq(Integer.parseInt(str2));
+        } else if (str1.equals("1")) {
+            return orderEntity.name.eq(str2);
+        } else if (str1.equals("2")) {
+            return orderEntity.phone.eq(str2);
+        } else if (str1.equals("3")) {
+            return orderEntity.address.eq(str2);
+        } else if (str1.equals("4")) {
+            return orderEntity.accountName.eq(str2);
+        } else if (str1.equals("5")) {
+            return orderEntity.parcel.eq(str2);
+        } else if (str1.equals("6")) {
+            return orderEntity.cashReceipts.eq(str2);
+        } else {
+            return null;
+        }
+
     }
     
 
     //날짜 검색
     private BooleanExpression date(SearchDto request) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        
-        System.out.println(LocalDate.parse(request.getStartDate(), formatter));
-        
-        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), formatter).atStartOfDay();
-        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), formatter).atStartOfDay();
+        Optional<String> sDate = Optional.ofNullable(request.getStartDate().trim());
+        Optional<String> eDate = Optional.ofNullable(request.getEndDate().trim());
 
-        if(startDate != null && endDate == null) {
-            return orderEntity.inTime.goe(startDate);
-        }else if(startDate == null && endDate != null) {
-            return orderEntity.inTime.loe(endDate);
-        }else if(startDate != null || endDate != null) {
-            return orderEntity.inTime.between(startDate, endDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Optional<LocalDateTime> startDate = Optional.empty();
+        Optional<LocalDateTime> endDate = Optional.empty();
+        
+        
+        if(sDate.isPresent()) {
+            startDate =  Optional.ofNullable(LocalDate.parse(sDate.get(), formatter).atStartOfDay());
+        }
+
+        if(eDate.isPresent()) {
+            endDate = Optional.ofNullable(LocalDate.parse(eDate.get(), formatter).atStartOfDay());
+        }
+
+
+        if(startDate.isPresent() && !endDate.isPresent()) {
+            return orderEntity.inTime.goe(startDate.get());
+        }else if(!startDate.isPresent() && endDate.isPresent()) {
+            return orderEntity.inTime.loe(endDate.get());
+        }else if(startDate.isPresent() && endDate.isPresent()) {
+            return orderEntity.inTime.between(startDate.get(), endDate.get());
         }else { 
             return null;
         }

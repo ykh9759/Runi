@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
     @Override
     public List<OrderListEntity> findBySearch(SearchDto request, Integer memberNo) {
 
+        System.out.println(request);
 
         List<Tuple> list =  queryFactory
 						.select(
@@ -69,53 +71,64 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
 
     private BooleanExpression searchWhere(SearchDto request) {
         
-        String select = request.getSelect();
-        String search = request.getSearch();
+        Optional<String> select = Optional.ofNullable(request.getSelect().trim());
+        Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
-        if(search.isEmpty()) return null;
-
-        try {
-
-            if(select.equals("0")) {
-                return orderEntity.no.eq(Integer.parseInt(search));
-            } else if(select.equals("1")) {
-                return orderEntity.name.eq(search);
-            } else if(select.equals("2")) {
-                return orderEntity.phone.eq(search);
-            } else if(select.equals("3")) {
-                return orderEntity.address.eq(search);
-            } else if(select.equals("4")) {
-                return orderEntity.accountName.eq(search);
-            }else if(select.equals("5")) {
-                return orderEntity.parcel.eq(search);
-            }else if(select.equals("6")) {
-                return orderEntity.cashReceipts.eq(search);
-            }else {
-                return null;
-            }
-
-        } catch(Exception e) {
+        if(!select.isPresent() || select.get().isEmpty()) { 
+            return null;
+        } else if(!search.isPresent() || search.get().isEmpty()) {
             return null;
         }
+
+        if (select.get().equals("0")) {
+            return orderEntity.no.eq(Integer.parseInt(search.get()));
+        } else if (select.get().equals("1")) {
+            return orderEntity.name.eq(search.get());
+        } else if (select.get().equals("2")) {
+            return orderEntity.phone.eq(search.get());
+        } else if (select.get().equals("3")) {
+            return orderEntity.address.eq(search.get());
+        } else if (select.get().equals("4")) {
+            return orderEntity.accountName.eq(search.get());
+        } else if (select.get().equals("5")) {
+            return orderEntity.parcel.eq(search.get());
+        } else if (select.get().equals("6")) {
+            return orderEntity.cashReceipts.eq(search.get());
+        } else {
+            return null;
+        }
+
     }
     
 
     //날짜 검색
     private BooleanExpression date(SearchDto request) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        
-        System.out.println(null);
-        
-        LocalDateTime startDate = LocalDate.parse(request.getStartDate(), formatter).atStartOfDay();
-        LocalDateTime endDate = LocalDate.parse(request.getEndDate(), formatter).atStartOfDay();
+        Optional<String> sDate = Optional.ofNullable(request.getStartDate().trim());
+        Optional<String> eDate = Optional.ofNullable(request.getEndDate().trim());
 
-        if(startDate != null && endDate == null) {
-            return orderEntity.inTime.goe(startDate);
-        }else if(startDate == null && endDate != null) {
-            return orderEntity.inTime.loe(endDate);
-        }else if(startDate != null || endDate != null) {
-            return orderEntity.inTime.between(startDate, endDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Optional<LocalDateTime> startDate = Optional.empty();
+        Optional<LocalDateTime> endDate = Optional.empty();
+        
+        System.out.println(sDate);
+        System.out.println(eDate);
+        
+        if(sDate.isPresent() && !sDate.get().isEmpty()) {
+            startDate =  Optional.ofNullable(LocalDate.parse(sDate.get(), formatter).atStartOfDay());
+        } 
+
+        if(eDate.isPresent() && !eDate.get().isEmpty()) {
+            endDate = Optional.ofNullable(LocalDate.parse(eDate.get(), formatter).atStartOfDay().plusDays(1));
+        }
+
+
+        if(startDate.isPresent() && !endDate.isPresent()) {
+            return orderEntity.inTime.goe(startDate.get());
+        }else if(!startDate.isPresent() && endDate.isPresent()) {
+            return orderEntity.inTime.loe(endDate.get());
+        }else if(startDate.isPresent() && endDate.isPresent()) {
+            return orderEntity.inTime.between(startDate.get(), endDate.get());
         }else { 
             return null;
         }
@@ -123,22 +136,17 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
 
     private BooleanExpression searchHaving(SearchDto request) {
 
-        String select = request.getSelect();
-        String search = request.getSearch();
+        Optional<String> select = Optional.ofNullable(request.getSelect().trim());
+        Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
-        try {
-
-            if(select.equals("7")) {
-                return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search);
-            } else if(select.equals("8")) {
-                return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search));
-            } else {
-                return null;
-            }
-
-        } catch(Exception e) {
+        if(select.get().equals("7")) {
+            return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search.get());
+        } else if(select.get().equals("8")) {
+            return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search.get()));
+        } else {
             return null;
         }
+
     }
 
 }

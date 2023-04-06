@@ -37,8 +37,8 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
 
     private BooleanExpression select(SearchDto reqeust) {
         
-        String select = reqeust.getSelect();
-        String search = reqeust.getSearch();
+        String select = reqeust.getSelect().trim();
+        String search = reqeust.getSearch().trim();
 
         if(search.isEmpty()) return null;
 
@@ -65,14 +65,14 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
     //날짜 검색
     private BooleanExpression date(SearchDto reqeust) {
         
-        String startDate = reqeust.getStartDate();
-        String endDate = reqeust.getEndDate();
+        String startDate = reqeust.getStartDate().trim();
+        String endDate = reqeust.getEndDate().trim();
 
         if(!startDate.isEmpty() && endDate.isEmpty()) {
             return productEntity.saveDate.goe(LocalDate.parse(startDate));
         }else if(startDate.isEmpty() && !endDate.isEmpty()) {
             return productEntity.saveDate.loe(LocalDate.parse(endDate));
-        }else if(!startDate.isEmpty() || !endDate.isEmpty()) {
+        }else if(!startDate.isEmpty() && !endDate.isEmpty()) {
             return productEntity.saveDate.between(LocalDate.parse(startDate), LocalDate.parse(endDate));
         }else { 
             return null;

@@ -2,9 +2,11 @@ package com.example.runi.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.runi.config.GlobalValue;
 import com.example.runi.domain.dto.OrderListDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.OrderEntity;
@@ -15,12 +17,12 @@ import com.example.runi.repository.OrderRepository;
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
     private final OrderListRepository orderListRepository;
+    private final GlobalValue globalValue;
 
-    public OrderService(OrderRepository orderRepository, OrderListRepository orderListRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(OrderListRepository orderListRepository, GlobalValue globalValue) {
         this.orderListRepository = orderListRepository;
+        this.globalValue = globalValue;
         
     }
 
@@ -41,6 +43,9 @@ public class OrderService {
             listdtos.add(dto);
         }
 
+
+        listdtos.forEach(dto -> dto.setParcel(globalValue.getGlobalValue("parcel", dto.getParcel())));
+        listdtos.forEach(dto -> dto.setCashReceipts(globalValue.getGlobalValue("cashReceipts", dto.getCashReceipts())));
 
         return listdtos;
     }

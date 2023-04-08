@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.runi.config.GlobalValue;
 import com.example.runi.domain.dto.SearchDto;
+import com.example.runi.domain.entity.GlobalValueEntity;
 import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.OrderListEntity;
 import com.querydsl.core.Tuple;
@@ -22,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.Entity;
@@ -32,6 +35,23 @@ class RuniApplicationTests {
 
 	@Autowired
 	private JPAQueryFactory queryFactory;
+
+    @Autowired
+    private GlobalValue globalValue;
+
+    @Test 
+    public void test() {
+
+        String category = "parcel";
+
+        
+       Map<String, String> value = globalValue.getGlobalValue(category);
+
+        System.out.println(value.get("1"));
+        
+
+        
+    }
 
 
 	@Test

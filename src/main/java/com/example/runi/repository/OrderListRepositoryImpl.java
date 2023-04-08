@@ -81,19 +81,19 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
         }
 
         if (select.get().equals("0")) {
-            return orderEntity.no.eq(Integer.parseInt(search.get()));
+            return orderEntity.no.like("%" + Integer.parseInt(search.get()) + "%" );
         } else if (select.get().equals("1")) {
-            return orderEntity.name.eq(search.get());
+            return orderEntity.name.like("%" + search.get() + "%");
         } else if (select.get().equals("2")) {
-            return orderEntity.phone.eq(search.get());
+            return orderEntity.phone.like("%" + search.get() + "%");
         } else if (select.get().equals("3")) {
-            return orderEntity.address.eq(search.get());
+            return orderEntity.address.like("%" + search.get() + "%");
         } else if (select.get().equals("4")) {
-            return orderEntity.accountName.eq(search.get());
+            return orderEntity.accountName.like("%" + search.get() + "%");
         } else if (select.get().equals("5")) {
-            return orderEntity.parcel.eq(search.get());
+            return orderEntity.parcel.like("%" + search.get() + "%");
         } else if (select.get().equals("6")) {
-            return orderEntity.cashReceipts.eq(search.get());
+            return orderEntity.cashReceipts.like("%" + search.get() + "%");
         } else {
             return null;
         }
@@ -140,9 +140,9 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
         Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
         if(select.get().equals("7")) {
-            return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search.get());
+            return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).like("%" + search.get() + "%");
         } else if(select.get().equals("8")) {
-            return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search.get()));
+            return orderProductEntity.pPrice.sum().like("%" + Integer.parseInt(search.get()) + "%");
         } else {
             return null;
         }

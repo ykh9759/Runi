@@ -71,7 +71,6 @@ public class UserService {
         //주문상품내역 저장
         for(int i = 0; i < dto.getProductNo().size(); i++) 
         {
-            int pNo = dto.getProductNo().get(i);
             int pCnt = dto.getProductCnt().get(i);
             int pPrice = 0;
 

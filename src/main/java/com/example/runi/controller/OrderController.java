@@ -2,6 +2,8 @@ package com.example.runi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.OrderListDto;
 import com.example.runi.domain.dto.SearchDto;
-import com.example.runi.domain.entity.OrderEntity;
-import com.example.runi.domain.entity.OrderListEntity;
 import com.example.runi.service.OrderService;
-import com.example.runi.utils.MemberDetails;
 
 
 @Controller
@@ -43,7 +43,7 @@ public class OrderController {
 
     @PostMapping("/getOrderList")
     @ResponseBody
-    public List<OrderListDto> getProductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) {
+    public List<OrderListDto> getProductList(@Valid SearchDto request, Error error, @AuthenticationPrincipal MemberDetails memberDetails) {
         
 
         List<OrderListDto> orders = orderService.getOrderList(request, memberDetails.getUserNo());

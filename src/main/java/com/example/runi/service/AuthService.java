@@ -1,9 +1,9 @@
 package com.example.runi.service;
 
+import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.LoginDto;
 import com.example.runi.domain.dto.SignupDto;
 import com.example.runi.domain.entity.MemberEntity;
-import com.example.runi.utils.MemberDetails;
 import com.example.runi.repository.MemberRepository;
 
 import java.util.HashMap;

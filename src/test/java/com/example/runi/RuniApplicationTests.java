@@ -45,9 +45,9 @@ class RuniApplicationTests {
         String category = "parcel";
 
         
-       Map<String, String> value = globalValue.getGlobalValue(category);
+        String value = globalValue.getGlobalValue(category, "1");
 
-        System.out.println(value.get("1"));
+        System.out.println(value);
         
 
         

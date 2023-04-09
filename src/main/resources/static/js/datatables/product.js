@@ -12,7 +12,7 @@ $(document).ready(function() {
     ajax: {
       'url' : '/member/getProductList',
       'type' : 'POST',
-      'dataSrc' : '',
+      'dataSrc' : 'data',
       "data" : function ( d ) {
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),

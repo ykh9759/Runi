@@ -1,7 +1,6 @@
-package com.example.runi.utils;
+package com.example.runi.config;
 
 import com.example.runi.domain.entity.MemberEntity;
-import com.example.runi.config.Role;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

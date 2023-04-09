@@ -2,17 +2,14 @@ package com.example.runi.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.example.runi.config.GlobalValue;
 import com.example.runi.domain.dto.OrderListDto;
 import com.example.runi.domain.dto.SearchDto;
-import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.OrderListEntity;
 import com.example.runi.repository.OrderListRepository;
-import com.example.runi.repository.OrderRepository;
 
 @Service
 public class OrderService {

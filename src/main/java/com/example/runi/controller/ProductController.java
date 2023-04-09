@@ -1,5 +1,6 @@
 package com.example.runi.controller;
 
+import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.ProductDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.ProductEntity;
@@ -17,9 +18,9 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.example.runi.utils.MemberDetails;
 import com.example.runi.service.ProductService;
 
 import javax.validation.Valid;
@@ -90,14 +91,35 @@ public class ProductController {
 
     @PostMapping("/getProductList")
     @ResponseBody
-    public List<ProductEntity> getProductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) {
+    public JSONObject getProductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) {
         
         System.out.println(request);
 
         List<ProductEntity> products = productservice.getProductList(request, memberDetails.getUserNo());
 
+        Map<String, List<Object>> resultMap2 = new HashMap<String,List<Object>>();
+        List<Object> list = new ArrayList<Object>();
 
-        // System.out.println(products.toString());
-        return products;
+        for(ProductEntity entity : products) {
+            Map<String, Object> resultMap = new HashMap<String, Object>();
+            resultMap.put("inTime", entity.getInTime());
+            resultMap.put("uptime", entity.getUptime());
+            resultMap.put("no", entity.getNo());
+            resultMap.put("memberNo", entity.getMemberNo());
+            resultMap.put("productName", entity.getProductName());
+            resultMap.put("price", entity.getPrice());
+            resultMap.put("saveDate", entity.getSaveDate());
+
+            JSONObject obj = new JSONObject(resultMap);
+            list.add(obj);
+        }
+
+        resultMap2.put("data", list);
+        JSONObject result = new JSONObject(resultMap2);
+
+        System.out.println(result.toJSONString());
+
+        return result;
+
     }
 }

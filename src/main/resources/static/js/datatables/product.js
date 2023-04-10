@@ -12,12 +12,22 @@ $(document).ready(function() {
     ajax: {
       'url' : '/member/getProductList',
       'type' : 'POST',
-      'dataSrc' : 'data',
+      'dataType' : 'json',
       "data" : function ( d ) {
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),
         d.select = $("#select").val(),
         d.search = $("#search").val()
+      },
+      'dataSrc' : function (data) {
+        if (data.error) {
+          alert(data.error.valid_endDate);
+        }
+
+        return data.data;
+      },
+      'error' : function(xhr, error, thrown) {
+        alert('서버 에러');
       }
     },
     // destroy: true,

@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -40,8 +43,15 @@ public class Func {
         return objectMapper.writeValueAsString(list);
     }
 
-    // public static String toJsonString(ProductEntity entity) throws JsonProcessingException {
-    //     return objectMapper.writeValueAsString(entity);
-    // }
+    public static JSONObject toJsonObject(Object object) throws JsonProcessingException, ParseException {
+        String json =  objectMapper.writeValueAsString(object);
+
+        JSONParser parser = new JSONParser();
+
+        JSONObject obj = (JSONObject) parser.parse(json);
+
+        return obj;
+    }
+
 
 }

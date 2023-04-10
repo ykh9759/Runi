@@ -5,8 +5,12 @@ import com.example.runi.domain.dto.ProductDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.utils.Func;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,31 +95,33 @@ public class ProductController {
 
     @PostMapping("/getProductList")
     @ResponseBody
-    public JSONObject getProductList(SearchDto request, @AuthenticationPrincipal MemberDetails memberDetails) {
+    public JSONObject getProductList(@Valid SearchDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
         
         System.out.println(request);
 
-        List<ProductEntity> products = productservice.getProductList(request, memberDetails.getUserNo());
+        Map<String, Object> map = new HashMap<String,Object>();
 
-        Map<String, List<Object>> resultMap2 = new HashMap<String,List<Object>>();
-        List<Object> list = new ArrayList<Object>();
+        //유효성체크
+        if (errors.hasErrors()) {
 
-        for(ProductEntity entity : products) {
-            Map<String, Object> resultMap = new HashMap<String, Object>();
-            resultMap.put("inTime", entity.getInTime());
-            resultMap.put("uptime", entity.getUptime());
-            resultMap.put("no", entity.getNo());
-            resultMap.put("memberNo", entity.getMemberNo());
-            resultMap.put("productName", entity.getProductName());
-            resultMap.put("price", entity.getPrice());
-            resultMap.put("saveDate", entity.getSaveDate());
-
-            JSONObject obj = new JSONObject(resultMap);
-            list.add(obj);
+            Map<String, String> validatorResult = new HashMap<String, String>();
+            validatorResult = Func.validateHandling(errors);
+            
+            map.put("error", validatorResult);
         }
 
-        resultMap2.put("data", list);
-        JSONObject result = new JSONObject(resultMap2);
+        List<ProductEntity> products = productservice.getProductList(request, memberDetails.getUserNo());
+        List<Object> arr = new ArrayList<Object>();
+
+        for(ProductEntity entity : products) {
+
+            JSONObject obj = Func.toJsonObject(entity);
+            arr.add(obj);
+        }
+
+        map.put("data", arr);
+        
+        JSONObject result = new JSONObject(map);
 
         System.out.println(result.toJSONString());
 

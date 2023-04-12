@@ -1,11 +1,16 @@
 package com.example.runi.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +20,7 @@ import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.OrderListDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.service.OrderService;
+import com.example.runi.utils.Func;
 
 
 @Controller
@@ -43,13 +49,21 @@ public class OrderController {
 
     @PostMapping("/getOrderList")
     @ResponseBody
-    public List<OrderListDto> getProductList(@Valid SearchDto request, Error error, @AuthenticationPrincipal MemberDetails memberDetails) {
+    public ResponseEntity<?> getProductList(@Valid SearchDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) {
         
+        //유효성체크
+        if (errors.hasErrors()) {
+
+            Map<String, String> validatorResult = new HashMap<String, String>();
+            validatorResult = Func.validateHandling(errors);
+            
+            return new ResponseEntity<>(validatorResult, HttpStatus.BAD_REQUEST);
+        }
 
         List<OrderListDto> orders = orderService.getOrderList(request, memberDetails.getUserNo());
 
 
         // System.out.println(products.toString());
-        return orders;
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 }

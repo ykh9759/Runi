@@ -12,12 +12,33 @@ $(document).ready(function() {
     ajax: {
       'url' : '/member/getOrderList',
       'type' : 'POST',
-      'dataSrc' : '',
       "data" : function ( d ) {
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),
         d.select = $("#select").val(),
         d.search = $("#search").val()
+      },
+      'dataSrc' : '',
+      'error' : function(xhr, error, thrown) {
+
+        if(xhr.responseJSON.valid_startDate) {
+          Swal.fire({
+            text: xhr.responseJSON.valid_startDate,
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+          });
+        }else if(xhr.responseJSON.valid_endDate) {
+          Swal.fire({
+            text: xhr.responseJSON.valid_endDate,
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+          });
+        } 
+
       }
     },
     // destroy: true,

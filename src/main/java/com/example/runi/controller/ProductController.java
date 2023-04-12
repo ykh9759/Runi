@@ -11,6 +11,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,11 +97,9 @@ public class ProductController {
 
     @PostMapping("/getProductList")
     @ResponseBody
-    public JSONObject getProductList(@Valid SearchDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException, ParseException {
+    public ResponseEntity<?> getProductList(@Valid SearchDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) {
         
         System.out.println(request);
-
-        Map<String, Object> map = new HashMap<String,Object>();
 
         //유효성체크
         if (errors.hasErrors()) {
@@ -107,25 +107,14 @@ public class ProductController {
             Map<String, String> validatorResult = new HashMap<String, String>();
             validatorResult = Func.validateHandling(errors);
             
-            map.put("error", validatorResult);
+            return new ResponseEntity<>(validatorResult, HttpStatus.BAD_REQUEST);
         }
 
         List<ProductEntity> products = productservice.getProductList(request, memberDetails.getUserNo());
-        List<Object> arr = new ArrayList<Object>();
 
-        for(ProductEntity entity : products) {
+        System.out.println(products);
 
-            JSONObject obj = Func.toJsonObject(entity);
-            arr.add(obj);
-        }
-
-        map.put("data", arr);
-        
-        JSONObject result = new JSONObject(map);
-
-        System.out.println(result.toJSONString());
-
-        return result;
+        return new ResponseEntity<>(products, HttpStatus.OK);
 
     }
 }

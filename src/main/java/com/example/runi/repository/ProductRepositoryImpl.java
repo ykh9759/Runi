@@ -2,6 +2,7 @@ package com.example.runi.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -37,26 +38,21 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
 
     private BooleanExpression select(SearchDto reqeust) {
         
-        String select = reqeust.getSelect().trim();
-        String search = reqeust.getSearch().trim();
+        Optional<String> select = Optional.ofNullable(reqeust.getSelect().trim());
+        Optional<String> search = Optional.ofNullable(reqeust.getSearch().trim());
 
-        if(search.isEmpty()) return null;
+        if(!search.isPresent() || search.get().isEmpty()) return null;
 
-        try {
 
-            if(select.equals("0")) {
-                return productEntity.no.eq(Integer.parseInt(search));
-            } else if(select.equals("1")) {
-                return productEntity.productName.eq(search);
-            } else if(select.equals("2")) {
-                return productEntity.price.eq(Integer.parseInt(search));
-            } else if(select.equals("3")) {
-                return productEntity.saveDate.eq(LocalDate.parse(search));
-            } else {
-                return null;
-            }
-
-        } catch(Exception e) {
+        if(select.get().equals("0")) {
+            return productEntity.no.like("%" + Integer.parseInt(search.get()) + "%");
+        } else if(select.get().equals("1")) {
+            return productEntity.productName.like("%" + search.get() + "%");
+        } else if(select.get().equals("2")) {
+            return productEntity.price.like("%" + Integer.parseInt(search.get()) + "%");
+        } else if(select.get().equals("3")) {
+            return productEntity.saveDate.eq(LocalDate.parse(search.get()));
+        } else {
             return null;
         }
     }
@@ -65,15 +61,15 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
     //날짜 검색
     private BooleanExpression date(SearchDto reqeust) {
         
-        String startDate = reqeust.getStartDate().trim();
-        String endDate = reqeust.getEndDate().trim();
+        Optional<String> startDate = Optional.ofNullable(reqeust.getStartDate().trim());
+        Optional<String> endDate = Optional.ofNullable(reqeust.getEndDate().trim());
 
-        if(!startDate.isEmpty() && endDate.isEmpty()) {
-            return productEntity.saveDate.goe(LocalDate.parse(startDate));
-        }else if(startDate.isEmpty() && !endDate.isEmpty()) {
-            return productEntity.saveDate.loe(LocalDate.parse(endDate));
-        }else if(!startDate.isEmpty() && !endDate.isEmpty()) {
-            return productEntity.saveDate.between(LocalDate.parse(startDate), LocalDate.parse(endDate));
+        if(startDate.isPresent() && !endDate.isPresent()) {
+            return productEntity.saveDate.goe(LocalDate.parse(startDate.get()));
+        }else if(!startDate.isPresent() && endDate.isPresent()) {
+            return productEntity.saveDate.loe(LocalDate.parse(endDate.get()));
+        }else if(startDate.isPresent() && endDate.isPresent()) {
+            return productEntity.saveDate.between(LocalDate.parse(startDate.get()), LocalDate.parse(endDate.get()));
         }else { 
             return null;
         }

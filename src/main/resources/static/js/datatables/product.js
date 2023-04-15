@@ -20,6 +20,7 @@ $(document).ready(function() {
       },
       'dataSrc' : '',
       'error' : function(xhr, error, thrown) {
+        alert(JSON.stringify(xhr));
 
         if(xhr.responseJSON.valid_startDate) {
           Swal.fire({
@@ -46,7 +47,16 @@ $(document).ready(function() {
       {data: 'no'},
       {data: 'productName'},
       {data: 'price'}, 
-      {data: 'saveDate'}
+      {data: 'saveDate'},
+      {data: null,
+        render: function(data, type, row) {
+
+            $('#updateModal #no').val(data.no);
+
+            // 버튼을 추가할 컬럼에 대한 렌더링 함수 작성
+            return '<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#updateModal">수정</a>';
+        }
+      }
     ],
     columnDefs: [
       {
@@ -71,8 +81,8 @@ $(document).ready(function() {
   $('#search-area').prepend('<select id="select" style="width:15%" class="form-select ml-2"></select>');
   $('#search-area').prepend('<input type="text" id="endDate" class="form-control col-2 ml-2" placeholder="yyyy-MM-dd">');
   $('#search-area').prepend('<input type="text" id="startDate" class="form-control col-2 mr-2" placeholder="yyyy-MM-dd">~');
-    $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-      $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
+  $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
   });
 
   $('#select').change(function() {

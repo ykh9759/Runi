@@ -41,6 +41,7 @@ public class OrderService {
         }
 
 
+        //값 매칭
         listdtos.forEach(dto -> dto.setParcel(globalValue.getGlobalValue("parcel", dto.getParcel())));
         listdtos.forEach(dto -> dto.setCashReceipts(globalValue.getGlobalValue("cashReceipts", dto.getCashReceipts())));
 

@@ -13,6 +13,10 @@ public class MyCustomValidator implements ConstraintValidator<MyCustomValidation
     @Override
     public boolean isValid(SearchDto searchDto, ConstraintValidatorContext context) {
 
+        if(searchDto.getSelect().equals("0")) {
+
+        }
+
         System.out.println(searchDto.getSelect());
         System.out.println(searchDto.getSearch());
         

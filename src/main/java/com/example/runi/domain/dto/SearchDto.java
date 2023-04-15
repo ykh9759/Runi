@@ -8,7 +8,6 @@ import com.example.runi.config.MyCustomValidation;
 
 import lombok.Data;
 
-@MyCustomValidation
 @Data
 public class SearchDto {
  

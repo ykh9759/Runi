@@ -5,12 +5,8 @@ import com.example.runi.domain.dto.ProductDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.utils.Func;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +20,6 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.runi.service.ProductService;

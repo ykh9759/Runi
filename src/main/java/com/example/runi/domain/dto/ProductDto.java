@@ -9,6 +9,8 @@ import lombok.Data;
 
 @Data
 public class ProductDto {
+
+    private Integer no;
  
     private Integer memberNo;
 

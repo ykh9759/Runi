@@ -66,7 +66,7 @@ public class ProductController {
         }
 
         //중복체크
-        Map<String, String> dupResult = productservice.checkDuplication(request);
+        Map<String, String> dupResult = productservice.checkDuplication(request, "INSERT");
         if(!dupResult.isEmpty()) {
 
             resultMap.put("msg", "N"); 
@@ -82,6 +82,49 @@ public class ProductController {
         System.out.println("MEMBER_NO: " + memberNo);
         System.out.println("productDto: " + request);
         productservice.productSave(request, memberNo);
+
+
+        resultMap.put("msg", "Y");
+        result = new JSONObject(resultMap);
+
+        return result.toJSONString();
+    }
+
+    //상품수정
+    @PostMapping("/product-update")
+    @ResponseBody
+    public String productUpdate(@Valid ProductDto request, Errors errors) {
+        
+        Map<String, String> resultMap = new HashMap<String,String>();
+        JSONObject result;
+
+        //유효성체크
+        if (errors.hasErrors()) {
+
+            resultMap = Func.validateHandling(errors);
+
+            resultMap.put("msg", "N");            
+            result = new JSONObject(resultMap);
+            System.out.println(result);
+            return result.toJSONString();
+        }
+
+        //중복체크
+        Map<String, String> dupResult = productservice.checkDuplication(request , "UPDATE");
+        if(!dupResult.isEmpty()) {
+
+            resultMap.put("msg", "N"); 
+
+            for (String key : dupResult.keySet()) {
+                resultMap.put(key, dupResult.get(key)); 
+            }
+
+            result = new JSONObject(resultMap);
+            return result.toJSONString();
+        }
+
+        System.out.println("productDto: " + request);
+        productservice.productUpdate(request);
 
 
         resultMap.put("msg", "Y");

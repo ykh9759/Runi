@@ -1,16 +1,19 @@
 package com.example.runi.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class DashboardController {
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+
+
 
         return "member/dashboard";
     }

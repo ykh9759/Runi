@@ -20,7 +20,6 @@ $(document).ready(function() {
       },
       'dataSrc' : '',
       'error' : function(xhr, error, thrown) {
-        alert(JSON.stringify(xhr));
 
         if(xhr.responseJSON.valid_startDate) {
           Swal.fire({
@@ -50,11 +49,8 @@ $(document).ready(function() {
       {data: 'saveDate'},
       {data: null,
         render: function(data, type, row) {
-
-            $('#updateModal #no').val(data.no);
-
             // 버튼을 추가할 컬럼에 대한 렌더링 함수 작성
-            return '<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#updateModal">수정</a>';
+            return '<button type="button" id="updateModalBtn" data-no="'+data.no+'" data-productname="'+data.productName+'" data-price="'+data.price+'" class="btn btn-primary">수정</button>';
         }
       }
     ],
@@ -82,7 +78,9 @@ $(document).ready(function() {
   $('#search-area').prepend('<input type="text" id="endDate" class="form-control col-2 ml-2" placeholder="yyyy-MM-dd">');
   $('#search-area').prepend('<input type="text" id="startDate" class="form-control col-2 mr-2" placeholder="yyyy-MM-dd">~');
   $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-    $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
+    if(valueOfElement.innerHTML != "") {
+      $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
+    }
   });
 
   $('#select').change(function() {
@@ -97,5 +95,15 @@ $(document).ready(function() {
     if(key.keyCode==13) {
       dTable.ajax.reload();
     }
+  });
+
+  $(document).on('click', '#updateModalBtn', function() {
+
+    $('#updateModal #no').val($(this).data('no'));
+    $('#updateModal #productName').val($(this).data('productname'));
+    $('#updateModal #price').val($(this).data('price'));
+  
+    $('#updateModal').modal('show');
+  
   });
 });

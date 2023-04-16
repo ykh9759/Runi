@@ -33,7 +33,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
     @Override
     public List<OrderListEntity> findBySearch(SearchDto request, Integer memberNo) {
 
-        System.out.println(request);
+        System.out.println("lmpl : " + request);
 
         List<Tuple> list =  queryFactory
 						.select(

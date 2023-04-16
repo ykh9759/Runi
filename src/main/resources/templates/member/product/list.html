@@ -19,8 +19,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">상품내역</h1>
-                    <p class="mb-4"> 현재 판매중인 상품 리스트입니다. <a target="_blank"
-                            th:href="@{/member/product-create}">상품등록</a>.</p>
+                    <p class="mb-4"> 현재 판매중인 상품 리스트입니다.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -84,7 +83,7 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="productName" class="form-label">가격</label>
+                            <label for="price" class="form-label">가격</label>
                             <div class="row col-12">
                                 <input type="text" class="form-control" id="price" name="price">
                                 <div class="valid mt-2" id="valid_price"></div> 
@@ -111,20 +110,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" method="POST" onsubmit="return false;">
-                        <input type="text" id="no" name="no">
+                    <form name="form2" method="POST" onsubmit="return false;">
+                        <input type="hidden" id="no" name="no">
                         <div class="mb-4">
                             <label for="productName" class="form-label">상품명</label>
                             <div class="row col-12">
                                 <input type="text" class="form-control" id="productName" name="productName">
-                                <span class="valid mt-2" id="valid_productName"></span> 
+                                <span class="valid mt-2" id="valid_productName2"></span> 
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="productName" class="form-label">가격</label>
+                            <label for="price" class="form-label">가격</label>
                             <div class="row col-12">
                                 <input type="text" class="form-control" id="price" name="price">
-                                <div class="valid mt-2" id="valid_price"></div> 
+                                <div class="valid mt-2" id="valid_price2"></div> 
                             </div>
                         </div>
 
@@ -186,8 +185,9 @@
             url : '/member/product-update',           // 요청할 서버url
             dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
             data : {
-                productName : form.productName.value,
-                price : form.price.value
+                no : form2.no.value,
+                productName : form2.productName.value,
+                price : form2.price.value
             },
             success : function(result) { // 결과 성공 콜백함수
                 console.log(result);
@@ -206,11 +206,11 @@
 
                     document.getElementById('productName').value = '';
                     document.getElementById('price').value = '';
-                    document.getElementById('valid_productName').innerHTML = '';
-                    document.getElementById('valid_price').innerHTML = '';
+                    document.getElementById('valid_productName2').innerHTML = '';
+                    document.getElementById('valid_price2').innerHTML = '';
                 } else {
-                    document.getElementById('valid_productName').innerHTML = result.valid_productName ? result.valid_productName : '';
-                    document.getElementById('valid_price').innerHTML = result.valid_price ? result.valid_price : '';
+                    document.getElementById('valid_productName2').innerHTML = result.valid_productName ? result.valid_productName : '';
+                    document.getElementById('valid_price2').innerHTML = result.valid_price ? result.valid_price : '';
                 }
             },
             error : function(request, status, error) { // 결과 에러 콜백함수
@@ -224,6 +224,8 @@
 
         document.getElementById('valid_productName').innerHTML = '';
         document.getElementById('valid_price').innerHTML = '';
+        document.getElementById('valid_productName2').innerHTML = '';
+        document.getElementById('valid_price2').innerHTML = '';
     }
     
 </script>

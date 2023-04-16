@@ -68,7 +68,7 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
             return productEntity.saveDate.goe(LocalDate.parse(startDate.get()));
         }else if(!startDate.isPresent() && endDate.isPresent()) {
             return productEntity.saveDate.loe(LocalDate.parse(endDate.get()));
-        }else if(startDate.isPresent() && endDate.isPresent()) {
+        }else if((startDate.isPresent() && !startDate.get().isEmpty()) && (endDate.isPresent() && !endDate.get().isEmpty())) {
             return productEntity.saveDate.between(LocalDate.parse(startDate.get()), LocalDate.parse(endDate.get()));
         }else { 
             return null;

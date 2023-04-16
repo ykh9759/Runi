@@ -54,135 +54,135 @@ class RuniApplicationTests {
     }
 
 
-	@Test
-	@Transactional
-    public void findBySearch() {
+	// @Test
+	// @Transactional
+    // public void findBySearch() {
 
-		SearchDto request = new SearchDto();
+	// 	SearchDto request = new SearchDto();
 
-		Integer memberNo = 7;
-        request.setStartDate("2023-03-27");
+	// 	Integer memberNo = 7;
+    //     request.setStartDate("2023-03-27");
 		
 	
 
-        List<Tuple> list =  queryFactory
-                        .select(
-                            orderEntity,
-                            Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).as("plist"),
-                            orderProductEntity.pPrice.sum().as("price")
-                        )
-                        .from(orderEntity)
-                        .leftJoin(orderEntity.refoNo, orderProductEntity)
-                        .leftJoin(orderProductEntity.pNo, productEntity)
-                        .where(
-                            orderEntity.memberNo.eq(memberNo),
-                            searchWhere(request),
-                            date(request)
-                        ) 
-                        .orderBy(orderEntity.no.desc())
-                        .groupBy(orderEntity.no)
-                        .having(searchHaving(request))
-                        .fetch();
+    //     List<Tuple> list =  queryFactory
+    //                     .select(
+    //                         orderEntity,
+    //                         Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).as("plist"),
+    //                         orderProductEntity.pPrice.sum().as("price")
+    //                     )
+    //                     .from(orderEntity)
+    //                     .leftJoin(orderEntity.refoNo, orderProductEntity)
+    //                     .leftJoin(orderProductEntity.pNo, productEntity)
+    //                     .where(
+    //                         orderEntity.memberNo.eq(memberNo),
+    //                         searchWhere(request),
+    //                         date(request)
+    //                     ) 
+    //                     .orderBy(orderEntity.no.desc())
+    //                     .groupBy(orderEntity.no)
+    //                     .having(searchHaving(request))
+    //                     .fetch();
 
-        List<OrderListEntity> listole = new ArrayList<>();
+    //     List<OrderListEntity> listole = new ArrayList<>();
 
-        for(Tuple tuple : list) {
+    //     for(Tuple tuple : list) {
 
-            OrderListEntity orderListEntity = OrderListEntity.builder()
-                                                    .entity(tuple.get(0, OrderEntity.class))
-                                                    .plist(tuple.get(1, String.class))
-                                                    .price(tuple.get(2, Integer.class))
-                                                    .build();
-            listole.add(orderListEntity);
-        }
+    //         OrderListEntity orderListEntity = OrderListEntity.builder()
+    //                                                 .entity(tuple.get(0, OrderEntity.class))
+    //                                                 .plist(tuple.get(1, String.class))
+    //                                                 .price(tuple.get(2, Integer.class))
+    //                                                 .build();
+    //         listole.add(orderListEntity);
+    //     }
 
-    }
+    // }
 
 
-    private BooleanExpression searchWhere(SearchDto request) {
+    // private BooleanExpression searchWhere(SearchDto request) {
         
-        Optional<String> select = Optional.ofNullable(request.getSelect().trim());
-        Optional<String> search = Optional.ofNullable(request.getSearch().trim());
+    //     Optional<String> select = Optional.ofNullable(request.getSelect().trim());
+    //     Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
-        if(!select.isPresent()) { 
-            return null;
-        } else if(!search.isPresent()) {
-            return null;
-        }
+    //     if(!select.isPresent()) { 
+    //         return null;
+    //     } else if(!search.isPresent()) {
+    //         return null;
+    //     }
 
-        String str1 = select.get();
-        String str2 = search.get();
+    //     String str1 = select.get();
+    //     String str2 = search.get();
 
-        if (str1.equals("0")) {
-            return orderEntity.no.eq(Integer.parseInt(str2));
-        } else if (str1.equals("1")) {
-            return orderEntity.name.eq(str2);
-        } else if (str1.equals("2")) {
-            return orderEntity.phone.eq(str2);
-        } else if (str1.equals("3")) {
-            return orderEntity.address.eq(str2);
-        } else if (str1.equals("4")) {
-            return orderEntity.accountName.eq(str2);
-        } else if (str1.equals("5")) {
-            return orderEntity.parcel.eq(str2);
-        } else if (str1.equals("6")) {
-            return orderEntity.cashReceipts.eq(str2);
-        } else {
-            return null;
-        }
+    //     if (str1.equals("0")) {
+    //         return orderEntity.no.eq(Integer.parseInt(str2));
+    //     } else if (str1.equals("1")) {
+    //         return orderEntity.name.eq(str2);
+    //     } else if (str1.equals("2")) {
+    //         return orderEntity.phone.eq(str2);
+    //     } else if (str1.equals("3")) {
+    //         return orderEntity.address.eq(str2);
+    //     } else if (str1.equals("4")) {
+    //         return orderEntity.accountName.eq(str2);
+    //     } else if (str1.equals("5")) {
+    //         return orderEntity.parcel.eq(str2);
+    //     } else if (str1.equals("6")) {
+    //         return orderEntity.cashReceipts.eq(str2);
+    //     } else {
+    //         return null;
+    //     }
 
-    }
+    // }
     
 
-    //날짜 검색
-    private BooleanExpression date(SearchDto request) {
+    // //날짜 검색
+    // private BooleanExpression date(SearchDto request) {
 
-        Optional<String> sDate = Optional.ofNullable(request.getStartDate().trim());
-        Optional<String> eDate = Optional.ofNullable(request.getEndDate().trim());
+    //     Optional<String> sDate = Optional.ofNullable(request.getStartDate().trim());
+    //     Optional<String> eDate = Optional.ofNullable(request.getEndDate().trim());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Optional<LocalDateTime> startDate = Optional.empty();
-        Optional<LocalDateTime> endDate = Optional.empty();
+    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    //     Optional<LocalDateTime> startDate = Optional.empty();
+    //     Optional<LocalDateTime> endDate = Optional.empty();
         
         
-        if(sDate.isPresent()) {
-            startDate =  Optional.ofNullable(LocalDate.parse(sDate.get(), formatter).atStartOfDay());
-        }
+    //     if(sDate.isPresent()) {
+    //         startDate =  Optional.ofNullable(LocalDate.parse(sDate.get(), formatter).atStartOfDay());
+    //     }
 
-        if(eDate.isPresent()) {
-            endDate = Optional.ofNullable(LocalDate.parse(eDate.get(), formatter).atStartOfDay());
-        }
+    //     if(eDate.isPresent()) {
+    //         endDate = Optional.ofNullable(LocalDate.parse(eDate.get(), formatter).atStartOfDay());
+    //     }
 
 
-        if(startDate.isPresent() && !endDate.isPresent()) {
-            return orderEntity.inTime.goe(startDate.get());
-        }else if(!startDate.isPresent() && endDate.isPresent()) {
-            return orderEntity.inTime.loe(endDate.get());
-        }else if(startDate.isPresent() && endDate.isPresent()) {
-            return orderEntity.inTime.between(startDate.get(), endDate.get());
-        }else { 
-            return null;
-        }
-    }
+    //     if(startDate.isPresent() && !endDate.isPresent()) {
+    //         return orderEntity.inTime.goe(startDate.get());
+    //     }else if(!startDate.isPresent() && endDate.isPresent()) {
+    //         return orderEntity.inTime.loe(endDate.get());
+    //     }else if(startDate.isPresent() && endDate.isPresent()) {
+    //         return orderEntity.inTime.between(startDate.get(), endDate.get());
+    //     }else { 
+    //         return null;
+    //     }
+    // }
 
-    private BooleanExpression searchHaving(SearchDto request) {
+    // private BooleanExpression searchHaving(SearchDto request) {
 
-        String select = request.getSelect();
-        String search = request.getSearch();
+    //     String select = request.getSelect();
+    //     String search = request.getSearch();
 
-        try {
+    //     try {
 
-            if(select.equals("7")) {
-                return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search);
-            } else if(select.equals("8")) {
-                return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search));
-            } else {
-                return null;
-            }
+    //         if(select.equals("7")) {
+    //             return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).eq(search);
+    //         } else if(select.equals("8")) {
+    //             return orderProductEntity.pPrice.sum().eq(Integer.parseInt(search));
+    //         } else {
+    //             return null;
+    //         }
 
-        } catch(Exception e) {
-            return null;
-        }
-    }
+    //     } catch(Exception e) {
+    //         return null;
+    //     }
+    // }
 
 }

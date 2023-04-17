@@ -11,21 +11,36 @@
 </head>
 <body>
     <!-- header fragment 사용 -->
-    <!-- <th:block th:replace="fragments/header :: headerFragment"></th:block> -->
+    <th:block th:replace="user/include/header :: headerFragment"></th:block>
     <!-- content fragment 사용 -->
     <h1 class="text-center">안녕하세요</h1>
     <main class="form-signin w-100 m-auto">
-        <form th:action="@{/user/order}" method="GET">
-            <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="h3 mb-3 fw-normal">판매자 아이디 입력</h1>
-        
-            <div class="form-floating">
-            <input type="text" class="form-control" id="id" name="id" >
-            <label for="id">ID</label>
-            </div>
-        
-            <button class="w-100 btn btn-lg btn-primary" type="submit">확인</button>
-        </form>
+        <th:block th:if="${section == 'order'}"></th:blocl>
+            <form th:action="@{/user/order-request}" method="GET">
+                <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+                <h1 class="h3 mb-3 fw-normal">판매자 아이디 입력</h1>
+            
+                <div class="form-floating">
+                <input type="text" class="form-control" id="id" name="id" >
+                <label for="id">ID</label>
+                </div>
+            
+                <button class="w-100 btn btn-lg btn-primary" type="submit">확인</button>
+            </form>
+        </th:block>
+        <th:block th:if="${section == 'update'}"></th:blocl>
+            <form th:action="@{/user/modify-request}" method="GET">
+                <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+                <h1 class="h3 mb-3 fw-normal">주문자 휴대폰번호 입력</h1>
+            
+                <div class="form-floating">
+                <input type="text" class="form-control" id="phone" name="phone" >
+                <label for="phone">Phone</label>
+                </div>
+            
+                <button class="w-100 btn btn-lg btn-primary" type="submit">확인</button>
+            </form>
+        </th:block>
     </main>
     <!-- footer fragment 사용 -->
     <th:block th:replace="user/include/footer :: footerFragment"></th:block>

@@ -38,7 +38,21 @@ public class UserController {
     }
 
     @GetMapping("/order")
-    public String order(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
+    public String order(Model model) {
+
+        model.addAttribute("section", "order");
+        return "user/index";
+    }
+
+    @GetMapping("/update")
+    public String update(Model model) {
+
+        model.addAttribute("section", "update");
+        return "user/index";
+    }
+
+    @GetMapping("/order-request")
+    public String orderRequest(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
         System.out.println(hRequest);
         String id = request.getId().trim();

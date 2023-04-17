@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and()
-            .authorizeRequests()
+            .authorizeHttpRequests()
             // login 없이 접근 허용 하는 url
             .antMatchers("/", "/user/**", "/member/signup","/member/logout","/member/loginFail").permitAll()
             // '/member'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능

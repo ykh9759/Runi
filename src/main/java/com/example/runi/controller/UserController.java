@@ -37,17 +37,12 @@ public class UserController {
         return "user/index";
     }
 
+
+    //ORDER----------------------------------------------------------------------------------------------------------------------------------------------------------
     @GetMapping("/order")
     public String order(Model model) {
 
         model.addAttribute("section", "order");
-        return "user/index";
-    }
-
-    @GetMapping("/update")
-    public String update(Model model) {
-
-        model.addAttribute("section", "update");
         return "user/index";
     }
 
@@ -116,6 +111,45 @@ public class UserController {
         
         redirectAttributes.addFlashAttribute("order","주문완료");
         return "redirect:/user";
+    }
+
+    //UPDATE----------------------------------------------------------------------------------------------------------------------------------------------------------
+    @GetMapping("/update")
+    public String update(Model model) {
+
+        model.addAttribute("section", "update");
+        return "user/index";
+    }
+
+    @GetMapping("/update-request")
+    public String updateRequest(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
+
+        System.out.println(hRequest);
+        String id = request.getId().trim();
+        
+        //아이디 체크
+        boolean dupResult = userService.checkId(id);
+        if(dupResult) {
+
+            MemberEntity member = userService.getMember(id);
+            request.setMemberNo(member.getNo());
+
+            List<ProductEntity> products = userService.getProductMember(member.getNo());
+            
+            model.addAttribute("products", products);
+
+            Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(hRequest);
+            if(null != inputFlashMap) {
+                OrderDto orderDto = (OrderDto)inputFlashMap.get("OrderDto");
+                model.addAttribute("OrderDto", orderDto);
+            } else {
+                model.addAttribute("OrderDto", request);
+            }
+            return "user/update";
+        } else {
+            redirectAttributes.addFlashAttribute("error","존재하지 않는 아이디입니다.");
+            return "redirect:/user";
+        }
     }
 
 }

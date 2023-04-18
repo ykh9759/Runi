@@ -2,17 +2,28 @@
 <!--headerFragment 선언-->
 <div th:fragment="headerFragment">
     <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">루니웹</span>
-          </a>
-    
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a th:href="@{/user/order}" class="nav-link active">주문하기</a></li>
-            <li class="nav-item"><a th:href="@{/user/update}" class="nav-link">수정하기</a></li>
-          </ul>
-        </header>
-      </div>
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-4">루니웹</span>
+        </a>
+  
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a th:href="@{/user/order}" id="order" class="nav-link">주문하기</a></li>
+          <li class="nav-item"><a th:href="@{/user/update}" id="update"  class="nav-link">수정하기</a></li>
+        </ul>
+      </header>
+    </div>
+    <script th:inline="javascript">
+      let section = /*[[${section}]]*/;
+
+      if(section == 'order') {
+        let order = document.getElementById("order");
+        order.classList.add("active");
+      } else if(section == 'update') {
+        let update = document.getElementById("update");
+        update.classList.add("active");
+      }
+    </script>
 </div>
 </html>

@@ -15,7 +15,7 @@
     <!-- content fragment 사용 -->
     <h1 class="text-center">안녕하세요</h1>
     <main class="form-signin w-100 m-auto">
-        <th:block th:if="${section == 'order'}"></th:blocl>
+        <th:block th:if="${section == 'order'}">
             <form th:action="@{/user/order-request}" method="GET">
                 <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
                 <h1 class="h3 mb-3 fw-normal">판매자 아이디 입력</h1>
@@ -28,8 +28,8 @@
                 <button class="w-100 btn btn-lg btn-primary" type="submit">확인</button>
             </form>
         </th:block>
-        <th:block th:if="${section == 'update'}"></th:blocl>
-            <form th:action="@{/user/modify-request}" method="GET">
+        <th:block th:if="${section == 'update'}">
+            <form th:action="@{/user/update-request}" method="GET">
                 <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
                 <h1 class="h3 mb-3 fw-normal">주문자 휴대폰번호 입력</h1>
             

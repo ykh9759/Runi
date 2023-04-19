@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>루니웹</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+    <!-- content script -->
+    <th:block th:replace="user/include/head :: headFragment"></th:block>
+</head>
+<body>
+    <!-- header fragment 사용 -->
+    <th:block th:replace="user/include/header :: headerFragment"></th:block>
+    
+    <!-- footer fragment 사용 -->
+    <th:block th:replace="user/include/footer :: footerFragment"></th:block>
+
+<th:block th:replace="user/include/script :: scriptFragment"></th:block>
+</body>
+</html>

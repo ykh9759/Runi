@@ -36,7 +36,7 @@ public class AuthController {
 
     //로그인실패
     @GetMapping("/loginFail")
-    public String loginFail(@RequestParam(value = "exception", required = false)String exception, Model model) {
+    public String loginFail(@RequestParam(value = "exception", required = false) String exception, Model model) {
 
         model.addAttribute("exception", exception);
         

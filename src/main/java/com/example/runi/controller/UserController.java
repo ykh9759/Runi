@@ -12,10 +12,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.example.runi.domain.entity.MemberEntity;
+import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.service.UserService;
 import com.example.runi.utils.Func;
@@ -32,22 +34,16 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String index(Model model) {
+    public String index(@RequestParam(value = "section", required = false) String section, Model model) {
 
+        model.addAttribute("section", section);
         return "user/index";
     }
 
 
     //ORDER----------------------------------------------------------------------------------------------------------------------------------------------------------
     @GetMapping("/order")
-    public String order(Model model) {
-
-        model.addAttribute("section", "order");
-        return "user/index";
-    }
-
-    @GetMapping("/order-request")
-    public String orderRequest(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
+    public String order(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
         System.out.println(hRequest);
         String id = request.getId().trim();
@@ -59,7 +55,7 @@ public class UserController {
             MemberEntity member = userService.getMember(id);
             request.setMemberNo(member.getNo());
 
-            List<ProductEntity> products = userService.getProductMember(member.getNo());
+            List<ProductEntity> products = userService.getProductList(member.getNo());
             
             model.addAttribute("products", products);
 
@@ -73,7 +69,7 @@ public class UserController {
             return "user/order";
         } else {
             redirectAttributes.addFlashAttribute("error","존재하지 않는 아이디입니다.");
-            return "redirect:/user";
+            return "redirect:/user?section=order";
         }
     }
 
@@ -113,14 +109,30 @@ public class UserController {
         return "redirect:/user";
     }
 
-    //UPDATE----------------------------------------------------------------------------------------------------------------------------------------------------------
-    @GetMapping("/update")
-    public String update(Model model) {
+    @GetMapping("/order-list")
+    public String orderList(@Valid OrderDto request, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        System.out.println(request);
 
-        model.addAttribute("section", "update");
-        return "user/index";
+        System.out.println(request);
+        String name = request.getName().trim();
+        String phone = request.getPhone().trim();
+
+        boolean dupResult = userService.checkNameAndPhone(name, phone);
+        if(dupResult) {
+
+            List<OrderEntity> orders = userService.getOrderList(phone);
+            
+            model.addAttribute("orders", orders);
+            System.out.println(orders);
+
+            return "user/order-list";
+        } else {
+            redirectAttributes.addFlashAttribute("error","주문내역이 존재하지 않습니다.");
+            return "redirect:/user?section=orderList";
+        }
     }
 
+    //UPDATE----------------------------------------------------------------------------------------------------------------------------------------------------------
     @GetMapping("/update-request")
     public String updateRequest(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
@@ -134,7 +146,7 @@ public class UserController {
             MemberEntity member = userService.getMember(id);
             request.setMemberNo(member.getNo());
 
-            List<ProductEntity> products = userService.getProductMember(member.getNo());
+            List<ProductEntity> products = userService.getProductList(member.getNo());
             
             model.addAttribute("products", products);
 

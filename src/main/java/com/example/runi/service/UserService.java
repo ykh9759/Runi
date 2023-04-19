@@ -40,6 +40,13 @@ public class UserService {
         return idDuplicate;
     }
 
+    public boolean checkNameAndPhone(String name, String phone) {
+
+        boolean phoneDuplicate = orderRepository.existsByNameAndPhone(name, phone);
+        
+        return phoneDuplicate;
+    }
+
 
     public MemberEntity getMember(String id) {
 
@@ -48,7 +55,14 @@ public class UserService {
         return member.get();
     }
 
-    public List<ProductEntity> getProductMember(Integer memberNo) {
+    public List<OrderEntity> getOrderList(String phone) {
+
+        List<OrderEntity> list = orderRepository.findByPhoneOrderByNoDesc(phone);
+        
+        return list;
+    }
+
+    public List<ProductEntity> getProductList(Integer memberNo) {
 
         System.out.println(memberNo);
 

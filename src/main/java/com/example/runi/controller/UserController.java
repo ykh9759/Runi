@@ -22,6 +22,7 @@ import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.service.UserService;
 import com.example.runi.utils.Func;
 import com.example.runi.domain.dto.OrderDto;
+import com.example.runi.domain.dto.OrderListDto;
 
 @Controller
 @RequestMapping("/user")
@@ -120,10 +121,10 @@ public class UserController {
         boolean dupResult = userService.checkNameAndPhone(name, phone);
         if(dupResult) {
 
-            List<OrderEntity> orders = userService.getOrderList(phone);
+            List<OrderListDto> orderList = userService.getOrderList(phone);
             
-            model.addAttribute("orders", orders);
-            System.out.println(orders);
+            model.addAttribute("orderList", orderList);
+            System.out.println(orderList);
 
             return "user/order-list";
         } else {

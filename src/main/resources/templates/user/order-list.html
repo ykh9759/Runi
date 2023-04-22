@@ -26,6 +26,7 @@
                     <td th:text="${order.no}"></td>
                     <td th:utext="${order.plist}"></td>
                     <td th:text="${order.inTime}"></td>
+                    <td><button class="btn btn-primary" th:no="${order.no}" onclick="update(this.getAttribute('no'))">수정</button></td>
                 </tr>
             </tbody>
         </table>
@@ -34,5 +35,10 @@
     <th:block th:replace="user/include/footer :: footerFragment"></th:block>
 
 <th:block th:replace="user/include/script :: scriptFragment"></th:block>
+<script th:inline="javascript">
+    function update(no) {
+        alert(no);
+    }
+</script>
 </body>
 </html>

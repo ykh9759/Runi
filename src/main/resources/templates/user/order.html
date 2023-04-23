@@ -241,23 +241,23 @@
 
     obj.selectedIndex = 0;
 
-    let totalPrice = document.getElementById('totalPrice').innerHTML;
+    let totalPrice = document.getElementById('totalPrice').textContent;
     totalPrice = parseInt(totalPrice.replace(/,|원/g, ""));
 
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
     
     totalPrice += parseInt(value.price);
 
-    document.getElementById('totalPrice').innerHTML = totalPrice.toLocaleString()+"원";
+    document.getElementById('totalPrice').textContent = totalPrice.toLocaleString()+"원";
   
   }
 
   function plusMinus(div, no) {
 
     let cnt = parseInt(document.getElementById('cnt-'+no).value);
-    let price = document.getElementById('price-'+no).innerHTML;
+    let price = document.getElementById('price-'+no).textContent;
     price = parseInt(price.replace(/,|원/g, ""));
-    let totalPrice = document.getElementById('totalPrice').innerHTML;
+    let totalPrice = document.getElementById('totalPrice').textContent;
     totalPrice = parseInt(totalPrice.replace(/,|원/g, ""));
     totalPrice = isNaN(totalPrice) ? 0 : totalPrice;
 
@@ -266,26 +266,34 @@
 
     if(div=='P') {
       cnt++;
-
-
     } else if(div=='M') {
-
       cnt--;
     }
     
     price = price * cnt;
 
-    if(cnt < 1) return false;
+    if(cnt < 1) return false; //1개 미만은 주문 불가
 
     totalPrice += price;
 
     document.getElementById('cnt-'+no).value = cnt;
-    document.getElementById('price-'+no).innerHTML = price.toLocaleString()+"원";
-    document.getElementById('totalPrice').innerHTML = totalPrice.toLocaleString()+"원";
+    document.getElementById('price-'+no).textContent = price.toLocaleString()+"원";
+    document.getElementById('totalPrice').textContent = totalPrice.toLocaleString()+"원";
 
   }
 
   function cancel(no) {
+  
+    let totalPrice = document.getElementById('totalPrice').textContent;
+    totalPrice = parseInt(totalPrice.replace(/,|원/g, ""));
+    
+    let price = document.getElementById('price-'+no).textContent;
+    price = parseInt(price.replace(/,|원/g, ""));
+
+    //총금액에서 삭제금액 빼기
+    totalPrice -= price;
+
+    document.getElementById('totalPrice').textContent = totalPrice.toLocaleString()+"원";;
 
     const product = document.getElementById('product-'+no);
     product.remove();

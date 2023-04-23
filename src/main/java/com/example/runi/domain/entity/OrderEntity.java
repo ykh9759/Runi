@@ -38,6 +38,7 @@ public class OrderEntity extends BaseTimeEntity {
 
     private String parcel;                  //배송방법
     private String cashReceipts;            //현금영수증유무
+    private String status;                  //주문상태
 
     @OneToMany(mappedBy = "oNo")
     private List<OrderProductEntity> refoNo = new ArrayList<>();
@@ -52,5 +53,10 @@ public class OrderEntity extends BaseTimeEntity {
         accountName = dto.getAccountName();
         parcel = dto.getParcel();
         cashReceipts = dto.getCashReceipts();
+        status = dto.getStatus();
+    }
+
+    public void statusUpdate(String status) {
+        this.status = status;
     }
 }

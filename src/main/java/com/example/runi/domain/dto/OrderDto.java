@@ -40,4 +40,6 @@ public class OrderDto {
     
     private String cashReceipts;
 
+    private String status = "A";
+
 }

@@ -16,9 +16,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">NO</th>
+                <th scope="col">주문번호</th>
                 <th scope="col">주문내역</th>
                 <th scope="col">주문일</th>
+                <th scope="col">상태</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -26,19 +28,68 @@
                     <td th:text="${order.no}"></td>
                     <td th:utext="${order.plist}"></td>
                     <td th:text="${order.inTime}"></td>
-                    <td><button class="btn btn-primary" th:no="${order.no}" onclick="update(this.getAttribute('no'))">수정</button></td>
+                    <td th:text="${order.status}"></td>
+                    <td><button th:if="${order.status != '주문취소'}" class="btn btn-primary" th:no="${order.no}" onclick="cancel(this.getAttribute('no'))">취소</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
     
     <th:block th:replace="user/include/footer :: footerFragment"></th:block>
+    <script th:inline="javascript">
 
-<th:block th:replace="user/include/script :: scriptFragment"></th:block>
-<script th:inline="javascript">
-    function update(no) {
-        alert(no);
-    }
-</script>
+        function cancel(no) {
+
+            Swal.fire({
+                title: '정말 취소하시겠습니까?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    const formData = new FormData();
+                    formData.append('no', no);
+
+                    fetch('http://localhost:8080/user/order-cancel', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if(response.ok) {
+                            Swal.fire({
+                                title: '취소완료',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: '확인',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });           
+                        }else{
+                            Swal.fire({
+                                title: '취소실패',
+                                text: '관리자에게 문의하세요',
+                                icon: 'warning',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: '확인',
+                            });  
+                        }
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                        `Request failed: ${error}`
+                        )
+                    })
+                }
+            });
+        }
+    </script>
 </body>
 </html>

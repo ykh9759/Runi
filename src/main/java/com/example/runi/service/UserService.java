@@ -33,6 +33,7 @@ public class UserService {
     private final OrderProductRepository orderProductRepository;
     private final GlobalValue globalValue;
 
+    //생성자 의존성 주입
     public UserService(MemberRepository memberRepository, ProductRepository productRepository, OrderRepository orderRepository, OrderListRepository orderListRepository, OrderProductRepository orderProductRepository, GlobalValue globalValue) {
         this.memberRepository = memberRepository;
         this.productRepository = productRepository;
@@ -42,6 +43,7 @@ public class UserService {
         this.globalValue = globalValue;
     }
 
+    //아이디 중복검사
     public boolean checkId(String id) {
 
         boolean idDuplicate = memberRepository.existsById(id);
@@ -49,6 +51,7 @@ public class UserService {
         return idDuplicate;
     }
 
+    //이름과 휴대폰번호로 중복검사
     public boolean checkNameAndPhone(String name, String phone) {
 
         boolean phoneDuplicate = orderRepository.existsByNameAndPhone(name, phone);
@@ -56,7 +59,7 @@ public class UserService {
         return phoneDuplicate;
     }
 
-
+    //id로 회원정보 가져오기
     public MemberEntity getMember(String id) {
 
         Optional<MemberEntity> member = memberRepository.findByIdOrderByNoDesc(id);
@@ -64,6 +67,8 @@ public class UserService {
         return member.get();
     }
 
+
+    //휴대폰번호로 상품내역 가져오기
     public List<OrderListDto> getOrderList(String phone) {
 
         List<OrderListEntity> listeEntities = orderListRepository.findByPhoneNoOrderByNoDesc(phone);
@@ -79,10 +84,12 @@ public class UserService {
         //값 매칭
         listdtos.forEach(dto -> dto.setParcel(globalValue.getGlobalValue("parcel", dto.getParcel())));
         listdtos.forEach(dto -> dto.setCashReceipts(globalValue.getGlobalValue("cashReceipts", dto.getCashReceipts())));
+        listdtos.forEach(dto -> dto.setStatus(globalValue.getGlobalValue("orderStatus", dto.getStatus())));
 
         return listdtos;
     }
 
+    //회원번호로 상품내역 가져오기
     public List<ProductEntity> getProductList(Integer memberNo) {
 
         System.out.println(memberNo);
@@ -94,6 +101,7 @@ public class UserService {
 
 
     //상품주문
+    @Transactional
     public void orderSave(OrderDto dto) {
 
         //주문내역저장
@@ -127,7 +135,7 @@ public class UserService {
         
     }
 
-    @Transactional(readOnly = true)
+    //휴대폰번호로 주문내역 있는지 체크
     public Map<String, String> checkDuplication(OrderDto OrderDto) {
 
         Map<String, String> map = new HashMap<>();
@@ -138,6 +146,18 @@ public class UserService {
         }
         
         return map;
+    }
+
+    public String orderCancel(Integer no) {
+
+        Optional<OrderEntity> order = orderRepository.findByNo(no);
+        if(order.isPresent()) {
+            order.get().statusUpdate("C"); 
+            orderRepository.save(order.get());
+            return "Y";
+        }else {
+            return "N";
+        }
     }
 
 

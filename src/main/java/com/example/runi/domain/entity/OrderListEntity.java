@@ -38,6 +38,7 @@ public class OrderListEntity {
 
     private String plist;                    //현금영수증유무
     private Integer price;                    //현금영수증유무
+    private String status;                    //현금영수증유무
 
     @Column(name = "insert_time")
     private LocalDateTime inTime;                    //현금영수증유무
@@ -54,6 +55,7 @@ public class OrderListEntity {
         parcel = entity.getParcel();
         cashReceipts = entity.getCashReceipts();
         inTime = entity.getInTime();
+        status = entity.getStatus();
         this.plist = plist;
         this.price = price;
     }

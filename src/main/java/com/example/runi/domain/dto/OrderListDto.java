@@ -28,6 +28,7 @@ public class OrderListDto {
 
     private String plist;                    //현금영수증유무
     private Integer price;                    //현금영수증유무
+    private String status;                    //현금영수증유무
 
     private LocalDate inTime;                    //현금영수증유무
 
@@ -36,10 +37,8 @@ public class OrderListDto {
         no = entity.getNo();
         memberNo = entity.getMemberNo();
         name = entity.getName();
-
         phone = entity.getPhone();
         phone = phone.substring(0, 3)+ "-" + phone.substring(3, 7) + "-" +  phone.substring(7, 11);
-
         email = entity.getEmail();
         address = entity.getAddress();
         accountName = entity.getAccountName();
@@ -47,8 +46,8 @@ public class OrderListDto {
         cashReceipts = entity.getCashReceipts();
         inTime = entity.getInTime().toLocalDate();
         plist = entity.getPlist();
-
         price = entity.getPrice();
+        status = entity.getStatus();
     }
 
 }

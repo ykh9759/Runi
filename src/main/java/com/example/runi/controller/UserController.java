@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -42,7 +45,7 @@ public class UserController {
     }
 
 
-    //ORDER----------------------------------------------------------------------------------------------------------------------------------------------------------
+    //주문페이지 이동
     @GetMapping("/order")
     public String order(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
 
@@ -74,6 +77,7 @@ public class UserController {
         }
     }
 
+    //주문요청
     @PostMapping("/order-request")
     public String orderReqeust(@Valid OrderDto request, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         System.out.println(request);
@@ -93,16 +97,16 @@ public class UserController {
         }
 
         //중복체크
-        Map<String, String> dupResult = userService.checkDuplication(request);
-        if(!dupResult.isEmpty()) {
+        // Map<String, String> dupResult = userService.checkDuplication(request);
+        // if(!dupResult.isEmpty()) {
 
-            for (String key : dupResult.keySet()) {
+        //     for (String key : dupResult.keySet()) {
 
-                redirectAttributes.addFlashAttribute(key, dupResult.get(key));
-            }
+        //         redirectAttributes.addFlashAttribute(key, dupResult.get(key));
+        //     }
 
-            return "redirect:/user/order?id="+request.getId();
-        }
+        //     return "redirect:/user/order?id="+request.getId();
+        // }
 
         userService.orderSave(request);
         
@@ -110,6 +114,7 @@ public class UserController {
         return "redirect:/user";
     }
 
+    //주문내역
     @GetMapping("/order-list")
     public String orderList(@Valid OrderDto request, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         System.out.println(request);
@@ -133,36 +138,17 @@ public class UserController {
         }
     }
 
-    //UPDATE----------------------------------------------------------------------------------------------------------------------------------------------------------
-    @GetMapping("/update-request")
-    public String updateRequest(OrderDto request, Model model, RedirectAttributes redirectAttributes, HttpServletRequest hRequest) {
+    //주문취소
+    @RequestMapping("/order-cancel")
+    @ResponseBody
+    public ResponseEntity<?> orderCancel(@RequestParam("no") Integer no) {
+        System.out.println(no);
+        String result = "";
 
-        System.out.println(hRequest);
-        String id = request.getId().trim();
-        
-        //아이디 체크
-        boolean dupResult = userService.checkId(id);
-        if(dupResult) {
+        result = userService.orderCancel(no);
 
-            MemberEntity member = userService.getMember(id);
-            request.setMemberNo(member.getNo());
-
-            List<ProductEntity> products = userService.getProductList(member.getNo());
-            
-            model.addAttribute("products", products);
-
-            Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(hRequest);
-            if(null != inputFlashMap) {
-                OrderDto orderDto = (OrderDto)inputFlashMap.get("OrderDto");
-                model.addAttribute("OrderDto", orderDto);
-            } else {
-                model.addAttribute("OrderDto", request);
-            }
-            return "user/update";
-        } else {
-            redirectAttributes.addFlashAttribute("error","존재하지 않는 아이디입니다.");
-            return "redirect:/user";
-        }
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

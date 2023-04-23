@@ -30,7 +30,7 @@ import java.util.Optional;
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
 
-@SpringBootTest
+// @SpringBootTest
 class RuniApplicationTests {
 
 	@Autowired

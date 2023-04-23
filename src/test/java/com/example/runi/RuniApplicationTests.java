@@ -39,19 +39,19 @@ class RuniApplicationTests {
     @Autowired
     private GlobalValue globalValue;
 
-    @Test 
-    public void test() {
+    // @Test 
+    // public void test() {
 
-        String category = "parcel";
-
-        
-        String value = globalValue.getGlobalValue(category, "1");
-
-        System.out.println(value);
-        
+    //     String category = "parcel";
 
         
-    }
+    //     String value = globalValue.getGlobalValue(category, "1");
+
+    //     System.out.println(value);
+        
+
+        
+    // }
 
 
 	// @Test

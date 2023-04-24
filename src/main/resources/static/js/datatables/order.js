@@ -1,13 +1,21 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
   let dTable = $('#dTable').DataTable({
-    dom: '<"m-2"B><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-    buttons: [{
-      extend: 'excel',
-      text: '엑셀',
-      footer: true,
-      className: 'exportBtn'
-    }],
+    dom: '<"mb-2"B><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+    buttons: [
+      {
+        extend: 'excel',
+        text: '엑셀',
+        className: 'btn-success',
+        title: ''
+      },
+      {
+        extend: 'excel',
+        text: '엑셀2',
+        className: 'btn-success',
+        title: ''
+      }
+    ],
     searching: false,
     ajax: {
       'url' : '/member/getOrderList',

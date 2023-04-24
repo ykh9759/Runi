@@ -39,6 +39,9 @@ public class ProductEntity extends BaseTimeEntity {
 
     private Integer price;
 
+    @Column(name = "save_status")
+    private String saveStatus;
+
     @CreatedDate
     @Column(name = "save_date")
     private LocalDate saveDate;
@@ -57,5 +60,9 @@ public class ProductEntity extends BaseTimeEntity {
     public void updateProduct(String productname, Integer price) {
         this.productName = productname;
         this.price = price;
+    }
+
+    public void updateSaveStatus(String saveStatus) {
+        this.saveStatus = saveStatus;
     }
 }

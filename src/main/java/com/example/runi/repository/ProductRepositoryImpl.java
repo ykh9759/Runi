@@ -29,6 +29,7 @@ public class ProductRepositoryImpl implements ProductRepositoryQDSL {
                     .selectFrom(productEntity)
                     .where(
                         productEntity.memberNo.eq(memberNo),
+                        productEntity.saveStatus.eq("Y"),
                         select(reqeust), 
                         date(reqeust)
                     )

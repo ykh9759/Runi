@@ -10,7 +10,7 @@ import com.example.runi.domain.entity.ProductEntity;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, ProductRepositoryQDSL {
     
     public Optional<ProductEntity> findByNo(Integer no);
-    public List<ProductEntity> findByMemberNoOrderByNoDesc(Integer memberNo);
+    public List<ProductEntity> findByMemberNoAndSaveStatusOrderByNoDesc(Integer memberNo, String saveStatus);
 
     boolean existsByProductName(String productName);
     

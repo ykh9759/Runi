@@ -51,6 +51,19 @@ public class ProductService {
         }
     }
 
+    @Transactional
+    public String productDelete(Integer no) {
+
+        Optional<ProductEntity> product = productRepository.findByNo(no);
+        if(product.isPresent()) {
+            product.get().updateSaveStatus("N"); 
+            productRepository.save(product.get());
+            return "Y";
+        }else {
+            return "N";
+        }
+    }
+
 
     //상품내역검색
     public List<ProductEntity> getProductList(SearchDto request, Integer memberNo) {
@@ -60,7 +73,7 @@ public class ProductService {
         List<ProductEntity> list = new ArrayList<>();
 
         if(request.isDtoEntireVariableNull()) {
-            list = productRepository.findByMemberNoOrderByNoDesc(memberNo);
+            list = productRepository.findByMemberNoAndSaveStatusOrderByNoDesc(memberNo, "Y");
         } else {
             list = productRepository.findBySearch(request, memberNo);
         }

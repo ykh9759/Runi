@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.validation.Errors;
 import org.springframework.ui.Model;
@@ -131,6 +132,19 @@ public class ProductController {
         result = new JSONObject(resultMap);
 
         return result.toJSONString();
+    }
+
+    //주문취소
+    @RequestMapping("/product-delete")
+    @ResponseBody
+    public ResponseEntity<?> orderCancel(@RequestParam("no") Integer no) {
+        System.out.println(no);
+        String result = "";
+
+        result = productservice.productDelete(no);
+
+        System.out.println(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/getProductList")

@@ -91,7 +91,6 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" onclick="cancel('createModal')">취소</button>
                             <button class="btn btn-primary" type="button" onclick="save()">등록</button>
                         </div>
                     </form>
@@ -128,7 +127,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" onclick="cancel('updateModal')">취소</button>
+                            <button class="btn btn-secondary" type="button" onclick="Delete()">삭제</button>
                             <!-- <button class="btn btn-primary" type="button" onclick="delete()">삭제</button> -->
                             <button class="btn btn-primary" type="button" onclick="update()">수정</button>
                         </div>
@@ -211,6 +210,44 @@
                 } else {
                     document.getElementById('valid_productName2').innerHTML = result.valid_productName ? result.valid_productName : '';
                     document.getElementById('valid_price2').innerHTML = result.valid_price ? result.valid_price : '';
+                }
+            },
+            error : function(request, status, error) { // 결과 에러 콜백함수
+                console.log(error)
+            }
+        });
+    }
+
+    function Delete() {
+        $.ajax({
+            type : 'POST',           // 타입 (get, post, put 등등)
+            url : '/member/product-delete',           // 요청할 서버url
+            dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+            data : {
+                no : form2.no.value,
+            },
+            success : function(result) { // 결과 성공 콜백함수
+                console.log(result);
+                $('#updateModal').modal('hide');
+                if(result == "Y") {
+                    Swal.fire({
+                        text: "삭제 완료",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '확인',
+                        }).then((check) => {
+                            $('#dTable').DataTable().ajax.reload();
+                    });
+
+                } else {
+                    Swal.fire({
+                        text: "삭제 실패",
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '확인',
+                    });
                 }
             },
             error : function(request, status, error) { // 결과 에러 콜백함수

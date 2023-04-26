@@ -29,3 +29,15 @@ body {
     color: red;
     font-weight: bold;
 }
+
+@media(max-width:500px) {
+    #olTable {
+        font-size: 12px;
+    }
+}
+
+@media(max-width:400px) {
+    #olTable {
+        font-size: 10px;
+    }
+}

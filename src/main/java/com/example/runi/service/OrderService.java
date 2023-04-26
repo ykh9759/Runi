@@ -25,10 +25,10 @@ public class OrderService {
 
     public List<OrderListDto> getOrderList(SearchDto request, Integer memberNo) {
 
-        List<OrderListEntity> listeEntities = orderListRepository.findByMemberNoOrderByNoDesc(memberNo);
+        List<OrderListEntity> listeEntities = new ArrayList<>();
 
         if(request.isDtoEntireVariableNull()) {
-            listeEntities = orderListRepository.findByMemberNoOrderByNoDesc(memberNo);
+            listeEntities = orderListRepository.findByMemberNoAndStatusOrderByNoDesc(memberNo, request.getStatus());
         } else {
             listeEntities = orderListRepository.findBySearch(request, memberNo);
         }

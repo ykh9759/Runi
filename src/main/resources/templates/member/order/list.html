@@ -18,12 +18,22 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">상품내역</h1>
-                    <p class="mb-4"> 현재 판매중인 상품 리스트입니다. <a target="_blank"
-                            th:href="@{/member/product-create}">상품등록</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">주문내역</h1>
+                    <p class="mb-4">주문 내역입니다.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <button class="ml-10 w-20 btn btn-primary" id="receiptBtn">
+                                접수
+                            </button>
+                            <button class="ml-10 w-20 btn btn-primary" id="cancelBtn">
+                                취소
+                            </button>
+                            <button class="ml-10 w-20 btn btn-primary" id="successBtn">
+                                완료
+                            </button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dTable" width="100%" cellspacing="0">

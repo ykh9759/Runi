@@ -21,6 +21,7 @@ $(document).ready(function() {
       'url' : '/member/getOrderList',
       'type' : 'POST',
       "data" : function ( d ) {
+        d.status = $("#status").val(),
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),
         d.select = $("#select").val(),
@@ -80,6 +81,7 @@ $(document).ready(function() {
   });
 
   $('#dTable_wrapper > .row > div').after('<div id="search-area" class="col-sm-12 col-md-6 d-flex justify-content-end"></div>');
+  $('#search-area').prepend('<input type="hidden" id="status" class="form-control">');
   $('#search-area').prepend('<button type="text" id="btn-search" class="btn btn-primary ml-2">검색</button>');
   $('#search-area').prepend('<input type="text" id="search" class="form-control col-2">');
   $('#search-area').prepend('<select id="select" style="width:15%" class="form-select ml-2"></select>');
@@ -102,4 +104,20 @@ $(document).ready(function() {
       dTable.ajax.reload();
     }
   });
+
+  $('#receiptBtn').on('click', function () {
+    $('#status').val('A');
+    dTable.ajax.reload();
+  });
+
+  $('#cancelBtn').on('click', function () {
+    $('#status').val('C');
+    dTable.ajax.reload();
+  });
+
+  $('#successBtn').on('click', function () {
+    $('#status').val('S');
+    dTable.ajax.reload();
+  });
+
 });

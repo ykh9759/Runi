@@ -94,7 +94,7 @@ public class UserService {
 
         System.out.println(memberNo);
 
-        List<ProductEntity> list = productRepository.findByMemberNoOrderByNoDesc(memberNo);
+        List<ProductEntity> list = productRepository.findByMemberNoAndSaveStatusOrderByNoDesc(memberNo, "Y");
 
         return list;
     }

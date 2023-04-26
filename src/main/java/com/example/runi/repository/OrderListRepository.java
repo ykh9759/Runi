@@ -18,9 +18,11 @@ public interface OrderListRepository extends JpaRepository<OrderListEntity, Inte
                     +"LEFT JOIN order_product op ON o.no = op.o_no "
                     +"LEFT JOIN product p ON op.p_no = p.no "
                     +"WHERE o.member_no = :memberNo "
+                    +"And o.status = :status "
                     +"GROUP BY o.no "
+                    +"ORDER BY o.no DESC"
     ,nativeQuery = true)
-    public List<OrderListEntity> findByMemberNoOrderByNoDesc(@Param("memberNo") Integer memberNo);
+    public List<OrderListEntity> findByMemberNoAndStatusOrderByNoDesc(@Param("memberNo") Integer memberNo, @Param("status") String status);
 
     @Query(value = "SELECT "
                     +"o.*,"
@@ -31,6 +33,7 @@ public interface OrderListRepository extends JpaRepository<OrderListEntity, Inte
                     +"LEFT JOIN product p ON op.p_no = p.no "
                     +"WHERE o.phone = :phone "
                     +"GROUP BY o.no "
+                    +"ORDER BY o.no DESC"
     ,nativeQuery = true)
     public List<OrderListEntity> findByPhoneNoOrderByNoDesc(@Param("phone") String phone);
     

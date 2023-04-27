@@ -24,8 +24,14 @@ public class OrderDto {
     @Email
     private String email;
 
+    @NotBlank(message = "우편번호를 입력해주세요")
+    private String zipCode;
+
     @NotBlank(message = "주소를 입력해주세요")
     private String address;
+
+    @NotBlank(message = "상세주소를 입력해주세요")
+    private String address2;
 
     @NotBlank(message = "입금자명을 입력해주세요")
     private String accountName;

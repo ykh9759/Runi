@@ -50,12 +50,16 @@ $(document).ready(function() {
 
       }
     },
-    // destroy: true,
     columns: [
       {data: 'no'},
       {data: 'name'},
       {data: 'phone'}, 
-      {data: 'address'},
+      {
+        data: null,
+        render: function(data, type, row) {
+          return data['address'] + ' ' + data['address2'];
+        }
+      },
       {data: 'accountName'},
       {data: 'parcel'},
       {data: 'cashReceipts'},

@@ -31,7 +31,12 @@ public class OrderEntity extends BaseTimeEntity {
     private String name;                    //이름
     private String phone;                   //휴대폰번호
     private String email;                   //이메일
+
+    @Column(name = "zip_code")
+    private String zipCode;                 //주소
+
     private String address;                 //주소
+    private String address2;                 //주소
 
     @Column(name = "account_name")
     private String accountName;             //계좌이름
@@ -49,7 +54,9 @@ public class OrderEntity extends BaseTimeEntity {
         name = dto.getName();
         phone = dto.getPhone();
         email = dto.getEmail();
+        zipCode = dto.getZipCode();
         address = dto.getAddress();
+        address2 = dto.getAddress2();
         accountName = dto.getAccountName();
         parcel = dto.getParcel();
         cashReceipts = dto.getCashReceipts();

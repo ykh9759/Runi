@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row g-5 d-flex justify-content-center">
           <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">주문하기</h4>
+            <h4 class="mb-3 text-center">주문하기</h4>
             <form th:action="@{/user/order-request}" method="POST" novalidate>
               <input type="hidden" name="memberNo" th:value="${OrderDto.memberNo}">
               <input type="hidden" name="id" th:value="${OrderDto.id}">
@@ -37,10 +37,20 @@
                   <span class="ml-4 valid" th:if="${valid_email}" th:text="${valid_email}"></span> 
                 </div>
     
-                <div class="col-12">
+                <div class="col-3">
+                  <label for="address" class="form-label">우편번호</label>
+                  <input type="text" class="form-control col-sm-2" id="address" name="zipCode" th:value="${OrderDto.address}">
+                  <span class="ml-4 valid" th:if="${valid_address}" th:text="${valid_zipCode}"></span> 
+                </div>
+                <div class="col-5">
                   <label for="address" class="form-label">주소</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="서울시 강남구 압구정로 ~" th:value="${OrderDto.address}">
+                  <input type="text" class="form-control col-sm-2" id="address" name="address" placeholder="서울시 강남구 압구정로 ~" th:value="${OrderDto.address}">
                   <span class="ml-4 valid" th:if="${valid_address}" th:text="${valid_address}"></span> 
+                </div>
+                <div class="col-4">
+                  <label for="address" class="form-label">상세주소</label>
+                  <input type="text" class="form-control col-sm-2" id="address2" name="address2" placeholder="101호" th:value="${OrderDto.address2}">
+                  <span class="ml-4 valid" th:if="${valid_address}" th:text="${valid_address2}"></span> 
                 </div>
 
                 <div class="col-12">
@@ -51,7 +61,7 @@
                 </div>
 
                 <hr class="my-4">
-                <p>상품목록</p>
+                <h4>상품목록</h4>
                 <select class="form-select" onchange="selectProduct(this)">
                   <option selected>선택</option>
                   <th:blocl th:each="product : ${products}">
@@ -71,17 +81,19 @@
 
                 <hr class="my-4">
 
-                <div class="form-check">
-                  <p>배송 방식</p>
-                  <input type="checkbox" class="form-check-input" id="normalParcel" name="parcel" value="1" onclick="checkOnlyOne(this)" th:checked="${OrderDto.parcel == '1'}">
-                  <label class="form-check-label" for="save-info">일반택배</label>
-                </div>
+                <h4>배송 방식</h4>
+                <div class="my-3">
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="normalParcel" name="parcel" value="1" th:checked="${OrderDto.parcel == '1'}">
+                    <label class="form-check-label" for="save-info">일반택배</label>
+                  </div>
 
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="halfParcel" name="parcel" value="2" onclick="checkOnlyOne(this)" th:checked="${OrderDto.parcel == '2'}"> 
-                  <label class="form-check-label" for="save-info">반값택배</label>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="halfParcel" name="parcel" value="2" th:checked="${OrderDto.parcel == '2'}"> 
+                    <label class="form-check-label" for="save-info">반값택배</label>
+                  </div>
+                  <span class="ml-4 valid" th:if="${valid_parcel}" th:text="${valid_parcel}"></span> 
                 </div>
-                <span class="ml-4 valid" th:if="${valid_parcel}" th:text="${valid_parcel}"></span> 
     
     
                 <hr class="my-4">

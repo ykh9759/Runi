@@ -17,3 +17,7 @@ body {
     display: inline;
   }
 }
+
+#dTable {
+  font-size: 12px;
+}

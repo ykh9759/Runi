@@ -19,7 +19,9 @@ public class OrderListDto {
     private String name;                    //이름
     private String phone;                   //휴대폰번호
     private String email;                   //이메일
+    private String zipCode;                 //주소
     private String address;                 //주소
+    private String address2;                 //주소
 
     private String accountName;             //계좌이름
 
@@ -40,7 +42,9 @@ public class OrderListDto {
         phone = entity.getPhone();
         phone = phone.substring(0, 3)+ "-" + phone.substring(3, 7) + "-" +  phone.substring(7, 11);
         email = entity.getEmail();
+        zipCode = entity.getZipCode();
         address = entity.getAddress();
+        address2 = entity.getAddress2();
         accountName = entity.getAccountName();
         parcel = entity.getParcel();
         cashReceipts = entity.getCashReceipts();

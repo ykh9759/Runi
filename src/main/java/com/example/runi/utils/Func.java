@@ -10,7 +10,6 @@ import org.json.simple.parser.ParseException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import com.example.runi.domain.entity.ProductEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

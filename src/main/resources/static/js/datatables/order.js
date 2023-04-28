@@ -8,12 +8,6 @@ $(document).ready(function() {
         text: '엑셀',
         className: 'btn-success',
         title: ''
-      },
-      {
-        extend: 'excel',
-        text: '엑셀2',
-        className: 'btn-success',
-        title: ''
       }
     ],
     searching: false,

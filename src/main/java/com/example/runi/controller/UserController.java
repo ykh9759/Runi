@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.example.runi.domain.entity.MemberEntity;
-import com.example.runi.domain.entity.OrderEntity;
 import com.example.runi.domain.entity.ProductEntity;
 import com.example.runi.service.UserService;
 import com.example.runi.utils.Func;

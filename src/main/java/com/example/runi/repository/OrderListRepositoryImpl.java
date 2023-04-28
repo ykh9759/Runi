@@ -46,6 +46,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
 						.leftJoin(orderProductEntity.pNo, productEntity)
 						.where(
                             orderEntity.memberNo.eq(memberNo),
+                            orderEntity.status.eq(request.getStatus()),
                             searchWhere(request),
                             date(request)
                         ) 

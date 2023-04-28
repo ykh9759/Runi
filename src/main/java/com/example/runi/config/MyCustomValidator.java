@@ -13,16 +13,24 @@ public class MyCustomValidator implements ConstraintValidator<MyCustomValidation
     @Override
     public boolean isValid(SearchDto searchDto, ConstraintValidatorContext context) {
 
-        if(searchDto.getSelect().equals("0")) {
-
-        }
-
         System.out.println(searchDto.getSelect());
         System.out.println(searchDto.getSearch());
-        
-        // startDate와 endDate를 이용하여 검사 로직을 구현
-        
-        return true; // 또는 false, 유효성 검사 결과를 반환
+
+        if(searchDto.getSelect() != null && searchDto.getSearch() != null) {
+
+            if(searchDto.getSelect().equals("0")) {
+
+                try {
+                    if(!searchDto.getSearch().isEmpty()) {
+                        int search = Integer.parseInt(searchDto.getSearch());
+                    }
+                } catch(Exception e) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }

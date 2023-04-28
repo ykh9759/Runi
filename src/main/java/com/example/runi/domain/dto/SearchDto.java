@@ -9,6 +9,7 @@ import com.example.runi.config.MyCustomValidation;
 import lombok.Data;
 
 @Data
+// @MyCustomValidation
 public class SearchDto {
  
     private String status;

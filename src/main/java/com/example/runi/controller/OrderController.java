@@ -60,7 +60,7 @@ public class OrderController {
             return new ResponseEntity<>(validatorResult, HttpStatus.BAD_REQUEST);
         }
 
-        if(request.getStatus() == null) request.setStatus("A");
+        if(request.getStatus() == null || request.getStatus().isEmpty()) request.setStatus("A");
 
         System.out.println(request);
         List<OrderListDto> orders = orderService.getOrderList(request, memberDetails.getUserNo());

@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.sql.Update;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.example.runi.domain.dto.ProductDto;

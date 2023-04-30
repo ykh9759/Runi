@@ -15,6 +15,7 @@ $(document).ready(function() {
       'url' : '/member/getOrderList',
       'type' : 'POST',
       "data" : function ( d ) {
+        d.div = 'order',
         d.status = $("#status").val(),
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),
@@ -41,7 +42,6 @@ $(document).ready(function() {
             confirmButtonText: '확인',
           });
         } 
-
       }
     },
     columns: [
@@ -86,7 +86,9 @@ $(document).ready(function() {
   $('#search-area').prepend('<input type="text" id="endDate" class="form-control col-2 ml-2" placeholder="yyyy-MM-dd">');
   $('#search-area').prepend('<input type="text" id="startDate" class="form-control col-2 mr-2" placeholder="yyyy-MM-dd">~');
     $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-      $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
+      if(indexInArray != "9" ) {
+        $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
+      }
   });
 
   $('#select').change(function() {

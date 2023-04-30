@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 // @MyCustomValidation
 public class SearchDto {
+
+    private String div;
  
     private String status;
 
@@ -28,7 +30,7 @@ public class SearchDto {
         try {
             for (Field f : getClass().getDeclaredFields()) {
 
-                if(f.getName().equals("select") || f.getName().equals("status")) continue;
+                if(f.getName().equals("select") || f.getName().equals("status")  || f.getName().equals("div")) continue;
 
                 if (f.get(this) != null && !f.get(this).equals("")) {
                     return false;

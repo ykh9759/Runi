@@ -13,19 +13,27 @@ public class MyCustomValidator implements ConstraintValidator<MyCustomValidation
     @Override
     public boolean isValid(SearchDto searchDto, ConstraintValidatorContext context) {
 
+        String div = searchDto.getDiv();
+        String select = searchDto.getSelect();
+        String search = searchDto.getSearch();
+
+        System.out.println(searchDto.getDiv());
         System.out.println(searchDto.getSelect());
         System.out.println(searchDto.getSearch());
 
-        if(searchDto.getSelect() != null && searchDto.getSearch() != null) {
+        if(div.equals("order")) {
 
-            if(searchDto.getSelect().equals("0")) {
+            if(searchDto.getSelect() != null && searchDto.getSearch() != null) {
 
-                try {
-                    if(!searchDto.getSearch().isEmpty()) {
-                        int search = Integer.parseInt(searchDto.getSearch());
+                if(searchDto.getSelect().equals("0")) {
+
+                    try {
+                        if(!searchDto.getSearch().isEmpty()) {
+                            int no = Integer.parseInt(searchDto.getSearch());
+                        }
+                    } catch(Exception e) {
+                        return false;
                     }
-                } catch(Exception e) {
-                    return false;
                 }
             }
         }

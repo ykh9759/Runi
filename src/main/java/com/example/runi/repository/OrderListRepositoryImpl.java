@@ -81,21 +81,26 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
             return null;
         }
 
-        if (select.get().equals("0")) {
-            return orderEntity.no.like("%" + Integer.parseInt(search.get()) + "%" );
-        } else if (select.get().equals("1")) {
-            return orderEntity.name.like("%" + search.get() + "%");
-        } else if (select.get().equals("2")) {
-            return orderEntity.phone.like("%" + search.get() + "%");
-        } else if (select.get().equals("3")) {
-            return orderEntity.address.like("%" + search.get() + "%");
-        } else if (select.get().equals("4")) {
-            return orderEntity.accountName.like("%" + search.get() + "%");
-        } else if (select.get().equals("5")) {
-            return orderEntity.parcel.like("%" + search.get() + "%");
-        } else if (select.get().equals("6")) {
-            return orderEntity.cashReceipts.like("%" + search.get() + "%");
-        } else {
+        try {
+            if (select.get().equals("0")) {
+                return orderEntity.no.like("%" + Integer.parseInt(search.get()) + "%" );
+            } else if (select.get().equals("1")) {
+                return orderEntity.name.like("%" + search.get() + "%");
+            } else if (select.get().equals("2")) {
+                return orderEntity.phone.like("%" + search.get() + "%");
+            } else if (select.get().equals("3")) {
+                return orderEntity.address.like("%" + search.get() + "%");
+            } else if (select.get().equals("4")) {
+                return orderEntity.accountName.like("%" + search.get() + "%");
+            } else if (select.get().equals("5")) {
+                return orderEntity.parcel.like("%" + search.get() + "%");
+            } else if (select.get().equals("6")) {
+                return orderEntity.cashReceipts.like("%" + search.get() + "%");
+            } else {
+                return null;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("INT 파싱에러");
             return null;
         }
 
@@ -140,11 +145,16 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
         Optional<String> select = Optional.ofNullable(request.getSelect().trim());
         Optional<String> search = Optional.ofNullable(request.getSearch().trim());
 
-        if(select.get().equals("7")) {
-            return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).like("%" + search.get() + "%");
-        } else if(select.get().equals("8")) {
-            return orderProductEntity.pPrice.sum().like("%" + Integer.parseInt(search.get()) + "%");
-        } else {
+        try {
+            if(select.get().equals("7")) {
+                return Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).like("%" + search.get() + "%");
+            } else if(select.get().equals("8")) {
+                return orderProductEntity.pPrice.sum().like("%" + Integer.parseInt(search.get()) + "%");
+            } else {
+                return null;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("INT 파싱에러");
             return null;
         }
 

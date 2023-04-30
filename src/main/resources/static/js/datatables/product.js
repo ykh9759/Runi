@@ -12,6 +12,7 @@ $(document).ready(function() {
       'url' : '/member/getProductList',
       'type' : 'POST',
       "data" : function ( d ) {
+        d.div = 'product',
         d.startDate = $("#startDate").val(),
         d.endDate = $("#endDate").val(),
         d.select = $("#select").val(),
@@ -40,7 +41,6 @@ $(document).ready(function() {
 
       }
     },
-    // destroy: true,
     columns: [
       {data: 'no'},
       {data: 'productName'},
@@ -77,7 +77,7 @@ $(document).ready(function() {
   $('#search-area').prepend('<input type="text" id="endDate" class="form-control col-2 ml-2" placeholder="yyyy-MM-dd">');
   $('#search-area').prepend('<input type="text" id="startDate" class="form-control col-2 mr-2" placeholder="yyyy-MM-dd">~');
   $('#dTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-    if(valueOfElement.innerHTML != "") {
+    if(valueOfElement.innerHTML != "" && indexInArray != "3" ) {
       $('#select').append('<option value='+indexInArray+'>'+valueOfElement.innerHTML+'</option>');
     }
   });

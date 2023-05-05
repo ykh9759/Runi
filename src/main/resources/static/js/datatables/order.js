@@ -51,7 +51,7 @@ $(document).ready(function() {
       {
         data: null,
         render: function(data, type, row) {
-          return data['address'] + ' ' + data['address2'];
+          return data['address'] + '<br>' + data['address2'];
         }
       },
       {data: 'accountName'},
@@ -60,6 +60,19 @@ $(document).ready(function() {
       {data: 'plist'},
       {data: 'price'},
       {data: 'inTime'},
+      {data: null,
+        render: function(data, type, row) {
+
+            str = '<select class="form-select form-select-sm" onchange="changeStatus('+data.no+', this.value)">';
+            str+= '<option value="">선택</option>';
+            str+= '<option value="A">접수</option>';
+            str+= '<option value="C">취소</option>';
+            str+= '<option value="S">완료</option>';
+            str+= '</select>';
+            // 버튼을 추가할 컬럼에 대한 렌더링 함수 작성
+            return str;
+        }
+      }
     ],
     columnDefs: [
       {

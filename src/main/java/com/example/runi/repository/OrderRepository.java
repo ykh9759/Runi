@@ -10,6 +10,7 @@ import com.example.runi.domain.entity.OrderEntity;
 public interface OrderRepository extends JpaRepository<OrderEntity, Integer>{
 
     public Optional<OrderEntity> findByNo(Integer no);
+    public Optional<OrderEntity> findByNoAndStatus(Integer no, String status);
     public List<OrderEntity> findByPhoneOrderByNoDesc(String phone);
     
     boolean existsByPhone(String phone);

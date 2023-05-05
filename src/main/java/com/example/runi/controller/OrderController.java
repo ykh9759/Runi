@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.OrderListDto;
+import com.example.runi.domain.dto.OrderStatusDto;
 import com.example.runi.domain.dto.SearchDto;
 import com.example.runi.service.OrderService;
 import com.example.runi.utils.Func;
@@ -40,14 +41,7 @@ public class OrderController {
         return "member/order/list";
     }
 
-    //주문코드생성
-    @GetMapping("/create-code")
-    public String createCode() {
-
-        return "member/order/create_code";
-    }
-
-    @PostMapping("/getOrderList")
+    @RequestMapping("/getOrderList")
     @ResponseBody
     public ResponseEntity<?> getProductList(@Valid SearchDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) {
         
@@ -68,5 +62,19 @@ public class OrderController {
 
         // System.out.println(products.toString());
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @RequestMapping("/order/change-status")
+    @ResponseBody
+    public ResponseEntity<?> changeStatus(OrderStatusDto request) {
+
+        String result = orderService.changeStatus(request);
+
+        if(result.equals("Y")) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

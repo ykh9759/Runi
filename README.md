@@ -4,6 +4,7 @@
 ### URL
  - 구매자: http://52.79.177.44
  - 판매자: http://52.79.177.44/member
+ - 테스트계정 ID: test / PW: 123
  
 ### ERD
 ![Runi](https://user-images.githubusercontent.com/66126927/235426288-d3c46267-5809-465f-bf29-dd25fc250cc2.png)

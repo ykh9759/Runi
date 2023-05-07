@@ -68,6 +68,8 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity<?> changeStatus(OrderStatusDto request) {
 
+        System.out.println(request);
+
         String result = orderService.changeStatus(request);
 
         if(result.equals("Y")) {

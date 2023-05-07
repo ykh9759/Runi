@@ -59,7 +59,7 @@ public class OrderService {
         Integer no = request.getNo();
         String status = request.getStatus();
 
-        Optional<OrderEntity> order = orderRepository.findByNoAndStatus(no, status);
+        Optional<OrderEntity> order = orderRepository.findByNo(no);
         if(order.isPresent()) {
             order.get().statusUpdate(status);
             orderRepository.save(order.get());

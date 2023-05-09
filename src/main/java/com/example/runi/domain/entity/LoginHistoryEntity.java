@@ -8,8 +8,9 @@ import javax.persistence.Id;
 
 import com.example.runi.domain.dto.LoginDto;
 
-import groovy.transform.builder.Builder;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AccessLevel;
@@ -25,13 +26,14 @@ public class LoginHistoryEntity  extends BaseTimeEntity {
     Integer no;
 
     @Column(name = "member_no")
-    String memberNo;
+    Integer memberNo;
 
     String ip;
 
     @Builder
-    public LoginHistoryEntity(LoginDto dto) {
-       
+    public LoginHistoryEntity(Integer memberNo, String ip) {
+       this.memberNo = memberNo;
+       this.ip = ip;
     }
     
 }

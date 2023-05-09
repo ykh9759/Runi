@@ -3,7 +3,9 @@ package com.example.runi.service;
 import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.LoginDto;
 import com.example.runi.domain.dto.SignupDto;
+import com.example.runi.domain.entity.LoginHistoryEntity;
 import com.example.runi.domain.entity.MemberEntity;
+import com.example.runi.repository.LoginHistoryRepository;
 import com.example.runi.repository.MemberRepository;
 
 import java.util.HashMap;
@@ -23,14 +25,16 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final LoginHistoryRepository loginHistoryRepository;
 
-    public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, LoginHistoryRepository loginHistoryRepository) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.loginHistoryRepository = loginHistoryRepository;
     }
 
-    public String login(LoginDto request) throws Exception {
+    public MemberDetails login(LoginDto request) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getId(), request.getPassword()));
 
@@ -40,7 +44,7 @@ public class AuthService {
 
         System.out.println(principal);
         
-        return principal.getUsername();
+        return principal;
     }
 
     @Transactional
@@ -74,5 +78,16 @@ public class AuthService {
         }
         
         return map;
+    }
+
+    @Transactional
+    public void loginHistorySave(Integer memberNo, String ip) {
+
+        System.out.println("로그인IP : " + ip);
+
+        LoginHistoryEntity entity = LoginHistoryEntity.builder().memberNo(memberNo).ip(ip).build();
+        loginHistoryRepository.save(entity);
+
+
     }
 }

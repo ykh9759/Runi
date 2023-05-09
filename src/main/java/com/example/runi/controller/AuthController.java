@@ -1,5 +1,6 @@
 package com.example.runi.controller;
 
+import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.dto.LoginDto;
 import com.example.runi.domain.dto.SignupDto;
 import com.example.runi.utils.Func;
@@ -7,6 +8,7 @@ import com.example.runi.service.AuthService;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -53,14 +55,20 @@ public class AuthController {
         return "member/auth/signup";
     }
 
-    @PostMapping("/login")
-    public String login(@Valid LoginDto request) {
-        try {
-            return authService.login(request);
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
+    // @PostMapping("/login")
+    // public String login(@Valid LoginDto dto, HttpServletRequest request) {
+    //     try {
+    //         System.out.println(null);
+    //         MemberDetails member = authService.login(dto);
+    //         Integer memberNo = member.getUserNo();
+
+    //         authService.loginHistorySave(memberNo, request.getRemoteAddr());
+
+    //         return member.getUsername();
+    //     } catch (Exception e) {
+    //         return e.getMessage();
+    //     }
+    // }
 
     @PostMapping("/signup")
     public String signup(@Valid SignupDto request, Errors errors, Model model) {

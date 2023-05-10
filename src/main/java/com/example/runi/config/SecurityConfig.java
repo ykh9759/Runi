@@ -23,8 +23,18 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import com.example.runi.domain.entity.LoginHistoryEntity;
+import com.example.runi.repository.LoginHistoryRepository;
+import com.example.runi.utils.Func;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private LoginHistoryRepository loginHistoryRepository;
+
+    public SecurityConfig(LoginHistoryRepository loginHistoryRepository) {
+        this.loginHistoryRepository = loginHistoryRepository;
+    }
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {  // 회원가입 시 비밀번호 암호화에 사용할 Encoder 빈 등록
@@ -54,6 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                         System.out.println("authentication : " + authentication.getName());
+
+                        MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
+                        Integer memberNo = memberDetails.getUserNo();
+                        String ip = Func.getIp(request);
+
+                        LoginHistoryEntity entity = LoginHistoryEntity.builder().memberNo(memberNo).ip(ip).build();
+                        loginHistoryRepository.save(entity);
 
                         response.sendRedirect("/member"); // 인증이 성공한 후에는 관리자페이지 이동
                     }

@@ -80,6 +80,8 @@ public class ProductController {
             return result.toJSONString();
         }
 
+        request.setSaveStatus("Y");
+
         System.out.println("MEMBER_NO: " + memberNo);
         System.out.println("productDto: " + request);
         productservice.productSave(request, memberNo);

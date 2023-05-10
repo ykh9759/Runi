@@ -34,18 +34,18 @@ public class AuthService {
         this.loginHistoryRepository = loginHistoryRepository;
     }
 
-    public MemberDetails login(LoginDto request) throws Exception {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getId(), request.getPassword()));
+    // public MemberDetails login(LoginDto request) throws Exception {
+    //     Authentication authentication = authenticationManager.authenticate(
+    //             new UsernamePasswordAuthenticationToken(request.getId(), request.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    //     SecurityContextHolder.getContext().setAuthentication(authentication);
         
-        MemberDetails principal = (MemberDetails) authentication.getPrincipal();
+    //     MemberDetails principal = (MemberDetails) authentication.getPrincipal();
 
-        System.out.println(principal);
+    //     System.out.println(principal);
         
-        return principal;
-    }
+    //     return principal;
+    // }
 
     @Transactional
     public String signup(SignupDto request) {
@@ -80,14 +80,4 @@ public class AuthService {
         return map;
     }
 
-    @Transactional
-    public void loginHistorySave(Integer memberNo, String ip) {
-
-        System.out.println("로그인IP : " + ip);
-
-        LoginHistoryEntity entity = LoginHistoryEntity.builder().memberNo(memberNo).ip(ip).build();
-        loginHistoryRepository.save(entity);
-
-
-    }
 }

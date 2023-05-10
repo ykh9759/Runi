@@ -22,6 +22,7 @@ public class ProductDto {
 
     public String valid_productName;
     public String valid_price;
+    public String saveStatus;
 
     public ProductEntity toEntity() {
         return ProductEntity.builder()

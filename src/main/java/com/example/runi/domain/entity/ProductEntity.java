@@ -54,6 +54,7 @@ public class ProductEntity extends BaseTimeEntity {
         memberNo = dto.getMemberNo();
         productName = dto.getProductName();
         price = dto.getPrice();
+        saveStatus = dto.getSaveStatus();
     }
 
     public void updateProduct(String productname, Integer price) {

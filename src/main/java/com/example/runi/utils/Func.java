@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -50,6 +52,23 @@ public class Func {
         JSONObject obj = (JSONObject) parser.parse(json);
 
         return obj;
+    }
+
+    public static String getIp(HttpServletRequest request) {
+
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if (ipAddress == null) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if (ipAddress == null) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+
+        return ipAddress;
+        
     }
 
 

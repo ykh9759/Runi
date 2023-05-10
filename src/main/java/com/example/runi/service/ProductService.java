@@ -83,7 +83,7 @@ public class ProductService {
 
         Map<String, String> map = new HashMap<>();
 
-        boolean pnDuplicate = productRepository.existsByProductName(productDto.getProductName().trim());
+        boolean pnDuplicate = productRepository.existsByProductNameAndSaveStatus(productDto.getProductName().trim(), "Y");
         if (pnDuplicate) {
 
             Optional<ProductEntity> entity = productRepository.findByNo(productDto.getNo());

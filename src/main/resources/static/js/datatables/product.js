@@ -67,7 +67,7 @@ $(document).ready(function() {
       });
       $(api.column(2).footer()).html(result.toLocaleString()+'원');
     },
-    "order": [[3, 'desc']]
+    "order": [[0, 'desc']]
   });
 
   $('#dTable_wrapper > .row > div').after('<div id="search-area" class="col-sm-12 col-md-6 d-flex justify-content-end"></div>');

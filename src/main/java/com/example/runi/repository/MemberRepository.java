@@ -9,6 +9,7 @@ import com.example.runi.domain.entity.MemberEntity;
 public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     public Optional<MemberEntity> findById(String id);
+    public Optional<MemberEntity> findByNo(Integer no);
     public Optional<MemberEntity> findByIdOrderByNoDesc(String id);
 
 

@@ -1,6 +1,7 @@
 package com.example.runi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.runi.config.MemberDetails;
 import com.example.runi.domain.entity.LoginHistoryEntity;
+import com.example.runi.domain.entity.MemberEntity;
 import com.example.runi.service.MypageService;
 
 @Controller
@@ -40,6 +42,17 @@ public class MypageController {
 
 
         return new ResponseEntity<>(history, HttpStatus.OK);
+    }
+
+    @RequestMapping("/getMember")
+    @ResponseBody
+    public ResponseEntity<?> getMembEntity(@AuthenticationPrincipal MemberDetails memberDetails) {
+
+
+        MemberEntity member = mypageService.getMember(memberDetails.getUserNo());
+
+
+        return new ResponseEntity<>(member, HttpStatus.OK);
     }
     
 }

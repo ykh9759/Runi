@@ -11,7 +11,8 @@ $(document).ready(function() {
         {data: 'no'},
         {data: 'ip'},
         {data: 'inTime'}
-      ]
+      ],
+      "order": [[0, 'desc']]
     });
   });
   

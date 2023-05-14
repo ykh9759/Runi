@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 
 import javax.validation.constraints.Pattern;
 
-import com.example.runi.config.MyCustomValidation;
-
 import lombok.Data;
 
 @Data

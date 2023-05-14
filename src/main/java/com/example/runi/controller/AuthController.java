@@ -76,6 +76,13 @@ public class AuthController {
         //회원가입 실패시 입력 데이터 값을 유지
         model.addAttribute("signupDto", request);
 
+        if(!request.getPassword().equals(request.getRepeatPassword())) {
+
+            model.addAttribute("valid_repeatPassword", "비밀번호 확인 틀림");
+        
+            return "member/auth/signup";
+        }
+
         //유효성체크
         if (errors.hasErrors()) {
 

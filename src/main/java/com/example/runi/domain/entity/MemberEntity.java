@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.example.runi.domain.dto.SignupDto;
 import com.example.runi.config.Role;
 
@@ -44,8 +42,8 @@ public class MemberEntity extends BaseTimeEntity {
         role = Role.ADMIN;
     }
 
-    public void encryptPassword(PasswordEncoder passwordEncoder) {
-        password = passwordEncoder.encode(password);
+    public void encryptPassword(String password) {
+        this.password = password;
     }
     
 }

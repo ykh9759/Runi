@@ -59,7 +59,6 @@
                 </div>
                 <div class="modal-body">
                     <form name="form" method="POST" onsubmit="return false;">
-                        <input type="hidden" id="no" name="no">
                         <div class="mb-4">
                             <label for="name" class="form-label">이름</label>
                             <div class="row col-12">
@@ -80,10 +79,10 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="passwordCheck" class="form-label">비밀번호확인</label>
+                            <label for="repeatPassword" class="form-label">비밀번호확인</label>
                             <div class="row col-12">
-                                <input type="password" class="form-control" id="passwordCheck" name="passwordCheck">
-                                <div class="valid mt-2" id="valid_passwordCheck"></div> 
+                                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword">
+                                <div class="valid mt-2" id="valid_repeatPassword"></div> 
                             </div>
                         </div>
                         <div class="mb-4">
@@ -95,9 +94,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" onclick="Delete()">삭제</button>
-                            <!-- <button class="btn btn-primary" type="button" onclick="delete()">삭제</button> -->
-                            <button class="btn btn-primary" type="button" onclick="update()">수정</button>
+                            <button class="btn btn-primary" type="button" onclick="updateProfile()">수정</button>
                         </div>
                     </form>
                 </div>
@@ -119,6 +116,47 @@
                     document.getElementById('id').value = data.id;
                     document.getElementById('email').value = data.email;
                     $('#'+id).modal();
+                }else{
+                    Swal.fire({
+                        title: '실패',
+                        text: '관리자에게 문의하세요',
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '확인',
+                    });  
+                }
+            })
+            .catch(error => {
+                Swal.showValidationMessage(
+                `Request failed: ${error}`
+                )
+            });
+        }
+
+        function updateProfile(id) {
+
+            let password = document.getElementById('password').value;
+            let repeatPassword = document.getElementById('repeatPassword').value;
+
+            const formData = new FormData();
+            formData.append('password', password);
+            formData.append('repeatPassword', repeatPassword);
+
+            fetch('http://localhost:8080/member/updateMember', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data) {
+                    console.log(data);
+                    document.getElementById('valid_password').innerHTML = data.valid_password ? data.valid_password : '';
+                    document.getElementById('valid_repeatPassword').innerHTML = data.valid_repeatPassword ? data.valid_repeatPassword : '';
+                    
+                    if(data.msg == 'Y') {
+                        $('#profileModal').modal('hide');
+                    }
                 }else{
                     Swal.fire({
                         title: '실패',

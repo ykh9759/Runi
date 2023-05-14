@@ -24,14 +24,10 @@ public class AuthService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final LoginHistoryRepository loginHistoryRepository;
 
-    public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, LoginHistoryRepository loginHistoryRepository) {
+    public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.loginHistoryRepository = loginHistoryRepository;
     }
 
     // public MemberDetails login(LoginDto request) throws Exception {
@@ -54,8 +50,9 @@ public class AuthService {
         // 이미 회원이 존재하는 경우
         if (existMember) return null;
 
-        MemberEntity member = new MemberEntity(request);
-        member.encryptPassword(passwordEncoder);
+        MemberEntity member = MemberEntity.builder().request(request).build();
+        String password = passwordEncoder.encode(request.getPassword());
+        member.encryptPassword(password);
 
         memberRepository.save(member);
         return member.getId();

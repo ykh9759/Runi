@@ -25,9 +25,8 @@ public class DashboardController {
 
         Integer memberNo = memberDetails.getUserNo();
 
-        int monthSales = 0;
 
-        monthSales = dashboardService.getMonthSlaes(memberNo);
+        int monthSales = dashboardService.getMonthSlaes(memberNo);
 
         model.addAttribute("monthSales", String.valueOf(monthSales) + "원");
 

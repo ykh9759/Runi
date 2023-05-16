@@ -37,8 +37,8 @@ public interface OrderListRepository extends JpaRepository<OrderListEntity, Inte
     ,nativeQuery = true)
     public List<OrderListEntity> findByPhoneNoOrderByNoDesc(@Param("phone") String phone);
     
-    boolean existsByPhone(String phone);
+    public boolean existsByPhone(String phone);
 
-    @Query(value = "SELECT SUM(price) FROM Product WHERE member_no = :memberNo ", nativeQuery = true)
-    int getMonthSales(@Param("memberNo") Integer memberNo);
+    @Query(value = "SELECT COALESCE(SUM(price), 0) FROM Product WHERE member_no = :memberNo ", nativeQuery = true)
+    public int getMonthSales(@Param("memberNo") Integer memberNo);
 }

@@ -22,9 +22,7 @@ public class DashboardService {
 
     public int getMonthSlaes(Integer memberNo) {
 
-        int monthSales = 0;
-        
-        monthSales = orderListRepository.getMonthSales(memberNo);
+        int monthSales = orderListRepository.getMonthSales(memberNo);
 
         return monthSales;
     }

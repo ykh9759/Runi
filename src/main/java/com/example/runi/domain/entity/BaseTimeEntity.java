@@ -19,9 +19,9 @@ public class BaseTimeEntity {
 
     @CreatedDate
 	@Column(name = "insert_time")
-	private LocalDateTime inTime;
+	protected LocalDateTime inTime;
 
     @LastModifiedDate
 	@Column(name = "update_time")
-	private LocalDateTime uptime;
+	protected LocalDateTime uptime;
 }

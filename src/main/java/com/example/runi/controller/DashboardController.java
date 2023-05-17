@@ -27,8 +27,14 @@ public class DashboardController {
 
 
         int monthSales = dashboardService.getMonthSlaes(memberNo);
+        int yearSales = dashboardService.getYearSlaes(memberNo);
+        int ReceiptCnt = dashboardService.getReceiptOrderCnt(memberNo);
+        int SuccessCnt = dashboardService.getSuccessOrderCnt(memberNo);
 
         model.addAttribute("monthSales", String.valueOf(monthSales) + "원");
+        model.addAttribute("yearSales", String.valueOf(yearSales) + "원");
+        model.addAttribute("ReceiptCnt", String.valueOf(ReceiptCnt) + "건");
+        model.addAttribute("SuccessCnt", String.valueOf(SuccessCnt) + "건");
 
 
         return "member/dashboard";

@@ -45,5 +45,10 @@ public class MemberEntity extends BaseTimeEntity {
     public void encryptPassword(String password) {
         this.password = password;
     }
+
+    public void updateMember(String password, String email) {
+        this.password = password;
+        this.email = email;
+    }
     
 }

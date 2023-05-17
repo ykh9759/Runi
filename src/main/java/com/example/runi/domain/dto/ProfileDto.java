@@ -1,5 +1,6 @@
 package com.example.runi.domain.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -14,5 +15,8 @@ public class ProfileDto {
 
     @NotBlank(message = "비밀번호확인 입력해주세요")
     private String repeatPassword;
+
+    @Email
+    private String email;
     
 }

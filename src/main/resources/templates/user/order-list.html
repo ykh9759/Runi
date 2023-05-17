@@ -51,42 +51,42 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    const formData = new FormData();
-                    formData.append('no', no);
-
-                    fetch('http://localhost:8080/user/order-cancel', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if(response.ok) {
-                            Swal.fire({
-                                title: '취소완료',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: '확인',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    location.reload();
-                                }
-                            });           
-                        }else{
-                            Swal.fire({
-                                title: '취소실패',
-                                text: '관리자에게 문의하세요',
-                                icon: 'warning',
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: '확인',
-                            });  
+                    $.ajax({
+                        type : 'POST',           // 타입 (get, post, put 등등)
+                        url : '/user/order-cancel',           // 요청할 서버url
+                        dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
+                        data : {
+                            no : no,
+                        },
+                        success : function(response) { // 결과 성공 콜백함수
+                            if(response == "Y") {
+                                Swal.fire({
+                                    title: '취소완료',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: '확인',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });           
+                            }else{
+                                Swal.fire({
+                                    title: '취소실패',
+                                    text: '관리자에게 문의하세요',
+                                    icon: 'warning',
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: '확인',
+                                });  
+                            }
+                        },
+                        error : function(request, status, error) { // 결과 에러 콜백함수
+                            console.log(error)
                         }
-                    })
-                    .catch(error => {
-                        Swal.showValidationMessage(
-                        `Request failed: ${error}`
-                        )
-                    })
+                    });
+
                 }
             });
         }

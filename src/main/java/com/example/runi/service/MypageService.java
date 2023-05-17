@@ -46,7 +46,7 @@ public class MypageService {
         Optional<MemberEntity> member = memberRepository.findByNo(memberNo);
         if(member.isPresent()) {
             String password = passwordEncoder.encode(reqeust.getPassword());
-            member.get().encryptPassword(password);
+            member.get().updateMember(password, reqeust.getEmail());
             memberRepository.save(member.get()); 
         }
     }

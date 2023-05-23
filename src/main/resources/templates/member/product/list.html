@@ -74,26 +74,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="form" method="POST" onsubmit="return false;">
-                        <div class="mb-4">
-                            <label for="productName" class="form-label">상품명</label>
-                            <div class="row col-12">
-                                <input type="text" class="form-control" id="productName" name="productName">
-                                <span class="valid mt-2" id="valid_productName"></span> 
-                            </div>
+                    <div class="mb-4">
+                        <label for="productName" class="form-label">상품명</label>
+                        <div class="row col-12">
+                            <input type="text" class="form-control" id="productName" name="productName">
+                            <span class="valid mt-2" id="valid_productName"></span> 
                         </div>
-                        <div class="mb-4">
-                            <label for="price" class="form-label">가격</label>
-                            <div class="row col-12">
-                                <input type="text" class="form-control" id="price" name="price">
-                                <div class="valid mt-2" id="valid_price"></div> 
-                            </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="price" class="form-label">가격</label>
+                        <div class="row col-12">
+                            <input type="text" class="form-control" id="price" name="price">
+                            <div class="valid mt-2" id="valid_price"></div> 
                         </div>
+                    </div>
 
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="button" onclick="save()">등록</button>
-                        </div>
-                    </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" onclick="save()">등록</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,29 +107,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="form2" method="POST" onsubmit="return false;">
-                        <input type="hidden" id="no" name="no">
-                        <div class="mb-4">
-                            <label for="productName" class="form-label">상품명</label>
-                            <div class="row col-12">
-                                <input type="text" class="form-control" id="productName" name="productName">
-                                <span class="valid mt-2" id="valid_productName2"></span> 
-                            </div>
+                    <input type="hidden" id="no" name="no">
+                    <div class="mb-4">
+                        <label for="productName2" class="form-label">상품명</label>
+                        <div class="row col-12">
+                            <input type="text" class="form-control" id="productName2" name="productName2">
+                            <span class="valid mt-2" id="valid_productName2"></span> 
                         </div>
-                        <div class="mb-4">
-                            <label for="price" class="form-label">가격</label>
-                            <div class="row col-12">
-                                <input type="text" class="form-control" id="price" name="price">
-                                <div class="valid mt-2" id="valid_price2"></div> 
-                            </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="price2" class="form-label">가격</label>
+                        <div class="row col-12">
+                            <input type="text" class="form-control" id="price2" name="price2">
+                            <div class="valid mt-2" id="valid_price2"></div> 
                         </div>
+                    </div>
 
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" onclick="Delete()">삭제</button>
-                            <!-- <button class="btn btn-primary" type="button" onclick="delete()">삭제</button> -->
-                            <button class="btn btn-primary" type="button" onclick="update()">수정</button>
-                        </div>
-                    </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" onclick="Delete()">삭제</button>
+                        <!-- <button class="btn btn-primary" type="button" onclick="delete()">삭제</button> -->
+                        <button class="btn btn-primary" type="button" onclick="update()">수정</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,8 +141,8 @@
             url : '/member/product-create',           // 요청할 서버url
             dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
             data : {
-                productName : form.productName.value,
-                price : form.price.value
+                productName : document.getElementById('productName').value,
+                price : document.getElementById('price').value
             },
             success : function(result) { // 결과 성공 콜백함수
                 console.log(result);
@@ -184,9 +180,9 @@
             url : '/member/product-update',           // 요청할 서버url
             dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
             data : {
-                no : form2.no.value,
-                productName : form2.productName.value,
-                price : form2.price.value
+                no : document.getElementById('no').value,
+                productName : document.getElementById('productName2').value,
+                price : document.getElementById('price2').value
             },
             success : function(result) { // 결과 성공 콜백함수
                 console.log(result);
@@ -203,8 +199,8 @@
                             $('#dTable').DataTable().ajax.reload();
                     });
 
-                    document.getElementById('productName').value = '';
-                    document.getElementById('price').value = '';
+                    document.getElementById('productName2').value = '';
+                    document.getElementById('price2').value = '';
                     document.getElementById('valid_productName2').innerHTML = '';
                     document.getElementById('valid_price2').innerHTML = '';
                 } else {
@@ -224,7 +220,7 @@
             url : '/member/product-delete',           // 요청할 서버url
             dataType : 'text',       // 데이터 타입 (html, xml, json, text 등등)
             data : {
-                no : form2.no.value,
+                no : document.getElementById('no').value,
             },
             success : function(result) { // 결과 성공 콜백함수
                 console.log(result);

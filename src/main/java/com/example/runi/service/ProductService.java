@@ -79,11 +79,11 @@ public class ProductService {
         return list;
     }
 
-    public Map<String, String> checkDuplication(ProductDto productDto, String action) {
+    public Map<String, String> checkDuplication(ProductDto productDto, Integer MemberNo) {
 
         Map<String, String> map = new HashMap<>();
 
-        boolean pnDuplicate = productRepository.existsByProductNameAndSaveStatus(productDto.getProductName().trim(), "Y");
+        boolean pnDuplicate = productRepository.existsByMemberNoAndProductNameAndSaveStatus(MemberNo, productDto.getProductName().trim(), "Y");
         if (pnDuplicate) {
 
             Optional<ProductEntity> entity = productRepository.findByNo(productDto.getNo());

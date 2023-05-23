@@ -67,7 +67,7 @@ public class ProductController {
         }
 
         //중복체크
-        Map<String, String> dupResult = productservice.checkDuplication(request, "INSERT");
+        Map<String, String> dupResult = productservice.checkDuplication(request, memberNo);
         if(!dupResult.isEmpty()) {
 
             resultMap.put("msg", "N"); 
@@ -96,8 +96,9 @@ public class ProductController {
     //상품수정
     @PostMapping("/product-update")
     @ResponseBody
-    public String productUpdate(@Valid ProductDto request, Errors errors) {
+    public String productUpdate(@Valid ProductDto request, Errors errors, @AuthenticationPrincipal MemberDetails memberDetails) {
         
+        Integer memberNo = memberDetails.getUserNo();
         Map<String, String> resultMap = new HashMap<String,String>();
         JSONObject result;
 
@@ -113,7 +114,7 @@ public class ProductController {
         }
 
         //중복체크
-        Map<String, String> dupResult = productservice.checkDuplication(request , "UPDATE");
+        Map<String, String> dupResult = productservice.checkDuplication(request , memberNo);
         if(!dupResult.isEmpty()) {
 
             resultMap.put("msg", "N"); 

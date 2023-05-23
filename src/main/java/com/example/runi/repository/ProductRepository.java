@@ -12,6 +12,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     public Optional<ProductEntity> findByNo(Integer no);
     public List<ProductEntity> findByMemberNoAndSaveStatusOrderByNoDesc(Integer memberNo, String saveStatus);
 
-    boolean existsByProductNameAndSaveStatus(String productName, String saveStatus);
+    boolean existsByMemberNoAndProductNameAndSaveStatus(Integer memberNo, String productName, String saveStatus);
     
 }

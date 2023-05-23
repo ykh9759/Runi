@@ -13,7 +13,7 @@ public interface OrderListRepository extends JpaRepository<OrderListEntity, Inte
 
     @Query(value = "SELECT "
                     +"o.*,"
-                    +"ARRAY_TO_STRING(ARRAY_AGG(p.product_name||CAST(op.p_cnt AS TEXT)||'개'),'<br>') as plist,"
+                    +"ARRAY_TO_STRING(ARRAY_AGG(p.product_name||' : '||CAST(op.p_cnt AS TEXT)||'개'),'<br>') as plist,"
                     +"sum(op.p_price) as price "
                     +"FROM orders o "
                     +"LEFT JOIN order_product op ON o.no = op.o_no "

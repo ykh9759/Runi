@@ -99,8 +99,8 @@ $(document).ready(function() {
   $(document).on('click', '#updateModalBtn', function() {
 
     $('#updateModal #no').val($(this).data('no'));
-    $('#updateModal #productName').val($(this).data('productname'));
-    $('#updateModal #price').val($(this).data('price'));
+    $('#updateModal #productName2').val($(this).data('productname'));
+    $('#updateModal #price2').val($(this).data('price'));
   
     $('#updateModal').modal('show');
   

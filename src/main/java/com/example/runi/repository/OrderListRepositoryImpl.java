@@ -38,7 +38,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryQDSL {
         List<Tuple> list =  queryFactory
 						.select(
 							orderEntity,
-							Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).as("plist"),
+							Expressions.stringTemplate( "ARRAY_TO_STRING(ARRAY_AGG({0}||' : '||{1}||'개'),'<br>')", productEntity.productName, orderProductEntity.pCnt).as("plist"),
 							orderProductEntity.pPrice.sum().as("price")
 						)
 						.from(orderEntity)
